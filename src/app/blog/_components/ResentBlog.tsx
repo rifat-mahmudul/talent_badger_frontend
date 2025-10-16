@@ -42,7 +42,7 @@ const blogPosts: BlogPost[] = [
 
 export default function RecentBlogPosts() {
   return (
-    <section className="w-full container mx-auto px-4 py-12">
+    <section className="w-full container mx-auto  py-12">
       <h2 className="text-2xl font-bold text-gray-900 mb-8">
         Recent Blog Posts
       </h2>

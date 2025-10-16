@@ -18,6 +18,7 @@ import { Input } from "@/components/ui/input"
 import { PasswordInput } from "@/components/ui/password-input"
 import { Checkbox } from "@/components/ui/checkbox"
 import SginUpModal from "./SginUpModal"
+import ForgetPasswordModal from "./ForgetPasswordModal"
 
 const formSchema = z.object({
     userName: z.string().min(1, "Username is required"),
@@ -26,7 +27,7 @@ const formSchema = z.object({
 })
 
 export default function LoginForm() {
-
+    const [isMOdalOpen, setIsMOdalOpen] = useState(false)
     const [open, setOpen] = useState(false)
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -146,7 +147,8 @@ export default function LoginForm() {
                             </FormItem>
                         )}
                     />
-                    <p className="text-[#147575] font-normal text-[16px] underline">Forgot password?</p>
+                    <p onClick={() => setIsMOdalOpen(true)} className="text-[#147575] font-normal text-[16px] underline">Forgot password?</p>
+                    <ForgetPasswordModal open={isMOdalOpen} onOpenChange={setIsMOdalOpen} />
                 </div>
                 {/* Submit Button */}
                 <Button

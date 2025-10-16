@@ -16,9 +16,9 @@ const Footer = () => {
             alt="logo"
             width={900}
             height={900}
-            className="w-[200px] h-[100px] lg:ml-20 mb-4"
+            className="w-[200px] h-[100px] -ml-[50px] "
           />
-          <p className="text-[#434C45] lg:ml-28 max-w-[300px]">
+          <p className="text-[#434C45] -ml-[10px]  ">
             Empowering financial decisions through transparent credit scoring
             and connecting borrowers with trusted lenders.
           </p>

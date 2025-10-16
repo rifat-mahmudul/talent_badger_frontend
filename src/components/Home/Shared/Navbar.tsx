@@ -25,15 +25,15 @@ export function Navbar() {
 
     return (
         <nav className="bg-[#DDFFFF] py-2 sticky top-0 z-50">
-            <div className="container mx-auto px-4 sm:px-6 ">
-                <div className="flex items-center justify-between h-16">
+            <div className="container mx-auto  ">
+                <div className="flex items-center  justify-between h-16">
                     {/* Logo */}
-                    <Link href="/" className="flex-shrink-0">
+                    <Link href="/" className="flex-shrink-0 md:-ml-[50px] -ml-6 ">
                         <Image src="/logo.png" alt="Logo" width={250} height={150} />
                     </Link>
 
                     {/* Desktop Navigation */}
-                    <div className="hidden md:block">
+                    <div className="hidden lg:block">
                         <div className="ml-10 flex items-baseline space-x-8">
                             {navItems.map((item) => {
                                 const isActive = pathname === item.href
@@ -70,7 +70,7 @@ export function Navbar() {
                     </div>
 
                     {/* Mobile menu button */}
-                    <div className="md:hidden">
+                    <div className="lg:hidden">
                         <button
                             onClick={() => setIsOpen(!isOpen)}
                             className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-cyan-400  focus:outline-none focus:ring-2 focus:ring-inset focus:ring-cyan-400"
@@ -83,7 +83,7 @@ export function Navbar() {
 
             {/* Mobile Navigation Menu */}
             {isOpen && (
-                <div className="md:hidden">
+                <div className="lg:hidden">
                     <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-[#DDFFFF]">
                         {navItems.map((item) => {
                             const isActive = pathname === item.href

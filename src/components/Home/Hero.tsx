@@ -82,7 +82,7 @@ const Hero: React.FC<HeroProps> = ({
         </div>
 
         {/* RIGHT SIDE IMAGE */}
-        <div className="w-full md:w-1/2 flex justify-center">
+        <div className="w-full md:w-1/3 flex justify-center">
           <Image
             src={image}
             alt="Hero Image"
