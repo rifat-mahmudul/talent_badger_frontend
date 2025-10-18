@@ -7,6 +7,7 @@ import ServiceCta from './_components/ServiceCta'
 import ReadyToStart from '@/components/ReadyToStart'
 import AskQ from '../faqs/_components/AskQ'
 
+
 const page = () => {
     return (
         <div>
@@ -23,7 +24,7 @@ const page = () => {
                 </div>
                 <ServiceCta />
                 <ReadyToStart />
-                <AskQ />
+                <AskQ/>
             </div>
         </div>
     )

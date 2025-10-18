@@ -4,8 +4,8 @@ import { Search } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import ServiceCard from "@/app/services/_components/ServiceCard"
-import AskQ from "@/app/faqs/_components/AskQ"
+import ServiceCard from "@/app/(website)/services/_components/ServiceCard"
+import AskQ from "../../faqs/_components/AskQ"
 
 export default function CandidateFilter() {
     return (

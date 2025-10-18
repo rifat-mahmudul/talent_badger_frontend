@@ -3,7 +3,7 @@ import IndividualService from './_components/IndividualService'
 import ServiceCard from '../_components/ServiceCard'
 import ServiceCta from '../_components/ServiceCta'
 import ReadyToStart from '@/components/ReadyToStart'
-import AskQ from '@/app/faqs/_components/AskQ'
+import AskQ from '../../faqs/_components/AskQ'
 
 const page = ({ params }: { params: { id: string } }) => {
   return (
@@ -23,7 +23,7 @@ const page = ({ params }: { params: { id: string } }) => {
         </div>
         <ServiceCta />
         <ReadyToStart />
-        <AskQ />
+        <AskQ/>
       </div>
     </div>
   )
