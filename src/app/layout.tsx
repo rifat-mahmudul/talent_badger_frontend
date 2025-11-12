@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Poppins } from 'next/font/google';
 import "./globals.css";
+import QueryProvider from "@/provider/queryProvider";
+import { Toaster } from "sonner";
 
 const geistSans = Poppins({
   subsets: ["latin"],
@@ -23,7 +25,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.className}  antialiased`}
       >
+        <QueryProvider>
         {children}
+        <Toaster/>
+        </QueryProvider>
       </body>
     </html>
   );

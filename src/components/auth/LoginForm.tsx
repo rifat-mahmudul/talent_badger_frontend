@@ -53,7 +53,6 @@ export default function LoginForm() {
         try {
             console.log(values)
 
-            // Handle Remember Me logic
             if (values.rememberMe) {
                 localStorage.setItem(
                     "rememberedUser",
@@ -147,7 +146,7 @@ export default function LoginForm() {
                             </FormItem>
                         )}
                     />
-                    <p onClick={() => setIsMOdalOpen(true)} className="text-[#147575] font-normal text-[16px] underline">Forgot password?</p>
+                    <p onClick={() => setIsMOdalOpen(true)} className="text-[#147575] font-normal text-[16px] underline cursor-pointer">Forgot password?</p>
                     <ForgetPasswordModal open={isMOdalOpen} onOpenChange={setIsMOdalOpen} />
                 </div>
                 {/* Submit Button */}
