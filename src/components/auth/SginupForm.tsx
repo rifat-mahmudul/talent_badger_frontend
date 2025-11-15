@@ -30,6 +30,8 @@ import {
 import {
     PasswordInput
 } from "@/components/ui/password-input"
+import { useMutation } from "@tanstack/react-query"
+import { Loader2 } from "lucide-react"
 
 const formSchema = z.object({
     firstName: z.string().min(1),
@@ -46,24 +48,46 @@ export default function SginUpForm({ onOpenChange }: { onOpenChange: (open: bool
 
     })
 
+    const { mutate, isPending } = useMutation({
+        mutationKey: ["signup"],
+        mutationFn: (payload: { firstName: string, lastName: string, password: string, email: string }) =>
+            fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/register`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(payload),
+            }).then((res) => res.json()),
+
+        onSuccess: (data) => {
+            if (!data?.success) {
+                toast.error(data?.message || "Something went wrong");
+                return;
+            }
+
+            toast.success(data?.message || " Account created successfully!");
+            onOpenChange(false)
+        },
+
+        onError: (error) => {
+            toast.error("Something went wrong. Please try again.");
+            console.error("Signup error:", error);
+        },
+    });
+
     function onSubmit(values: z.infer<typeof formSchema>) {
-        try {
-            console.log(values);
-            toast(
-                <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-                    <code className="text-white">{JSON.stringify(values, null, 2)}</code>
-                </pre>
-            );
-        } catch (error) {
-            console.error("Form submission error", error);
-            toast.error("Failed to submit the form. Please try again.");
-        }
+
+        mutate({
+            firstName: values.firstName,
+            lastName: values.lastName,
+            password: values.createPassword,
+            email: values.email
+        })
     }
 
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 max-w-3xl mx-auto ">
-
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8  ">
                 <div className="grid grid-cols-12 gap-4">
 
                     <div className="col-span-6">
@@ -169,7 +193,7 @@ export default function SginUpForm({ onOpenChange }: { onOpenChange: (open: bool
                     type="submit"
                     className="bg-[#147575]  hover:bg-[#147575]/90 w-full "
                 >
-                    Sign up
+                    Sign up {isPending && <Loader2 className="animate-spin" />}
                 </Button>
             </form>
             <p className="text-center mt-16">Don’t have an account? <span

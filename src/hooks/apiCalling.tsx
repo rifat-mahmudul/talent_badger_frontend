@@ -1,9 +1,13 @@
 import { getAllBlog, getBlog, getSingleBlog } from "@/lib/blog";
 import { contactUs } from "@/lib/contactus";
 import { getAllFaq } from "@/lib/faq";
+import { getAllIndustries } from "@/lib/industries";
 import { changePassword, getProfile, updateAvatar, updateProfileInfo } from "@/lib/profileInfo";
+import { getAllService } from "@/lib/service";
 import { BlogResponse, SingelBlogResponse } from "@/types/blog";
 import { FaqResponse } from "@/types/faq";
+import { IndustryResponse } from "@/types/ndustries";
+import { ServicesResponse } from "@/types/service";
 import { ProfileUpdatePayload, UserProfileResponse } from "@/types/userDataType";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { signOut } from "next-auth/react";
@@ -25,7 +29,6 @@ export function useContactUs(
         },
     });
 }
-
 
 export function useGetBlog() {
     return useQuery<BlogResponse>({
@@ -64,7 +67,6 @@ export function useProfileQuery(token: string | undefined) {
         enabled: !!token,
     })
 }
-
 
 export function useProfileInfoUpdate(token: string, onSuccessCallback?: () => void) {
     const queryClient = useQueryClient();
@@ -109,7 +111,6 @@ export function useGetAllFaq() {
     })
 }
 
-
 export function useChnagePassword(
     token: string, onSuccessCallback?: () => void) {
     return useMutation({
@@ -125,4 +126,22 @@ export function useChnagePassword(
             else toast.error("Update failed");
         },
     });
+}
+
+export function useGetAllService() {
+    return useQuery<ServicesResponse>({
+        queryKey: ["service"],
+        queryFn: () => {
+            return getAllService()
+        },
+    })
+}
+
+export function useGetAllIndustry() {
+    return useQuery<IndustryResponse>({
+        queryKey: ["industry"],
+        queryFn: () => {
+            return getAllIndustries()
+        },
+    })
 }
