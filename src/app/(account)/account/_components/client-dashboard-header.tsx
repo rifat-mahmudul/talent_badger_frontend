@@ -1,7 +1,25 @@
+"use client"
+
 import { FileText, PhoneCall } from 'lucide-react'
 import React from 'react'
 
+export interface DashboardOverviewResponse {
+  statusCode: number;
+  success: boolean;
+  message: string;
+  data: {
+    totalActiveProject: number;
+    totalPandingProject: number;
+    totalCompletedProject: number;
+    upcomingMeeting: number;
+    upcomingDeadlines: number;
+  };
+}
+
+
 const ClientDashboardHeader = () => {
+
+  // const {data, isLoading, error, isError} = useQuery
   return (
     <div>
       <div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
