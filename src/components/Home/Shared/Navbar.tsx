@@ -22,7 +22,6 @@ import {
 } from "@/components/ui/dropdown-menu"
 
 export function Navbar() {
-<<<<<<< HEAD
   const [isOpen, setIsOpen] = useState(false)
   const [loginOpen, setLoginOpen] = useState(false)
   const session = useSession()
@@ -38,20 +37,6 @@ export function Navbar() {
     { name: "Contact Us", href: "/contactus" },
     { name: "FAQ’S", href: "/faqs" },
   ]
-=======
-    const [isOpen, setIsOpen] = useState(false)
-    const [loginOpen, setLoginOpen] = useState(false)
-    const pathname = usePathname()
-    const navItems = [
-        { name: "Home", href: "/" },
-        { name: "Services", href: "/services" },
-        { name: "Build Your Team", href: "/build-your-team" },
-        { name: "Industries", href: "/industries" },
-        { name: "Blog", href: "/blog" },
-        { name: "Contact Us", href: "/contactus" },
-        { name: "FAQ’S", href: "/faqs" },
-    ]
->>>>>>> f210e9d9e67598acaa1cc931de7e15f5786840d9
 
   return (
     <nav className="bg-[#DDFFFF] py-2 sticky top-0 z-50">
