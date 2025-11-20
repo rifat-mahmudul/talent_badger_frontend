@@ -4,7 +4,7 @@ import { Search } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import ServiceCard from "@/app/(website)/services/_components/ServiceCard"
+// import ServiceCard from "@/app/(website)/services/_components/ServiceCard"
 import AskQ from "../../faqs/_components/AskQ"
 
 export default function CandidateFilter() {
@@ -101,13 +101,13 @@ export default function CandidateFilter() {
                     Meet a curated selection of trusted professionals whose expertise, reliability, and excellence set the benchmark in every project.
                 </p>
             </div>
-            <div className="grid lg:grid-cols-3 md:grid-cols-2  grid-cols-1 gap-6 justify-items-center my-10">
+            {/* <div className="grid lg:grid-cols-3 md:grid-cols-2  grid-cols-1 gap-6 justify-items-center my-10">
                 {Array(10)
                     .fill(0)
                     .map((_, index) => (
                         <ServiceCard key={index} />
                     ))}
-            </div>
+            </div> */}
             <AskQ />
         </div>
     )
