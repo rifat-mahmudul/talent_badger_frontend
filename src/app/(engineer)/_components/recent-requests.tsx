@@ -2,6 +2,7 @@
 import { Skeleton } from "@/components/ui/skeleton";
 import { useQuery } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
+import Link from "next/link";
 
 interface Project {
   _id: string;
@@ -71,7 +72,9 @@ const RecentRequests = () => {
     <div className="bg-white border border-gray-300 p-6 rounded-lg">
       <div className="flex items-center justify-between">
         <h2 className="font-semibold text-xl">Recent Requests</h2>
-        <button className="text-sm text-primary">See All</button>
+        <Link href={`/engineer/project-management`}>
+          <button className="text-sm text-primary">See All</button>
+        </Link>
       </div>
 
       <div className="mt-6 space-y-5">
