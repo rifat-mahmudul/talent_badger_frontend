@@ -8,8 +8,12 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Eye } from "lucide-react";
+import DetailsProjectModal from "./details-project-modal";
+import { useState } from "react";
 
-const page = () => {
+const Page = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <div>
       <div className="border border-gray-200 rounded-lg overflow-hidden">
@@ -48,7 +52,7 @@ const page = () => {
                 Approved
               </TableCell>
               <TableCell className="text-center text-gray-600">
-                <button>
+                <button onClick={() => setIsOpen(true)}>
                   <Eye className="text-center h-5 w-5 mx-auto" />
                 </button>
               </TableCell>
@@ -56,8 +60,10 @@ const page = () => {
           </TableBody>
         </Table>
       </div>
+
+      {isOpen && <DetailsProjectModal onClose={() => setIsOpen(false)} />}
     </div>
   );
 };
 
-export default page;
+export default Page;
