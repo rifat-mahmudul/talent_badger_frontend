@@ -12,7 +12,7 @@ const page = () => {
         <div className="lg:w-1/2">
           <ActiveProjects />
         </div>
-        
+
         <div className="lg:w-1/2">
           <RecentRequests />
         </div>

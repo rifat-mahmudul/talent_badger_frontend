@@ -26,7 +26,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
             p-6
             transition-all
             duration-300
-            bg-[#EDEEF1]
+            bg-[#f8f9fa]
             ${isCollapsed ? "lg:ml-[80px]" : "lg:ml-[380px]"}
             md:ml-[300px]
           `}

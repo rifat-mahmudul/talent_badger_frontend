@@ -1,4 +1,3 @@
-
 "use client";
 
 import Link from "next/link";
@@ -14,6 +13,8 @@ import {
   X,
   ChevronLeft,
   ChevronRight,
+  Folder,
+  BookAudio,
 } from "lucide-react";
 import Image from "next/image";
 import React from "react";
@@ -24,6 +25,16 @@ const navigation = [
   { name: "Call Booking", href: "/account/call-booking", icon: PhoneCall },
   { name: "Settings", href: "/account/setting", icon: Settings },
   { name: "Dashboard Overview", href: "/engineer", icon: LayoutPanelLeft },
+  {
+    name: "Project Management",
+    href: "/engineer/project-management",
+    icon: Folder,
+  },
+  {
+    name: "Requests Management",
+    href: "/engineer/requests-management",
+    icon: BookAudio,
+  },
 ];
 
 interface DashboardSidebarProps {
@@ -31,7 +42,10 @@ interface DashboardSidebarProps {
   setIsCollapsed: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export function DashboardSidebar({ isCollapsed, setIsCollapsed }: DashboardSidebarProps) {
+export function DashboardSidebar({
+  isCollapsed,
+  setIsCollapsed,
+}: DashboardSidebarProps) {
   const pathname = usePathname();
   const [isMobileOpen, setIsMobileOpen] = React.useState(false);
 
@@ -43,7 +57,11 @@ export function DashboardSidebar({ isCollapsed, setIsCollapsed }: DashboardSideb
           onClick={() => setIsMobileOpen(!isMobileOpen)}
           className="p-2 rounded-md bg-[#00383B] text-white focus:outline-none"
         >
-          {isMobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          {isMobileOpen ? (
+            <X className="h-5 w-5" />
+          ) : (
+            <Menu className="h-5 w-5" />
+          )}
         </button>
       </div>
 
@@ -64,7 +82,13 @@ export function DashboardSidebar({ isCollapsed, setIsCollapsed }: DashboardSideb
           )}
         >
           {!isCollapsed && (
-            <Image src="/logo.png" alt="logo" width={140} height={60} className="object-contain" />
+            <Image
+              src="/logo.png"
+              alt="logo"
+              width={140}
+              height={60}
+              className="object-contain"
+            />
           )}
           <button
             onClick={() => setIsCollapsed(!isCollapsed)}
@@ -85,7 +109,13 @@ export function DashboardSidebar({ isCollapsed, setIsCollapsed }: DashboardSideb
             isCollapsed ? "px-0" : "px-4"
           )}
         >
-          <Image src="/profile.jpg" alt="profile" width={80} height={80} className="w-14 h-14 rounded-full object-cover" />
+          <Image
+            src="/profile.jpg"
+            alt="profile"
+            width={80}
+            height={80}
+            className="w-14 h-14 rounded-full object-cover"
+          />
         </div>
 
         {/* Navigation */}
@@ -104,7 +134,12 @@ export function DashboardSidebar({ isCollapsed, setIsCollapsed }: DashboardSideb
                     : "text-muted-foreground hover:text-foreground hover:bg-muted"
                 )}
               >
-                <item.icon className={cn("h-5 w-5 shrink-0", !isCollapsed ? "mr-3" : "mx-auto")} />
+                <item.icon
+                  className={cn(
+                    "h-5 w-5 shrink-0",
+                    !isCollapsed ? "mr-3" : "mx-auto"
+                  )}
+                />
                 {!isCollapsed && <span>{item.name}</span>}
                 {isCollapsed && (
                   <span className="absolute left-[70px] bg-card border border-border text-xs rounded-md px-2 py-1 opacity-0 group-hover:opacity-100 shadow-md transition-opacity duration-200">
@@ -131,7 +166,10 @@ export function DashboardSidebar({ isCollapsed, setIsCollapsed }: DashboardSideb
 
       {/* Overlay for Mobile */}
       {isMobileOpen && (
-        <div className="fixed inset-0 bg-black/40 z-30 lg:hidden" onClick={() => setIsMobileOpen(false)} />
+        <div
+          className="fixed inset-0 bg-black/40 z-30 lg:hidden"
+          onClick={() => setIsMobileOpen(false)}
+        />
       )}
     </>
   );
