@@ -5,12 +5,9 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import {
-  FolderOpen,
-  ImageIcon,
   LogOut,
   User2,
-  Award,
-  ClipboardList,
+  PhoneCall,
   LayoutPanelLeft,
   Settings,
   Menu,
@@ -22,12 +19,9 @@ import Image from "next/image";
 import React from "react";
 
 const navigation = [
-  { name: "Dashboard Overview", href: "/account", icon: LayoutPanelLeft },
-  { name: "User Management", href: "/account/user-management", icon: User2 },
-  { name: "Team & Badge Approvals", href: "/dashboard/team-badge", icon: Award },
-  { name: "Services", href: "/dashboard/services", icon: ClipboardList },
-  { name: "Industries", href: "/dashboard/industries", icon: FolderOpen },
-  { name: "Blog & FAQ CMS", href: "/dashboard/blog", icon: ImageIcon },
+  { name: "Client Dashboard", href: "/account", icon: LayoutPanelLeft },
+  { name: "My Team", href: "/account/my-team", icon: User2 },
+  { name: "Call Booking", href: "/account/call-booking", icon: PhoneCall },
   { name: "Settings", href: "/account/setting", icon: Settings },
 ];
 
