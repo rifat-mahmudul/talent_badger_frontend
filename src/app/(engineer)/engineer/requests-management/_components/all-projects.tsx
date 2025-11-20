@@ -1,11 +1,11 @@
 "use client";
-import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Skeleton } from "@/components/ui/skeleton";
 import React, { useState } from "react";
 import { useSession } from "next-auth/react";
 import { Project } from "../../project-management/_components/projects-table";
 import { useQuery } from "@tanstack/react-query";
+import AcceptDecline from "./accept-decline";
 
 interface SessionUser {
   accessToken: string;
@@ -242,10 +242,7 @@ const AllProjects = () => {
 
               {/* accept-decline button - Only show for pending projects */}
               {project.status === "pending" && (
-                <div className="space-x-5 mt-5">
-                  <Button>Accept Request</Button>
-                  <Button variant={"outline"}>Decline</Button>
-                </div>
+                <AcceptDecline id={project?._id} />
               )}
 
               {/* progress bar - Only show for in_progress projects */}
