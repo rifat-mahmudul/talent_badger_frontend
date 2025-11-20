@@ -1,7 +1,7 @@
 import { IndustryResponse } from "@/types/ndustries";
 
 export async function getAllIndustries() {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/industry`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/industry?status=active`, {
         headers: {
             "Content-Type": "application/json",
         },

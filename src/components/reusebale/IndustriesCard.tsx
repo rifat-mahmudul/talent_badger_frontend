@@ -1,13 +1,15 @@
-import Image from "next/image";
 import React from "react";
 import { Card, CardContent } from "../ui/card";
+import { Industry } from "@/types/ndustries";
+import Image from "next/image";
 
-const IndustriesCard = () => {
+const IndustriesCard = ({ industry }: { industry: Industry }) => {
+    
     return (
         <Card className="overflow-hidden rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 bg-white">
             <div className="w-full h-[220px] md:h-[320px] relative">
                 <Image
-                    src="/industrycard.jpg"
+                    src={industry?.image || "/assets/images/blog/blog-1.png"}
                     alt="industry"
                     fill
                     className="object-cover"
@@ -15,11 +17,10 @@ const IndustriesCard = () => {
             </div>
             <CardContent className="p-5 space-y-2">
                 <h2 className="text-[#147575] font-semibold text-lg md:text-xl">
-                    MedTech & Healthcare
+                  {industry?.name}
                 </h2>
                 <p className="text-[#616161] text-sm md:text-base leading-relaxed">
-                    Innovative medical devices, regulatory expertise, and product
-                    development for life-changing healthcare solutions.
+                   {industry?.discription}
                 </p>
             </CardContent>
         </Card>

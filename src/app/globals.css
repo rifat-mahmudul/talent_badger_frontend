@@ -113,3 +113,12 @@
     font-family: 'Lato', sans-serif;
 
   }
+
+  .hide-scrollbar {
+  overflow-y: auto;              /* enable scroll */
+  scrollbar-width: none;         /* Firefox */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;                 /* Chrome, Safari */
+}

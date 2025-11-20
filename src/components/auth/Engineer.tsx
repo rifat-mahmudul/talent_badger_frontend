@@ -936,13 +936,13 @@ export default function EngineerForm({
     },
   });
 
-  
+
   const allService = useGetAllService();
   const allIndustries = useGetAllIndustry();
 
   const { mutate, isPending } = useMutation({
     mutationKey: ["signup"],
-    mutationFn: (payload: {firstName: string, lastName: string, email: string, createPassword: string, professionalTitle: string, location: string, skills: string[], service: string, industryOfInterest: string, bio: string}) =>
+    mutationFn: (payload: { firstName: string, lastName: string, email: string, createPassword: string, professionalTitle: string, location: string, skills: string[], service: string, industryOfInterest: string, bio: string }) =>
       fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -1014,7 +1014,7 @@ export default function EngineerForm({
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-4 w-full mx-auto"
+        className="space-y-4 max-h-[500px] hide-scrollbar  overflow-y-auto overflow-hidden w-full mx-auto"
       >
         {/* Name Fields */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

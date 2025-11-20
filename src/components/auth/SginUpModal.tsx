@@ -38,7 +38,7 @@ const SginUpModal = ({ open, onOpenChange }: { open: boolean; onOpenChange: (ope
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
             <DialogContent className="p-6 max-w-4xl">
-                <DialogHeader className="mb-10">
+                <DialogHeader className="mb-4">
                     <DialogTitle>
                         <h3 className="text-[40px] font-normal text-[#147575]">
                             Create Your Account
@@ -50,7 +50,7 @@ const SginUpModal = ({ open, onOpenChange }: { open: boolean; onOpenChange: (ope
                     </DialogDescription>
 
                     {/* Tabs Buttons */}
-                    <div className="flex gap-4 mt-6">
+                    <div className="flex gap-4 pt-5">
                         <button
                             onClick={() => setActiveTab("user")}
                             className={`px-4 py-2 rounded-lg border ${

@@ -6,6 +6,7 @@ export interface Industry {
     createBy: string;
     users: string[];
     createdAt: string;
+    image: string;
     updatedAt: string;
     __v: number;
 }
