@@ -2,6 +2,8 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { TeamMember } from "./team-member"
+import { useState } from "react"
+import ScheduleTheMeetingModal from "./schedule-the-meeting-modal"
 
 interface ProjectCardProps {
    id: number
@@ -17,8 +19,10 @@ interface ProjectCardProps {
 }
 
 export function ProjectCard({ project }: {project:ProjectCardProps}) {
+    const [isOpen, setIsOpen] = useState(false);
   return (
-    <Card className="flex flex-col overflow-hidden bg-white border-[1px] border-[#EEEEEE] shadow-lg rounded-[8px]">
+   <div>
+     <Card className="flex flex-col overflow-hidden bg-white border-[1px] border-[#EEEEEE] shadow-lg rounded-[8px]">
       <CardHeader className="pb-4">
         <CardTitle className="text-base font-semibold text-[#343A40] leading-[150%]">{project.title}</CardTitle>
         <p className="text-xs font-normal text-[#9A9EA2] leading-[150%] pt-1">{project.description}</p>
@@ -49,13 +53,23 @@ export function ProjectCard({ project }: {project:ProjectCardProps}) {
         {/* Action Button */}
        <div>
          <button
+        
           className="w-full h-[48px] rounded-[8px] bg-[#147575] px-4 py-2 font-medium text-[#F8F9FA] text-sm leading-[150%]"
-          onClick={() => alert("Meeting scheduled!")}
+          onClick={() => {setIsOpen(true)}}
         >
           Arrange Meeting
         </button>
        </div>
       </CardContent>
     </Card>
+
+
+    {/* schedule the meeting modal  */}
+    {
+        isOpen && (
+             <ScheduleTheMeetingModal open={isOpen} onOpenChange={(value)=>setIsOpen(value)}/>
+        )
+    }
+   </div>
   )
 }
