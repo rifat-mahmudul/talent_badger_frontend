@@ -1,9 +1,16 @@
 import React from 'react'
+import ClientDashboardHeader from './_components/client-dashboard-header'
+import ActiveProjects from './_components/active-projects'
+import UpcomingDeadlines from './_components/upcoming-deadlines'
 
-const page = () => {
-    return (
-        <div>page</div>
-    )
+const ClientDashboardPage = () => {
+  return (
+    <div>
+      <ClientDashboardHeader/>
+      <ActiveProjects/>
+      <UpcomingDeadlines/>
+    </div>
+  )
 }
 
-export default page
+export default ClientDashboardPage
