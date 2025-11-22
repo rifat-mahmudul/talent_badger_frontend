@@ -1,6 +1,5 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Progress } from "@/components/ui/progress";
 import { useQuery } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
@@ -9,6 +8,7 @@ import React from "react";
 import { ApiResponse } from "../../project-management/_components/projects-table";
 import ProjectCardSkeleton from "./project-card-skeleton";
 import Assign from "./assign";
+import UpdateProgress from "./update-progress";
 
 interface SessionUser {
   accessToken: string;
@@ -149,10 +149,7 @@ const ProjectManagements = () => {
                       </div>
                       <Progress value={project.progress} />
                     </div>
-                    <div className="flex items-center gap-2 flex-shrink-0">
-                      <Input placeholder="Update" className="w-[110px]" />
-                      <Button>Update</Button>
-                    </div>
+                    <UpdateProgress projectId={project?._id} token={token} />
                   </div>
                 </div>
 
