@@ -29,7 +29,7 @@ const ProjectManagements = () => {
     queryKey: ["projects", token],
     queryFn: async (): Promise<ApiResponse> => {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/project/my`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/project/my?status=in_progress`,
         {
           method: "GET",
           headers: {
