@@ -15,6 +15,7 @@ import {
   ChevronRight,
   Folder,
   BookAudio,
+  Users,
 } from "lucide-react";
 import Image from "next/image";
 import React from "react";
@@ -34,6 +35,11 @@ const navigation = [
     name: "Requests Management",
     href: "/engineer/requests-management",
     icon: BookAudio,
+  },
+  {
+    name: "Manager",
+    href: "/engineer/manager",
+    icon: Users,
   },
 ];
 
