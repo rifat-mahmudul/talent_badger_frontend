@@ -8,6 +8,7 @@ import Image from "next/image";
 import React from "react";
 import { ApiResponse } from "../../project-management/_components/projects-table";
 import ProjectCardSkeleton from "./project-card-skeleton";
+import Assign from "./assign";
 
 interface SessionUser {
   accessToken: string;
@@ -120,13 +121,11 @@ const ProjectManagements = () => {
                             </div>
                           </div>
 
-                          <div className="flex items-center gap-2 flex-shrink-0">
-                            <Input
-                              placeholder="Hours"
-                              className="w-[110px] text-sm"
-                            />
-                            <Button size="sm">Assign</Button>
-                          </div>
+                          <Assign
+                            engineerId={engineer?._id}
+                            projectId={project?._id}
+                            token={token}
+                          />
                         </div>
                       ))}
 
