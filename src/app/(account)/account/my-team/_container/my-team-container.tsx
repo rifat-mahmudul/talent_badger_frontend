@@ -59,13 +59,15 @@ export default function MyTeamContainer() {
 
   return (
     <main className="">
-     <div className="pb-8 md:pb-10">
-       <CircuitdaddyDropdown
+     <div className="pb-8 md:pb-10 w-full flex items-center justify-end">
+       <div className="w-full md:w-1/2 lg:w-1/3">
+        <CircuitdaddyDropdown
         options={statusList}
         placeholder="Select Project Status"
         value={status}
         onChange={setStatus}
       />
+       </div>
      </div>
       <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
         {data?.data?.map((project) => (
