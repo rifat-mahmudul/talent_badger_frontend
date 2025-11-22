@@ -16,6 +16,7 @@ import {
   Folder,
   BookAudio,
   Users,
+  CreditCard,
 } from "lucide-react";
 import Image from "next/image";
 import React from "react";
@@ -24,7 +25,6 @@ const navigation = [
   { name: "Client Dashboard", href: "/account", icon: LayoutPanelLeft },
   { name: "My Team", href: "/account/my-team", icon: User2 },
   { name: "Call Booking", href: "/account/call-booking", icon: PhoneCall },
-  { name: "Settings", href: "/account/setting", icon: Settings },
   { name: "Dashboard Overview", href: "/engineer", icon: LayoutPanelLeft },
   {
     name: "Project Management",
@@ -41,6 +41,17 @@ const navigation = [
     href: "/engineer/manager",
     icon: Users,
   },
+  {
+    name: "Payment History",
+    href: "/engineer/settings/payment-history",
+    icon: CreditCard,
+  },
+  {
+    name: "Call Booking",
+    href: "/engineer/settings/call-booking",
+    icon: PhoneCall,
+  },
+  { name: "Settings", href: "/account/setting", icon: Settings },
 ];
 
 interface DashboardSidebarProps {

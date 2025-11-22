@@ -440,7 +440,7 @@ export default function DiscoveryCalls() {
 
             {/* MODAL */}
             <Dialog open={openModal} onOpenChange={setOpenModal}>
-                <DialogContent className="max-w-md bg-white rounded-xl shadow-xl p-8">
+                <DialogContent className="max-w-5xl bg-white rounded-xl shadow-xl p-8">
                     <DialogHeader>
                         <DialogTitle className="text-center text-xl font-semibold">
                             {selectedData?.projectId.title || ""}
