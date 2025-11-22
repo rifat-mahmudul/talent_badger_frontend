@@ -32,6 +32,9 @@ import {
 
 import { Calendar } from "@/components/ui/calendar";
 import { CalendarIcon } from "lucide-react";
+import { useMutation } from "@tanstack/react-query";
+import { useSession } from "next-auth/react";
+import { toast } from "sonner";
 
 /* ---------------------------
    Zod Schema (Strong Typing)
@@ -41,32 +44,73 @@ const formSchema = z.object({
     message: "Date is required",
   }),
   time: z.string().min(1, "Time is required"),
-  url: z.string().url("Please enter a valid URL"),
+  link: z.string().url("Please enter a valid URL"),
 
 });
 
 interface ScheduleMeetingProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  projectId : string;
 }
 
 /* ---------------------------
    Component
 ---------------------------- */
 
-const ScheduleTheMeetingModal = ({ open, onOpenChange }: ScheduleMeetingProps) => {
+const ScheduleTheMeetingModal = ({ open, onOpenChange, projectId }: ScheduleMeetingProps) => {
+  const session = useSession();
+  const token = (session?.data?.user as {accessToken: string})?.accessToken;
+
+  const {mutate, isPending} = useMutation({
+    mutationKey:["schedule-meeting"],
+    mutationFn: async (data: {
+    date: string;
+    time: string;
+    link: string;
+    projectId: string;
+  })=>{
+      const res = await fetch(`${process?.env?.NEXT_PUBLIC_BACKEND_URL}/booking`,{
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+          "Authorization" : `Bearer ${token}`
+        },
+        body : JSON.stringify(data)
+
+      })
+      return res.json();
+    },
+    onSuccess: (data)=>{
+      if(!data?.success){
+        toast?.error(data?.message || "Something went wrong");
+        return;
+      }
+      else{
+        toast?.success(data?.message || "Schedule the meeting completed");
+        form.reset();
+        onOpenChange(false);
+      }
+    }
+  })
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       date: new Date(),
       time: "",
-      url: ""
+      link: ""
     },
   });
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
     console.log("Submitted:", values);
-    form.reset();
+    const payload = {
+      date : format(values.date, "yyyy-MM-dd"),
+      time : values?.time,
+      link : values?.link,
+      projectId
+    }
+    mutate(payload)
   };
 
   return (
@@ -144,7 +188,7 @@ const ScheduleTheMeetingModal = ({ open, onOpenChange }: ScheduleMeetingProps) =
              {/* put the link*/}
             <FormField
               control={form.control}
-              name="url"
+              name="link"
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
@@ -155,7 +199,7 @@ const ScheduleTheMeetingModal = ({ open, onOpenChange }: ScheduleMeetingProps) =
               )}
             />
 
-            <button className="bg-[#147575] border-[1px] border-[#147575] rounded-[4px] h-[48px] w-full text-[#F8F9FA] text-sm font-semibold leading-[150%]" type="submit">Schedule The Meeting</button>
+            <button disabled={isPending} className="bg-[#147575] border-[1px] border-[#147575] rounded-[4px] h-[48px] w-full text-[#F8F9FA] text-sm font-semibold leading-[150%]" type="submit">{isPending ? "Scheduling..." : "Schedule The Meeting"}</button>
           </form>
         </Form>
       </DialogContent>

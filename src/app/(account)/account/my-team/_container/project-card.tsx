@@ -4,21 +4,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { TeamMember } from "./team-member"
 import { useState } from "react"
 import ScheduleTheMeetingModal from "./schedule-the-meeting-modal"
+import { Project } from "./projects-data-type"
 
-interface ProjectCardProps {
-   id: number
-    title: string
-    description: string
-    progress: number
-    team: Array<{
-      id: number
-      name: string
-      role: string
-      status: string
-    }>
-}
 
-export function ProjectCard({ project }: {project:ProjectCardProps}) {
+export function ProjectCard({ project }: {project:Project}) {
     const [isOpen, setIsOpen] = useState(false);
   return (
    <div>
@@ -31,8 +20,8 @@ export function ProjectCard({ project }: {project:ProjectCardProps}) {
       <CardContent className="flex flex-1 flex-col gap-6">
         {/* Team Members Section */}
         <div className="space-y-[2px]">
-          {project.team.map((member) => (
-            <TeamMember key={member.id} member={member || ""} />
+          {project?.approvedEngineers?.map((member) => (
+            <TeamMember key={member._id} member={member || ""} />
           ))}
         </div>
 
@@ -67,7 +56,7 @@ export function ProjectCard({ project }: {project:ProjectCardProps}) {
     {/* schedule the meeting modal  */}
     {
         isOpen && (
-             <ScheduleTheMeetingModal open={isOpen} onOpenChange={(value)=>setIsOpen(value)}/>
+             <ScheduleTheMeetingModal open={isOpen} onOpenChange={(value)=>setIsOpen(value)} projectId={project?._id} />
         )
     }
    </div>

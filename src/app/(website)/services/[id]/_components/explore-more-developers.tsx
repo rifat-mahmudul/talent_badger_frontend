@@ -1,21 +1,19 @@
 "use client";
 
-import React, { useState } from "react";
-import ServiceCard from "./ServiceCard";
+import React from "react";
 import { useQuery } from "@tanstack/react-query";
-import { ServiceApiResponse } from "./service-data-type";
 import DashboardCardsSkeleton from "@/app/(account)/account/_components/dashboard-header-skeleton";
 import ErrorContainer from "@/components/shared/ErrorContainer/ErrorContainer";
 import NotFound from "@/components/shared/NotFound/NotFound";
-import ServicePagination from "./services-pagination";
+import { ServiceApiResponse } from "../../_components/service-data-type";
+import ServiceCard from "../../_components/ServiceCard";
 
-const ServiceContainer = () => {
-  const [currentPage, setCurrentPage] = useState(1);
+const ExploreMoreDevelopers = () => {
   const { data, isLoading, error, isError } = useQuery<ServiceApiResponse>({
-    queryKey: ["services-all", currentPage],
+    queryKey: ["services-all"],
     queryFn: async () => {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/user/all-user?role=engineer&page=${currentPage}&limit=9`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/user/all-user?role=engineer`,
         {
           method: "GET",
           headers: {
@@ -50,32 +48,13 @@ const ServiceContainer = () => {
   } else if (data && data?.data && data?.data?.length > 0) {
     content = (
       <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6 justify-items-center my-10">
-        {data?.data?.map((item, index) => (
+        {data?.data?.slice(0, 3)?.map((item, index) => (
           <ServiceCard key={index} data={item} />
         ))}
       </div>
     );
   }
-  return (
-    <div>
-      {content}
-
-      <div>
-        <div className="p-8">
-          {data && data?.meta && data?.meta?.page > 1 && (
-            <ServicePagination
-              page={currentPage}
-              limit={data?.meta?.limit || 9}
-              total={data?.meta?.total || 0}
-              onPageChange={(page) => {
-                setCurrentPage(page);
-              }}
-            />
-          )}
-        </div>
-      </div>
-    </div>
-  );
+  return <div>{content}</div>;
 };
 
-export default ServiceContainer;
+export default ExploreMoreDevelopers;
