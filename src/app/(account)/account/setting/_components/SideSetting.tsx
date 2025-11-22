@@ -16,7 +16,7 @@ export function SideSetting() {
     const [imageUrl, setImageUrl] = useState("")
     const fileInputRef = useRef<HTMLInputElement | null>(null)
 
-    // Set existing profile image once data is loaded
+
     useEffect(() => {
         if (profileData?.profileImage) {
             setImageUrl(profileData.profileImage)

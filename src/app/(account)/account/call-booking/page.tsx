@@ -1,9 +1,10 @@
 import React from 'react'
+import DiscoveryCalls from './_components/dateTable'
 
 const CallBookingPage = () => {
   return (
     <div>
-      call booking page
+    <DiscoveryCalls/>
     </div>
   )
 }
