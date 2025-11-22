@@ -64,13 +64,13 @@
 import Aboutus from "@/components/Home/Aboutus";
 import Hero from "@/components/Home/Hero";
 import HowItWork from "@/components/Home/HowItWork";
-// import ServiceCard from "./services/_components/ServiceCard";
 import ReadyToStart from "@/components/ReadyToStart";
 import AskQ from "./faqs/_components/AskQ";
 import HomepageBlog from "@/components/reusebale/HomepageBlog";
 import ApiIndustry from "@/components/ApiIndustry";
 import { useEffect, useState } from "react";
 import { NewsletterModal } from "@/components/NewsLetter";
+import TeamBuilderService from "./_components/team-builder";
 
 export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -118,15 +118,11 @@ export default function Home() {
         <Aboutus />
         <HowItWork />
         <div className="container mx-auto my-[120px]">
-          <div>
-            <h2 className='text-[#147575] font-bold text-[40px] mb-4'>Talent Picker</h2>
+          <div className="pb-4 md:pb-6">
+            <h2 className='text-[#147575] font-bold text-[40px] mb-4'>Team Builder</h2>
             <p className="text-[#929292] font-normal text-[18px]">Meet a curated selection of trusted professionals whose expertise, reliability, and excellence set the benchmark in every project.</p>
           </div>
-          {/* <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6 justify-items-center my-10">
-            {Array(10).fill(0).map((_, index) => (
-              <ServiceCard key={index} />
-            ))}
-          </div> */}
+          <TeamBuilderService/>
         </div>
         <ReadyToStart />
         <div className="container mx-auto">

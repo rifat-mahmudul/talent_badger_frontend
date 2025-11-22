@@ -1,14 +1,14 @@
 "use client";
 
 import React from "react";
-import ServiceCard from "./ServiceCard";
 import { useQuery } from "@tanstack/react-query";
-import { ServiceApiResponse } from "./service-data-type";
 import DashboardCardsSkeleton from "@/app/(account)/account/_components/dashboard-header-skeleton";
 import ErrorContainer from "@/components/shared/ErrorContainer/ErrorContainer";
 import NotFound from "@/components/shared/NotFound/NotFound";
+import { ServiceApiResponse } from "../services/_components/service-data-type";
+import ServiceCard from "../services/_components/ServiceCard";
 
-const ServiceContainer = () => {
+const TeamBuilderService = () => {
   const { data, isLoading, error, isError } = useQuery<ServiceApiResponse>({
     queryKey: ["services-all"],
     queryFn: async () => {
@@ -48,7 +48,7 @@ const ServiceContainer = () => {
   } else if (data && data?.data && data?.data?.length > 0) {
     content = (
       <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6 justify-items-center my-10">
-        {data?.data?.map((item, index) => (
+        {data?.data?.slice(0, 9)?.map((item, index) => (
           <ServiceCard key={index} data={item} />
         ))}
       </div>
@@ -57,4 +57,4 @@ const ServiceContainer = () => {
   return <div>{content}</div>;
 };
 
-export default ServiceContainer;
+export default TeamBuilderService;
