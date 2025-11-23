@@ -1,33 +1,35 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Menu, X, ChevronDown, User } from "lucide-react"
-import { cn } from "@/lib/utils"
-import Image from "next/image"
-import { usePathname } from "next/navigation"
-import Link from "next/link"
-import LoginModal from "@/components/auth/LoginModal"
-import { useSession, signOut } from "next-auth/react"
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "@/components/ui/avatar"
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Menu, X, ChevronDown, User, Heart } from "lucide-react";
+import { cn } from "@/lib/utils";
+import Image from "next/image";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
+import LoginModal from "@/components/auth/LoginModal";
+import { useSession, signOut } from "next-auth/react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "@/components/ui/dropdown-menu";
+import { useTeamStore } from "@/store/teamStore";
 
 export function Navbar() {
-  const [isOpen, setIsOpen] = useState(false)
-  const [loginOpen, setLoginOpen] = useState(false)
-  const session = useSession()
-  const pathname = usePathname()
+  const [isOpen, setIsOpen] = useState(false);
+  const [loginOpen, setLoginOpen] = useState(false);
+
+  const session = useSession();
+  const pathname = usePathname();
   const role = (session.data?.user as { role: string })?.role;
   console.log("Role:", role);
+
+  const team = useTeamStore((state) => state.team);
+  const removeMember = useTeamStore((state) => state.removeMember);
+
   const navItems = [
     { name: "Home", href: "/" },
     { name: "Services", href: "/services" },
@@ -36,7 +38,7 @@ export function Navbar() {
     { name: "Blog", href: "/blog" },
     { name: "Contact Us", href: "/contactus" },
     { name: "FAQ’S", href: "/faqs" },
-  ]
+  ];
 
   return (
     <nav className="bg-[#DDFFFF] py-2 sticky top-0 z-50">
@@ -51,7 +53,7 @@ export function Navbar() {
           <div className="hidden lg:block">
             <div className="ml-10 flex items-baseline space-x-8">
               {navItems.map((item) => {
-                const isActive = pathname === item.href
+                const isActive = pathname === item.href;
                 return (
                   <Link
                     key={item.name}
@@ -65,10 +67,70 @@ export function Navbar() {
                   >
                     {item.name}
                   </Link>
-                )
+                );
               })}
             </div>
           </div>
+
+          {/* heart icon start  */}
+          <div>
+            <DropdownMenu modal={false}>
+              <DropdownMenuTrigger asChild>
+                <div className="cursor-pointer relative">
+                  <Heart className="w-6 h-6 text-[#147575]" />
+                  {team.length > 0 && (
+                    <span className="absolute -top-2 -right-2 bg-[#147575] text-white w-5 h-5 text-xs flex items-center justify-center rounded-full">
+                      {team.length} {/* auto updates instantly */}
+                    </span>
+                  )}
+                </div>
+              </DropdownMenuTrigger>
+
+              <DropdownMenuContent
+                align="center"
+                className="w-80 mt-4 p-4 max-h-96 overflow-y-auto"
+              >
+                <h4 className="font-semibold mb-3 text-center">My Team ({team.length})</h4>
+
+                {team.length === 0 && (
+                  <p className="text-sm font-medium text-gray-500 text-center">No members added yet.</p>
+                )}
+
+                {team.map((member) => (
+                  <div
+                    key={member._id}
+                    className="flex items-center justify-between mb-3 p-2 border-b rounded hover:bg-gray-50"
+                  >
+                    <div className="flex items-center gap-3">
+                      <Image
+                        src={member.profileImage || "/default-avatar.png"}
+                        alt={member.firstName}
+                        width={40}
+                        height={40}
+                        className="rounded-full object-cover"
+                      />
+                      <div>
+                        <p className="text-sm font-medium text-gray-800">
+                          {member.firstName} {member.lastName}
+                        </p>
+                        <p className="text-xs text-gray-500">
+                          Level: {member.level} | {member.rate}/hr
+                        </p>
+                      </div>
+                    </div>
+                    <button
+                      onClick={() => removeMember(member._id)}
+                      className="text-red-500 hover:text-red-700"
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                  </div>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+
+          {/* heart icon end  */}
 
           {/* Desktop CTA & Avatar */}
           <div className="hidden md:flex items-center space-x-4">
@@ -109,12 +171,31 @@ export function Navbar() {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
                   <DropdownMenuItem>
-                    <Link href={role === "engineer" ? "/engineer/setting/profile" : "/account/setting/profile"}>Profile</Link>
+                    <Link
+                      href={
+                        role === "engineer"
+                          ? "/engineer/setting/profile"
+                          : "/account/setting/profile"
+                      }
+                    >
+                      Profile
+                    </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem>
-                    <Link href={role === "engineer" ? "/engineer/setting" : "/account/setting"}>Settings</Link>
+                    <Link
+                      href={
+                        role === "engineer"
+                          ? "/engineer/setting"
+                          : "/account/setting"
+                      }
+                    >
+                      Settings
+                    </Link>
                   </DropdownMenuItem>
-                  <DropdownMenuItem className="cursor-pointer text-red-500" onClick={() => signOut()}>
+                  <DropdownMenuItem
+                    className="cursor-pointer text-red-500"
+                    onClick={() => signOut()}
+                  >
                     Logout
                   </DropdownMenuItem>
                 </DropdownMenuContent>
@@ -128,7 +209,11 @@ export function Navbar() {
               onClick={() => setIsOpen(!isOpen)}
               className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-cyan-400 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-cyan-400"
             >
-              {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              {isOpen ? (
+                <X className="h-6 w-6" />
+              ) : (
+                <Menu className="h-6 w-6" />
+              )}
             </button>
           </div>
         </div>
@@ -139,7 +224,7 @@ export function Navbar() {
         <div className="lg:hidden">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-[#DDFFFF]">
             {navItems.map((item) => {
-              const isActive = pathname === item.href
+              const isActive = pathname === item.href;
               return (
                 <Link
                   key={item.name}
@@ -154,7 +239,7 @@ export function Navbar() {
                 >
                   {item.name}
                 </Link>
-              )
+              );
             })}
             <div className="pt-4 pb-3 border-t border-[#00383B]">
               <div className="flex flex-col space-y-3 px-3">
@@ -176,7 +261,10 @@ export function Navbar() {
                 ) : (
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                      <Button variant="ghost" className="w-full justify-between">
+                      <Button
+                        variant="ghost"
+                        className="w-full justify-between"
+                      >
                         <span>Account</span>
                         <ChevronDown className="w-4 h-4" />
                       </Button>
@@ -185,7 +273,10 @@ export function Navbar() {
                       <DropdownMenuItem>
                         <Link href="/account/setting">Settings</Link>
                       </DropdownMenuItem>
-                      <DropdownMenuItem className="cursor-pointer text-red-500" onClick={() => signOut()}>
+                      <DropdownMenuItem
+                        className="cursor-pointer text-red-500"
+                        onClick={() => signOut()}
+                      >
                         Log Out
                       </DropdownMenuItem>
                     </DropdownMenuContent>
@@ -197,5 +288,5 @@ export function Navbar() {
         </div>
       )}
     </nav>
-  )
+  );
 }

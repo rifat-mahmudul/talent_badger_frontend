@@ -1,8 +1,10 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import React from "react";
+import React, { useState } from "react";
+import StatementOfWorkForm from "./statement-of-work-form";
 
 const BestConsultant = () => {
+  const [isOpen, setIsOpen] = useState(false);
   return (
     <section className="container mx-auto my-16 px-4">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
@@ -19,7 +21,9 @@ const BestConsultant = () => {
 
         {/* Right Section */}
         <div className="w-full md:w-auto flex flex-col sm:flex-row gap-4 md:gap-5 justify-center md:justify-end">
-          <Button className="bg-[#00383B] hover:bg-[#005356] text-white w-full sm:w-auto">
+          <Button onClick={()=>{
+            setIsOpen(true)
+          }} className="bg-[#00383B] hover:bg-[#005356] text-white w-full sm:w-auto">
             Start My SOW
           </Button>
           <Button className="border border-[#00383B] bg-transparent text-[#00383B] hover:bg-[#00383B] hover:text-white w-full sm:w-auto">
@@ -27,6 +31,13 @@ const BestConsultant = () => {
           </Button>
         </div>
       </div>
+
+      {/* SOW modal form  */}
+      {
+        isOpen && (
+          <StatementOfWorkForm open={isOpen} onOpenChange={(open:boolean)=>setIsOpen(open)}/>
+        )
+      }
     </section>
   );
 };

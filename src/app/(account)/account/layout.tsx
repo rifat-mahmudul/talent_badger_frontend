@@ -27,7 +27,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
             transition-all
             duration-300
             bg-[#EDEEF1]
-            ${isCollapsed ? "lg:ml-[80px]" : "lg:ml-[380px]"}
+            ${isCollapsed ? "lg:ml-[80px]" : "lg:ml-[260px]"}
             md:ml-[300px]
           `}
         >

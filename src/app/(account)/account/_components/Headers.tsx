@@ -70,12 +70,12 @@ export const Header = ({ isCollapsed }: HeaderProps) => {
         z-50
         flex items-center px-6
         transition-all duration-300
-        ${isCollapsed ? "lg:ml-[80px]" : "lg:ml-[380px]"}
+        ${isCollapsed ? "lg:ml-[80px]" : "lg:ml-[260px]"}
         md:ml-[300px]
         w-[calc(100%-var(--sidebar-width))]
       `}
       style={{
-        "--sidebar-width": isCollapsed ? "80px" : "380px",
+        "--sidebar-width": isCollapsed ? "80px" : "260px",
       } as React.CSSProperties}
     >
       <div className="py-6 px-6">

@@ -92,7 +92,7 @@ let content ;
   }
   else if(data && data?.data && data?.data?.length > 0){
     content = (
-      <div className="p-5 h-[290px] overflow-y-auto">
+      <div className="p-5 h-[290px] overflow-y-auto scrollbar-hide">
           {data?.data?.map((item) => {
             return (
               <div
