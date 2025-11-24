@@ -135,7 +135,7 @@ export function SideSetting() {
             value={profileData?.firstName + " " + profileData?.lastName}
           />
           <InfoRow label="Email:" value={profileData?.email || "-"} />
-          <InfoRow label="Phone:" value={profileData?.phone || "-"} />
+          {/* <InfoRow label="Phone:" value={profileData?.phone || "-"} /> */}
           <InfoRow label="Location:" value={profileData?.location || "-"} />
           <InfoRow
             label="Member Since:"

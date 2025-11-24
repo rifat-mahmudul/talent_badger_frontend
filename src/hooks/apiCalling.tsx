@@ -4,7 +4,7 @@ import { getAllFaq } from "@/lib/faq";
 import { getAllIndustries } from "@/lib/industries";
 import { getAllPayment } from "@/lib/payment";
 import { changePassword, getProfile, updateAvatar, updateProfileInfo } from "@/lib/profileInfo";
-import { getAllService } from "@/lib/service";
+import { getAllService, getAllTopService } from "@/lib/service";
 import { BlogResponse, SingelBlogResponse } from "@/types/blog";
 import { FaqResponse } from "@/types/faq";
 import { IndustryResponse } from "@/types/ndustries";
@@ -174,6 +174,15 @@ export function useGetAllPayment(token: string,page?: number, limit?: number) {
         queryKey: ["payment"],
         queryFn: () => {
             return getAllPayment({ page, limit, token })
+        },
+    })
+}
+
+export function useGetTopService(page?: number, limit?: number) {
+    return useQuery<ServicesResponse>({
+        queryKey: ["topservice", page, limit],
+        queryFn: () => {
+            return getAllTopService({ page, limit })
         },
     })
 }

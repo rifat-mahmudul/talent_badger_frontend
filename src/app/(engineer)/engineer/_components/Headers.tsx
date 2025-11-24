@@ -49,7 +49,7 @@ export const Header = ({ isCollapsed }: HeaderProps) => {
       } as React.CSSProperties}
     >
       <div className="py-6 px-6">
-        <h4 className="text-2xl border-2 border-red-500 font-semibold text-[#147575]">{title || "Dashboard"}</h4>
+        <h4 className="text-2xl  font-semibold text-[#147575]">{title || "Dashboard"}</h4>
       </div>
     </header>
   );

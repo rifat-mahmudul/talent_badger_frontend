@@ -8,8 +8,12 @@ import { SingleServiceUserResponse } from "./single-service-data-type";
 import moment from "moment";
 import DashboardCardsSkeleton from "@/app/(account)/account/_components/dashboard-header-skeleton";
 import ErrorContainer from "@/components/shared/ErrorContainer/ErrorContainer";
+import { useTeamStore } from "@/store/teamStore";
+import { toast } from "sonner";
 
 const IndividualService = ({ id }: { id: string }) => {
+  const addMember = useTeamStore((state) => state.addMember);
+  const team = useTeamStore((state) => state.team);
 
   const { data, isLoading, error, isError } =
     useQuery<SingleServiceUserResponse>({
@@ -27,6 +31,24 @@ const IndividualService = ({ id }: { id: string }) => {
         return res.json();
       },
     });
+  const details = data?.data
+  const handleAddToTeam = () => {
+    if (!details?._id) return;
+
+    if (team.find((m) => m._id === details._id)) {
+      toast.error(`${details?.firstName} is already in your team!`);
+      return;
+    }
+
+    if (team.length >= 10) {
+      toast.error("Team is full! Remove someone to add a new member.");
+      return;
+    }
+
+    addMember(details);
+    toast.success(`${details?.firstName} added to your team!`);
+  };
+
 
   let content;
 
@@ -142,7 +164,7 @@ const IndividualService = ({ id }: { id: string }) => {
 
             {/* Action Button */}
             <div className="mt-auto">
-              <button className="bg-[#00383B] text-white px-6 py-3 rounded-md font-medium hover:bg-[#0d7377]/90 transition-colors">
+              <button onClick={handleAddToTeam} className="bg-[#00383B] text-white px-6 py-3 rounded-md font-medium hover:bg-[#0d7377]/90 transition-colors">
                 Add Mattew In Your Team
               </button>
             </div>

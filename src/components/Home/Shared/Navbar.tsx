@@ -33,7 +33,7 @@ export function Navbar() {
   const navItems = [
     { name: "Home", href: "/" },
     { name: "Services", href: "/services" },
-    { name: "Pick your team", href: "/pick-your-team" },
+    { name: "Pick your team", href: "/build-your-team" },
     { name: "Industries", href: "/industries" },
     { name: "Blog", href: "/blog" },
     { name: "Contact Us", href: "/contactus" },
@@ -134,7 +134,7 @@ export function Navbar() {
 
           {/* Desktop CTA & Avatar */}
           <div className="hidden md:flex items-center space-x-4">
-            <Link href="/agent-form">
+            <Link href="/build-your-team">
               <Button
                 variant="outline"
                 className="border border-[#00383B] bg-transparent text-[16px] text-[#00383B] hover:bg-transparent"
@@ -174,8 +174,8 @@ export function Navbar() {
                     <Link
                       href={
                         role === "engineer"
-                          ? "/engineer/setting/profile"
-                          : "/account/setting/profile"
+                          ? "/engineer/settings/profile"
+                          : "/account/settings/profile"
                       }
                     >
                       Profile
@@ -185,8 +185,8 @@ export function Navbar() {
                     <Link
                       href={
                         role === "engineer"
-                          ? "/engineer/setting"
-                          : "/account/setting"
+                          ? "/engineer/settings"
+                          : "/account/settings"
                       }
                     >
                       Settings
@@ -243,7 +243,7 @@ export function Navbar() {
             })}
             <div className="pt-4 pb-3 border-t border-[#00383B]">
               <div className="flex flex-col space-y-3 px-3">
-                <Link href="/agent-form">
+                <Link href="/build-your-team">
                   <Button
                     variant="outline"
                     className="border border-[#00383B] bg-transparent w-full text-[16px] text-[#00383B] hover:bg-transparent"

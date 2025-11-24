@@ -18,8 +18,8 @@ const page = () => {
         image="/heroimage2.jpg"
         buttonName1="Assemble Your Team"
         buttonName2="Help Me Build My Team "
-        buttonHref1="/"
-        buttonHref2="/"
+        buttonHref1="/services"
+        buttonHref2="/build-your-team"
       />
       <div className="container mx-auto px-4 md:px-0">
         <HandSelected />

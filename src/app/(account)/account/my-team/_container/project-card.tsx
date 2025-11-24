@@ -15,7 +15,7 @@ export function ProjectCard({ project }: { project: Project }) {
 
   // payment api integration
 
-const { mutate, isPending } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationKey: ["payment"],
     mutationFn: async (data: { projectId: string }) => {
       const res = await fetch(
@@ -51,7 +51,7 @@ const { mutate, isPending } = useMutation({
   });
 
   const handlePayment = () => {
-    mutate({projectId: project?._id})
+    mutate({ projectId: project?._id })
   };
 
   return (
@@ -61,9 +61,9 @@ const { mutate, isPending } = useMutation({
           <CardTitle className="text-base font-semibold text-[#343A40] leading-[150%]">
             {project.title}
           </CardTitle>
-          <p className="text-xs font-normal text-[#9A9EA2] leading-[150%] pt-1">
-            {project.description}
-          </p>
+          <p className="text-xs font-normal text-[#9A9EA2] leading-[150%] pt-1"
+            dangerouslySetInnerHTML={{ __html: project.description }} />
+
         </CardHeader>
 
         <CardContent className="flex flex-1 flex-col gap-6">

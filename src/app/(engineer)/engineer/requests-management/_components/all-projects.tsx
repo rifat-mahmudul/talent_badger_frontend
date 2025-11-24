@@ -165,11 +165,10 @@ const AllProjects = () => {
               className={`
             text-sm font-medium px-5 py-2 rounded-lg
             transition-all
-            ${
-              isActive
-                ? "bg-primary text-white shadow"
-                : "bg-primary/10 text-gray-600"
-            }
+            ${isActive
+                  ? "bg-primary text-white shadow"
+                  : "bg-primary/10 text-gray-600"
+                }
           `}
             >
               {item.label}
@@ -199,7 +198,9 @@ const AllProjects = () => {
                     Client: {project.client.firstName} {project.client.lastName}
                   </p>
 
-                  <p className="text-gray-500">{project.description}</p>
+                  <p className="text-xs font-normal text-[#9A9EA2] leading-[150%] pt-1"
+                    dangerouslySetInnerHTML={{ __html: project.description }} />
+
                 </div>
 
                 <div>{getStatusBadge(project.status)}</div>

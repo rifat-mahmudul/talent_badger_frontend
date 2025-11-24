@@ -1,4 +1,4 @@
-import { Zap, BarChart3, MessageSquare, Award, DollarSign } from "lucide-react";
+import { Zap, BarChart3, Award, DollarSign } from "lucide-react";
 import Image from "next/image";
 import { UserItem } from "./service-data-type";
 import Link from "next/link";
@@ -9,14 +9,14 @@ import { useTeamStore } from "@/store/teamStore";
 export default function ServiceCard({ data }: { data: UserItem }) {
 
 
-    const addMember = useTeamStore((state) => state.addMember);
+  const addMember = useTeamStore((state) => state.addMember);
   const team = useTeamStore((state) => state.team);
 
   const handleAddToTeam = () => {
     if (!data?._id) return;
 
     if (team.find((m) => m._id === data._id)) {
-      alert(`${data.firstName} is already in your team!`);
+      toast.error(`${data.firstName} is already in your team!`);
       return;
     }
 
@@ -71,12 +71,12 @@ export default function ServiceCard({ data }: { data: UserItem }) {
               {data?.experience}
             </span>
           </div>
-          <div className="flex items-center gap-2 px-3 py-2 bg-[#E8F1F1] rounded-full border border-[#E8F1F1]">
+          {/* <div className="flex items-center gap-2 px-3 py-2 bg-[#E8F1F1] rounded-full border border-[#E8F1F1]">
             <MessageSquare className="w-4 h-4 text-blue-500 flex-shrink-0" />
             <span className="text-sm font-medium text-gray-700">
               {data?.expertise}
             </span>
-          </div>
+          </div> */}
 
           <div className="flex items-center gap-2 px-3 py-2 bg-[#E8F1F1] rounded-full border border-[#E8F1F1]">
             <Award className="w-4 h-4 text-yellow-600 flex-shrink-0" />
