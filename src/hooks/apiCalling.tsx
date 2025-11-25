@@ -2,11 +2,13 @@ import { getAllBlog, getBlog, getSingleBlog } from "@/lib/blog";
 import { contactUs } from "@/lib/contactus";
 import { getAllFaq } from "@/lib/faq";
 import { getAllIndustries } from "@/lib/industries";
+import { getAllPayment } from "@/lib/payment";
 import { changePassword, getProfile, updateAvatar, updateProfileInfo } from "@/lib/profileInfo";
-import { getAllService } from "@/lib/service";
+import { getAllService, getAllTopService } from "@/lib/service";
 import { BlogResponse, SingelBlogResponse } from "@/types/blog";
 import { FaqResponse } from "@/types/faq";
 import { IndustryResponse } from "@/types/ndustries";
+import { PaymentHistoryResponse } from "@/types/payment";
 import { ServicesResponse } from "@/types/service";
 import {   UserProfileResponse } from "@/types/userDataType";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -163,6 +165,24 @@ export function useGetAllIndustry() {
         queryKey: ["industry"],
         queryFn: () => {
             return getAllIndustries()
+        },
+    })
+}
+
+export function useGetAllPayment(token: string,page?: number, limit?: number) {
+    return useQuery<PaymentHistoryResponse>({
+        queryKey: ["payment"],
+        queryFn: () => {
+            return getAllPayment({ page, limit, token })
+        },
+    })
+}
+
+export function useGetTopService(page?: number, limit?: number) {
+    return useQuery<ServicesResponse>({
+        queryKey: ["topservice", page, limit],
+        queryFn: () => {
+            return getAllTopService({ page, limit })
         },
     })
 }

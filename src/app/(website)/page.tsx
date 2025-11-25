@@ -71,6 +71,7 @@ import ApiIndustry from "@/components/ApiIndustry";
 import { useEffect, useState } from "react";
 import { NewsletterModal } from "@/components/NewsLetter";
 import TeamBuilderService from "./_components/team-builder";
+import TopServices from "@/components/Home/top-services";
 
 export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -101,7 +102,7 @@ export default function Home() {
   };
 
   return (
-    <div>
+    <div className="mb-[20px]">
       <Hero
         title1="Unlock the"
         colorTitile="Future Where Ideas Take Flight"
@@ -109,12 +110,13 @@ export default function Home() {
         description="Access a curated network of world-class consultants who bring expertise across every industry. Scale your team instantly, pay only for what you need, and enjoy a seamless experience from start to finish."
         image="/heroimage2.jpg"
         buttonName1="Assemble Your Team"
-        buttonName2="Assemble Your Team"
-        buttonHref1="/"
-        buttonHref2="/"
+        buttonName2="Help Me Build My Team "
+        buttonHref1="/services"
+        buttonHref2="/build-your-team"
       />
 
       <div className="px-4 md:px-0">
+        <TopServices/>
         <Aboutus />
         <HowItWork />
         <div className="container mx-auto my-[120px]">

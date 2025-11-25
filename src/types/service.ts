@@ -3,6 +3,7 @@ export interface Service {
   serviceName: string;
   category: string;
   status: string;
+  image: string;
   description: string;
   createdBy: string;
   createdAt: string; // ISO date string

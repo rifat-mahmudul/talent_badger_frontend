@@ -1,3 +1,6 @@
+
+
+
 "use client";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -15,22 +18,26 @@ export function TeamMember({
   const session = useSession();
   const token = (session?.data?.user as { accessToken: string })?.accessToken;
 
-  const { mutate } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationKey: ["manager-assign", projectId],
     mutationFn: async (data: { engineerId: string }) => {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/project/${projectId}/assign`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(data),
-      });
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/project/${projectId}/assign`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(data),
+        }
+      );
       return await res.json();
     },
   });
 
   const handleManager = () => {
+    if (isPending) return;
     mutate({ engineerId: member._id });
   };
 
@@ -54,14 +61,23 @@ export function TeamMember({
       {/* Manager Button */}
       <div>
         <button
-          onClick={handleManager}// disable other buttons if manager exists
-          className={`text-xs font-medium py-1 px-2 rounded ${
-            member?.ismanager
-              ? "bg-[#D3F7F7] text-[#0C4545]"
-              : "bg-[#D3F7F7] text-[#0C4545]"
-          }`}
+          disabled={isPending || member.ismanager } 
+          onClick={handleManager}
+          className={`text-xs font-medium py-1 px-2 rounded flex items-center gap-1
+            ${member.ismanager ? "bg-[#D3F7F7] text-[#0C4545]" : "bg-[#D3F7F7] text-[#0C4545]"}
+            ${isPending && "opacity-60 cursor-not-allowed"}
+          `}
         >
-          {member.ismanager ? "Manager" : "Make Manager"}
+          {/* Spinner while loading */}
+          {isPending && (
+            <span className="h-3 w-3 border-2 border-[#0C4545] border-t-transparent rounded-full animate-spin"></span>
+          )}
+
+          {isPending
+            ? "Updating..."
+            : member.ismanager
+            ? "Manager"
+            : "Make Manager"}
         </button>
       </div>
     </div>

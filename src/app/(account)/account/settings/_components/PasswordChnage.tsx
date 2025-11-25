@@ -28,6 +28,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { PasswordInput } from "@/components/ui/password-input"
 import { useChnagePassword } from "@/hooks/apiCalling"
 import { useSession } from "next-auth/react"
+import { Loader2 } from "lucide-react"
 
 
 const formSchema = z.object({
@@ -124,7 +125,7 @@ export default function PasswordChange() {
                             )}
                         />
                         <div className="flex justify-end">
-                            <Button type="submit" className="bg-[#00383B] hover:bg-[#005356]">Save Changes</Button>
+                            <Button type="submit" className="bg-[#00383B] hover:bg-[#005356]">Save Changes {passwordMutation.isPending && <Loader2 className="animate-spin mr-2 h-4 w-4" />}</Button>
                         </div>
                     </form>
                 </Form>

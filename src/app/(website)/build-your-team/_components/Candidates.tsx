@@ -1,15 +1,137 @@
+// "use client"
+
+// import { Search } from "lucide-react"
+// import { Input } from "@/components/ui/input"
+// import { Button } from "@/components/ui/button"
+// import AskQ from "../../faqs/_components/AskQ"
+// import { useQuery } from "@tanstack/react-query"
+// import { ServiceApiResponse } from "../../services/_components/service-data-type"
+// import ServiceCard from "../../services/_components/ServiceCard"
+// import { Skeleton } from "@/components/ui/skeleton"
+
+// export default function CandidateFilter() {
+
+//     const { data, isLoading, isError } = useQuery<ServiceApiResponse>({
+//         queryKey: ["services-all"],
+//         queryFn: async () => {
+//             const res = await fetch(
+//                 `${process.env.NEXT_PUBLIC_BACKEND_URL}/user/all-user?role=engineer`,
+//                 { method: "GET", headers: { "Content-Type": "application/json" } }
+//             );
+//             return res.json();
+//         },
+//     });
+
+//     return (
+//         <div className="w-full container mx-auto px-4 py-8">
+
+//             {/* ---------- LOADING STATE ---------- */}
+//             {isLoading && (
+//                 <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6 my-10">
+//                     {[...Array(6)].map((_, idx) => (
+//                         <div key={idx} className="w-full p-4 border rounded-xl">
+//                             <Skeleton className="h-40 w-full rounded-lg" />
+//                             <Skeleton className="h-5 w-3/4 mt-4" />
+//                             <Skeleton className="h-4 w-1/2 mt-2" />
+//                             <Skeleton className="h-4 w-full mt-4" />
+//                         </div>
+//                     ))}
+//                 </div>
+//             )}
+
+//             {/* ---------- ERROR STATE ---------- */}
+//             {isError && (
+//                 <div className="text-center py-10">
+//                     <p className="text-red-600 text-lg font-semibold">
+//                         Failed to load candidates. Please try again later.
+//                     </p>
+//                 </div>
+//             )}
+
+//             {/* ---------- MAIN CONTENT ---------- */}
+//             {!isLoading && !isError && (
+//                 <>
+//                     <div className="flex flex-col lg:flex-row gap-3 items-stretch lg:items-center mb-8">
+//                         <div className="relative flex-1 min-w-0">
+//                             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+//                             <Input
+//                                 type="text"
+//                                 placeholder="Search candidates"
+//                                 className="pl-10 h-11 border-gray-300 focus-visible:ring-teal-600"
+//                             />
+//                         </div>
+
+//                         <Button className="h-11 bg-[#147575] hover:bg-teal-700 text-white px-6 whitespace-nowrap">
+//                             Generate The Team
+//                         </Button>
+//                     </div>
+
+//                     <div className="space-y-2">
+//                         <h2 className="text-[40px] font-bold text-[#147575]">Four Candidates Are Selected</h2>
+//                         <p className="text-[#929292] text-[18px] leading-relaxed">
+//                             Meet a curated selection of trusted professionals whose expertise, reliability, and excellence set the benchmark in every project.
+//                         </p>
+//                     </div>
+
+//                     <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6 justify-items-center my-10">
+//                         {data?.data?.map((data, index) => (
+//                             <ServiceCard key={index} data={data} />
+//                         ))}
+//                     </div>
+
+//                     <AskQ />
+//                 </>
+//             )}
+//         </div>
+//     )
+// }
+
 "use client"
 
 import { Search } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-// import ServiceCard from "@/app/(website)/services/_components/ServiceCard"
 import AskQ from "../../faqs/_components/AskQ"
+import { useQuery } from "@tanstack/react-query"
+import { ServiceApiResponse } from "../../services/_components/service-data-type"
+import ServiceCard from "../../services/_components/ServiceCard"
+import { Skeleton } from "@/components/ui/skeleton"
+import { useEffect, useState } from "react"
 
 export default function CandidateFilter() {
+
+    // -------------------------------------
+    // 🔍 Search State + Debounce
+    // -------------------------------------
+    const [search, setSearch] = useState("")
+    const [debouncedSearch, setDebouncedSearch] = useState("")
+
+    // Debounce 500ms
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setDebouncedSearch(search)
+        }, 500)
+
+        return () => clearTimeout(timer)
+    }, [search])
+
+
+    const { data, isLoading, isError } = useQuery<ServiceApiResponse>({
+        queryKey: ["services-all", debouncedSearch], // 🔑 search triggers re-fetch
+        queryFn: async () => {
+            const res = await fetch(
+                `${process.env.NEXT_PUBLIC_BACKEND_URL}/user/all-user?role=engineer&searchTerm=${debouncedSearch}`,
+                { method: "GET", headers: { "Content-Type": "application/json" } }
+            );
+            return res.json();
+        },
+        enabled: true,
+    });
+
     return (
         <div className="w-full container mx-auto px-4 py-8">
+
+            {/* ---------- SEARCH INPUT ---------- */}
             <div className="flex flex-col lg:flex-row gap-3 items-stretch lg:items-center mb-8">
                 <div className="relative flex-1 min-w-0">
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
@@ -17,76 +139,9 @@ export default function CandidateFilter() {
                         type="text"
                         placeholder="Search candidates"
                         className="pl-10 h-11 border-gray-300 focus-visible:ring-teal-600"
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)} // 🔥 update search
                     />
-                </div>
-                <div className="flex flex-wrap lg:flex-nowrap gap-3">
-                    <Select>
-                        <SelectTrigger className="w-full lg:w-[110px] h-11 border-teal-600 text-teal-600 hover:bg-teal-50">
-                            <SelectValue placeholder="Skills" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectItem value="frontend">Frontend</SelectItem>
-                            <SelectItem value="backend">Backend</SelectItem>
-                            <SelectItem value="fullstack">Full Stack</SelectItem>
-                            <SelectItem value="design">Design</SelectItem>
-                        </SelectContent>
-                    </Select>
-
-                    <Select>
-                        <SelectTrigger className="w-full lg:w-[100px] h-11 border-teal-600 text-teal-600 hover:bg-teal-50">
-                            <SelectValue placeholder="Role" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectItem value="developer">Developer</SelectItem>
-                            <SelectItem value="designer">Designer</SelectItem>
-                            <SelectItem value="manager">Manager</SelectItem>
-                        </SelectContent>
-                    </Select>
-
-                    <Select>
-                        <SelectTrigger className="w-full lg:w-[120px] h-11 border-teal-600 text-teal-600 hover:bg-teal-50">
-                            <SelectValue placeholder="Badges" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectItem value="verified">Verified</SelectItem>
-                            <SelectItem value="expert">Expert</SelectItem>
-                            <SelectItem value="top-rated">Top Rated</SelectItem>
-                        </SelectContent>
-                    </Select>
-
-                    <Select>
-                        <SelectTrigger className="w-full lg:w-[110px] h-11 border-teal-600 text-teal-600 hover:bg-teal-50">
-                            <SelectValue placeholder="Range" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectItem value="0-50">$0 - $50</SelectItem>
-                            <SelectItem value="50-100">$50 - $100</SelectItem>
-                            <SelectItem value="100-150">$100 - $150</SelectItem>
-                            <SelectItem value="150+">$150+</SelectItem>
-                        </SelectContent>
-                    </Select>
-
-                    <Select>
-                        <SelectTrigger className="w-full lg:w-[120px] h-11 border-teal-600 text-teal-600 hover:bg-teal-50">
-                            <SelectValue placeholder="Ratings" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectItem value="5">5 Stars</SelectItem>
-                            <SelectItem value="4">4+ Stars</SelectItem>
-                            <SelectItem value="3">3+ Stars</SelectItem>
-                        </SelectContent>
-                    </Select>
-
-                    <Select>
-                        <SelectTrigger className="w-full lg:w-[140px] h-11 border-teal-600 text-teal-600 hover:bg-teal-50">
-                            <SelectValue placeholder="Availability" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectItem value="immediate">Immediate</SelectItem>
-                            <SelectItem value="week">Within a week</SelectItem>
-                            <SelectItem value="month">Within a month</SelectItem>
-                        </SelectContent>
-                    </Select>
                 </div>
 
                 <Button className="h-11 bg-[#147575] hover:bg-teal-700 text-white px-6 whitespace-nowrap">
@@ -94,21 +149,52 @@ export default function CandidateFilter() {
                 </Button>
             </div>
 
-
-            <div className="space-y-2">
-                <h2 className="text-[40px] font-bold text-[#147575]">Four Candidates Are Selected</h2>
-                <p className="text-[#929292] text-[18px] leading-relaxed">
-                    Meet a curated selection of trusted professionals whose expertise, reliability, and excellence set the benchmark in every project.
-                </p>
-            </div>
-            {/* <div className="grid lg:grid-cols-3 md:grid-cols-2  grid-cols-1 gap-6 justify-items-center my-10">
-                {Array(10)
-                    .fill(0)
-                    .map((_, index) => (
-                        <ServiceCard key={index} />
+            {/* ---------- LOADING ---------- */}
+            {isLoading && (
+                <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6 my-10">
+                    {[...Array(6)].map((_, idx) => (
+                        <div key={idx} className="w-full p-4 border rounded-xl">
+                            <Skeleton className="h-40 w-full rounded-lg" />
+                            <Skeleton className="h-5 w-3/4 mt-4" />
+                            <Skeleton className="h-4 w-1/2 mt-2" />
+                            <Skeleton className="h-4 w-full mt-4" />
+                        </div>
                     ))}
-            </div> */}
-            <AskQ />
+                </div>
+            )}
+
+            {/* ---------- ERROR ---------- */}
+            {isError && (
+                <div className="text-center py-10">
+                    <p className="text-red-600 text-lg font-semibold">Failed to load candidates.</p>
+                </div>
+            )}
+
+            {/* ---------- DATA ---------- */}
+            {!isLoading && !isError && (
+                <>
+                    <div className="space-y-2">
+                        <h2 className="text-[40px] font-bold text-[#147575]">Candidates</h2>
+                        <p className="text-[#929292] text-[18px] leading-relaxed">
+                            Browse and search professional candidates.
+                        </p>
+                    </div>
+
+                    <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6 justify-items-center my-10">
+                        {data?.data?.length ? (
+                            data.data.map((user, i) => (
+                                <ServiceCard key={i} data={user} />
+                            ))
+                        ) : (
+                            <p className="text-center text-gray-500 col-span-3 mt-10">
+                                No candidates found.
+                            </p>
+                        )}
+                    </div>
+
+                    <AskQ />
+                </>
+            )}
         </div>
     )
 }

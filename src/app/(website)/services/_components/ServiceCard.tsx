@@ -1,4 +1,4 @@
-import { Zap, BarChart3, MessageSquare, Award, DollarSign } from "lucide-react";
+import { Zap, BarChart3, Award, DollarSign } from "lucide-react";
 import Image from "next/image";
 import { UserItem } from "./service-data-type";
 import Link from "next/link";
@@ -9,14 +9,14 @@ import { useTeamStore } from "@/store/teamStore";
 export default function ServiceCard({ data }: { data: UserItem }) {
 
 
-    const addMember = useTeamStore((state) => state.addMember);
+  const addMember = useTeamStore((state) => state.addMember);
   const team = useTeamStore((state) => state.team);
 
   const handleAddToTeam = () => {
     if (!data?._id) return;
 
     if (team.find((m) => m._id === data._id)) {
-      alert(`${data.firstName} is already in your team!`);
+      toast.error(`${data.firstName} is already in your team!`);
       return;
     }
 
@@ -32,7 +32,7 @@ export default function ServiceCard({ data }: { data: UserItem }) {
 
 
   return (
-    <div className="w-full max-w-[496px] bg-white rounded-xl border-t-[3px]  border-[#147575] shadow-[0px_4px_6px_0px_#45B6CA1A]  overflow-hidden">
+    <div className="w-full max-w-[496px] bg-white  rounded-xl border-t-[3px]  border-[#147575] shadow-[0px_4px_6px_0px_#45B6CA1A]  overflow-hidden">
       <div className="relative">
         <Image
           src={data?.profileImage || ""}
@@ -68,15 +68,15 @@ export default function ServiceCard({ data }: { data: UserItem }) {
           <div className="flex items-center gap-2 px-3 py-2 bg-[#E8F1F1] rounded-full border border-[#E8F1F1]">
             <BarChart3 className="w-4 h-4 text-orange-500 flex-shrink-0" />
             <span className="text-sm font-medium text-gray-700">
-              {data?.experience}
+             Experience - {data?.experience}
             </span>
           </div>
-          <div className="flex items-center gap-2 px-3 py-2 bg-[#E8F1F1] rounded-full border border-[#E8F1F1]">
+          {/* <div className="flex items-center gap-2 px-3 py-2 bg-[#E8F1F1] rounded-full border border-[#E8F1F1]">
             <MessageSquare className="w-4 h-4 text-blue-500 flex-shrink-0" />
             <span className="text-sm font-medium text-gray-700">
               {data?.expertise}
             </span>
-          </div>
+          </div> */}
 
           <div className="flex items-center gap-2 px-3 py-2 bg-[#E8F1F1] rounded-full border border-[#E8F1F1]">
             <Award className="w-4 h-4 text-yellow-600 flex-shrink-0" />
@@ -84,6 +84,36 @@ export default function ServiceCard({ data }: { data: UserItem }) {
               Level - {data?.level}
             </span>
           </div>
+          <div className="flex items-center gap-2 px-3 py-2 bg-[#E8F1F1] rounded-full border border-[#E8F1F1] overflow-x-auto">
+            <Award className="w-4 h-4 text-yellow-600 flex-shrink-0" />
+            <span className="text-sm font-medium text-gray-700">
+              Badges - 
+            </span>
+            <div className="flex gap-1">
+              {Array.isArray(data.badge)
+                ? data.badge.map((url, index) => (
+                  <Image
+                    key={index}
+                    src={url}
+                    alt={`Badge ${index + 1}`}
+                    width={15}
+                    height={15}
+                    className="rounded-full "
+                  />
+                ))
+                : data.badge?.badge?.map((url, index) => (
+                  <Image
+                    key={index}
+                    src={url}
+                    alt={`Badge ${index + 1}`}
+                    width={15}
+                    height={15}
+                    className="rounded-full"
+                  />
+                ))}
+            </div>
+          </div>
+
           <div className="flex items-center gap-2 px-3 py-2 bg-[#E8F1F1]  border border-[#E8F1F1] rounded-full mb-6 w-fit">
             <DollarSign className="w-4 h-4 text-teal-600 flex-shrink-0" />
             <span className="text-sm font-medium text-gray-700">

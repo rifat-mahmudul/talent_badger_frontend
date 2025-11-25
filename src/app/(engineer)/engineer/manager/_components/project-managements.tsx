@@ -67,9 +67,9 @@ const ProjectManagements = () => {
               >
                 <div>
                   <h4 className="text-xl font-medium">{project.title}</h4>
-                  <p className="mt-2 opacity-60 line-clamp-3">
-                    {project.description}
-                  </p>
+               <p className="text-xs font-normal text-[#9A9EA2] leading-[150%] pt-1"
+   dangerouslySetInnerHTML={{ __html: project.description }} />
+
 
                   {/* person info */}
                   <div className="flex flex-col sm:flex-row sm:items-center gap-4 mt-5">

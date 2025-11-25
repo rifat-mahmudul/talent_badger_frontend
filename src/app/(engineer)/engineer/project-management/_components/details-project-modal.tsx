@@ -106,9 +106,12 @@ const DetailsProjectModal = ({ onClose, project }: PropsTypes) => {
             <h2 className="text-lg font-medium text-gray-700 mb-2">
               Description
             </h2>
-            <p className="text-gray-600 bg-gray-50 p-3 rounded-lg">
-              {project?.description}
-            </p>
+            <p
+              className="text-sm text-gray-600 mt-2 lg:max-w-md"
+              dangerouslySetInnerHTML={{
+                __html: project?.description,
+              }}
+            />
           </div>
 
           {/* Client Information */}
@@ -162,18 +165,17 @@ const DetailsProjectModal = ({ onClose, project }: PropsTypes) => {
                 Days Remaining
               </h2>
               <p
-                className={`font-medium p-3 rounded-lg ${
-                  calculateDaysRemaining(project?.deliveryDate) < 0
+                className={`font-medium p-3 rounded-lg ${calculateDaysRemaining(project?.deliveryDate) < 0
                     ? "bg-red-100 text-red-800"
                     : calculateDaysRemaining(project?.deliveryDate) < 7
-                    ? "bg-yellow-100 text-yellow-800"
-                    : "bg-green-100 text-green-800"
-                }`}
+                      ? "bg-yellow-100 text-yellow-800"
+                      : "bg-green-100 text-green-800"
+                  }`}
               >
                 {calculateDaysRemaining(project?.deliveryDate) < 0
                   ? `Overdue by ${Math.abs(
-                      calculateDaysRemaining(project?.deliveryDate)
-                    )} days`
+                    calculateDaysRemaining(project?.deliveryDate)
+                  )} days`
                   : `${calculateDaysRemaining(project?.deliveryDate)} days`}
               </p>
             </div>
@@ -303,6 +305,10 @@ const DetailsProjectModal = ({ onClose, project }: PropsTypes) => {
                 <p className="text-gray-600">
                   {project.ndaAgreement.length} NDA agreement(s) signed
                 </p>
+              </div>
+
+              <div>
+                <Image src={project.ndaAgreement?.[0]} alt="nda" width={1000} height={1000} className="h-28 w-28 mt-4" />
               </div>
             </div>
           )}
