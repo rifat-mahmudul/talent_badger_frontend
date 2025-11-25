@@ -89,7 +89,7 @@ const ActiveProjects = () => {
             <ProjectSkeleton />
           </>
         ) : (
-          activeProjects?.slice(0,5)?.map((data: Project) => (
+          activeProjects?.slice(0, 5)?.map((data: Project) => (
             <div
               key={data._id}
               className="border border-gray-300 p-4 rounded-lg space-y-6"
@@ -99,24 +99,27 @@ const ActiveProjects = () => {
                   <h2 className="text-primary/85 text-xl font-medium">
                     {data.title}
                   </h2>
-                  <p className="text-sm text-gray-600 mt-2 lg:max-w-md">
-                    {data.description}
-                  </p>
+
+                  <p
+                    className="text-sm text-gray-600 mt-2 lg:max-w-md"
+                    dangerouslySetInnerHTML={{
+                      __html: data.description,
+                    }}
+                  />
                 </div>
 
                 <button
                   className={`
                     text-xs font-semibold px-5 py-2 rounded-3xl
-                    ${
-                      data.status === "pending"
-                        ? "bg-yellow-100 text-yellow-700"
-                        : data.status === "in_progress"
+                    ${data.status === "pending"
+                      ? "bg-yellow-100 text-yellow-700"
+                      : data.status === "in_progress"
                         ? "bg-blue-100 text-blue-700"
                         : data.status === "completed"
-                        ? "bg-green-100 text-green-700"
-                        : data.status === "cancelled"
-                        ? "bg-red-100 text-red-700"
-                        : "bg-gray-100 text-gray-700"
+                          ? "bg-green-100 text-green-700"
+                          : data.status === "cancelled"
+                            ? "bg-red-100 text-red-700"
+                            : "bg-gray-100 text-gray-700"
                     }
                   `}
                 >

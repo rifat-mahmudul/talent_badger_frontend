@@ -104,7 +104,7 @@ export default function PaymentHistory() {
       (transfer) => transfer?.engineer === userId
     );
 
-    return userTransfer ? `$${(userTransfer.amount / 100).toFixed(2)}` : "-";
+    return userTransfer ? `$${(userTransfer.amount)}` : "-";
   };
 
   const getStatusStyle = (status: string): string => {
@@ -124,12 +124,12 @@ export default function PaymentHistory() {
     }
   };
 
-  const formatCurrency = (amount: number, currency: string = "usd"): string => {
-    return new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: currency.toUpperCase(),
-    }).format(amount / 100);
-  };
+  // const formatCurrency = (amount: number, currency: string = "usd"): string => {
+  //   return new Intl.NumberFormat("en-US", {
+  //     style: "currency",
+  //     currency: currency.toUpperCase(),
+  //   }).format(amount / 100);
+  // };
 
   if (sessionStatus === "loading" || isLoading) {
     return (
@@ -222,9 +222,7 @@ export default function PaymentHistory() {
                 </TableCell>
 
                 <TableCell className="text-sm text-[#424242] font-medium text-center">
-                  {item?.amount
-                    ? formatCurrency(item.amount, item.currency)
-                    : "-"}
+                ${item?.amount}
                 </TableCell>
 
                 <TableCell className="text-sm text-[#424242] font-medium text-center">

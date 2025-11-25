@@ -102,7 +102,7 @@ export default function Home() {
   };
 
   return (
-    <div>
+    <div className="mb-[20px]">
       <Hero
         title1="Unlock the"
         colorTitile="Future Where Ideas Take Flight"

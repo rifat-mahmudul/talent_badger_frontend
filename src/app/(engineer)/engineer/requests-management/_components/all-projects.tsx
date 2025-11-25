@@ -260,15 +260,9 @@ const AllProjects = () => {
                 <div className="mt-5 p-4 bg-green-50 rounded-lg">
                   <div className="flex items-center justify-between">
                     <div>
-                      <h5 className="text-gray-600">Total Paid</h5>
+                      <h5 className="text-gray-600">Total Project Cost</h5>
                       <p className="font-medium text-green-700">
                         {formatCurrency(project.totalPaid)}
-                      </p>
-                    </div>
-                    <div>
-                      <h5 className="text-gray-600">Used Amount</h5>
-                      <p className="font-medium text-green-700">
-                        {formatCurrency(project.usedAmount)}
                       </p>
                     </div>
                   </div>

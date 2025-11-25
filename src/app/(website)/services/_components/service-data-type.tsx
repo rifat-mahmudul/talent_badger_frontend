@@ -1,3 +1,12 @@
+export interface BadgeItem {
+  _id: string;
+  lavel: number;
+  badge: string[];
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+}
+
 export interface UserItem {
   _id: string;
   email: string;
@@ -9,7 +18,7 @@ export interface UserItem {
   profileImage: string;
   professionTitle: string;
   bio: string;
-  rate?: number | null;            // sometimes null, sometimes number
+  rate?: number | null;
   skills: string[];
   expertise: string[];
   industry: string;
@@ -19,22 +28,23 @@ export interface UserItem {
   balance: number;
   totalEarned: number;
   completedProjectsCount: number;
-  totalRating: number;
-  ratingCount: number;
+  totalRating?: number;
+  ratingCount?: number;
   avgRating: number;
-  badge: string[];                 // array of strings
+  badge?: string[] | BadgeItem;
   level: number;
   ismanager: boolean;
   createdAt: string;
   updatedAt: string;
   __v: number;
   lastLogin: string;
-  experience?: number | null;      // null or number
+  experience?: number | null;
   gitHubLink?: string;
   phone?: string;
   cv?: string;
   certifications?: string;
   stripeAccountId?: string;
+  lavelUpdateRequest?: boolean;
 }
 
 export interface UsersMeta {
@@ -50,4 +60,3 @@ export interface ServiceApiResponse {
   meta: UsersMeta;
   data: UserItem[];
 }
-
