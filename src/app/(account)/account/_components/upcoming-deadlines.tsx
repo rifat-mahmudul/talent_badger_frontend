@@ -118,20 +118,23 @@ const UpcomingDeadlines = () => {
                   })}
                 </div>
               </div>
-              <p className="text-xs font-normal leading-[150%] text-[#68706A] py-2">
-                {item?.description}
-              </p>
-             <div className="w-full flex items-center justify-between">
-               <div className="flex items-center gap-3">
-                <button className="bg-[#E6EBEB] text-[10px] text-[#00383B] font-normal leading-[150%] py-1 px-6 rounded-full">
-                  {item?.status}
-                </button>
-                {/* <p className='text-xs font-normal text-[#9E9E9E] leading-[150%]'>Started 2 weeks ago</p> */}
+              <p
+                className="text-xs font-normal leading-[150%] text-[#68706A] py-2"
+                dangerouslySetInnerHTML={{
+                  __html: item?.description || "",
+                }}
+              />
+              <div className="w-full flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <button className="bg-[#E6EBEB] text-[10px] text-[#00383B] font-normal leading-[150%] py-1 px-6 rounded-full">
+                    {item?.status}
+                  </button>
+                  {/* <p className='text-xs font-normal text-[#9E9E9E] leading-[150%]'>Started 2 weeks ago</p> */}
+                </div>
+                <div>
+                  <button className="bg-[#FEE2E2] py-1 px-2 rounded-full text-base font-medium leading-[16px] text-[#991B1B]">{moment(item?.createdAt).format("DD / MM / YYYY")}</button>
+                </div>
               </div>
-              <div>
-                <button className="bg-[#FEE2E2] py-1 px-2 rounded-full text-base font-medium leading-[16px] text-[#991B1B]">{moment(item?.createdAt).format("DD / MM / YYYY")}</button>
-              </div>
-             </div>
             </div>
           );
         })}

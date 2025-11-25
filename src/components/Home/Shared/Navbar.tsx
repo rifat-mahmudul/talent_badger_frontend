@@ -453,7 +453,7 @@ export function Navbar() {
             ) : (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" className="p-0 border-none">
+                  <Button variant="ghost" className="p-0 border-none hover:bg-inherit gap-1">
                     <Avatar className="w-10 h-10">
                       {session.data.user?.profileImage ? (
                         <AvatarImage src={session.data.user.profileImage} />

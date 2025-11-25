@@ -31,7 +31,10 @@ export function DashboardSidebar({ isCollapsed }: DashboardSidebarProps) {
   const [isMobileOpen, setIsMobileOpen] = React.useState(false);
 
   const { data: session, status } = useSession();
+
   const role = (session?.user as { role?: string } | undefined)?.role;
+  const ismanager = (session?.user as { ismanager?: boolean } | undefined)?.ismanager;
+
   const isLoading = status === "loading";
 
   const getNavigation = () => {
@@ -43,7 +46,7 @@ export function DashboardSidebar({ isCollapsed }: DashboardSidebarProps) {
       { name: "Client Dashboard", href: "/account", icon: LayoutPanelLeft },
       { name: "My Team", href: "/account/my-team", icon: User2 },
       { name: "Call Booking", href: "/account/call-booking", icon: PhoneCall },
-      { name: "Settings", href: "/account/setting", icon: Settings },
+      { name: "Settings", href: "/account/settings", icon: Settings },
     ];
 
     const engineerRoutes = [
@@ -58,11 +61,18 @@ export function DashboardSidebar({ isCollapsed }: DashboardSidebarProps) {
         href: "/engineer/requests-management",
         icon: BookAudio,
       },
-      {
-        name: "Manager",
-        href: "/engineer/manager",
-        icon: Users,
-      },
+
+      // 👇 SHOW ONLY WHEN ismanager === true
+      ...(ismanager
+        ? [
+          {
+            name: "Manager",
+            href: "/engineer/manager",
+            icon: Users,
+          },
+        ]
+        : []),
+
       {
         name: "Payment History",
         href: "/engineer/settings/payment-history",

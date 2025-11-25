@@ -40,6 +40,7 @@ export const authOptions: NextAuthOptions = {
           );
 
           const response = await res.json();
+          console.log("response", response);
           if (!res.ok || !response?.success) {
             throw new Error(response?.message || "Login failed");
           }
@@ -52,6 +53,7 @@ export const authOptions: NextAuthOptions = {
             email: user.email,
             phoneNumber: user.phoneNumber,
             role: user.role,
+            ismanager: user.ismanager,
             profileImage: user.profileImage,
             accessToken,
           };
@@ -74,6 +76,7 @@ export const authOptions: NextAuthOptions = {
         token.id = user.id;
         token.name = user.name;
         token.email = user.email;
+        token.ismanager = user.ismanager;
         token.phoneNumber = user.phoneNumber;
         token.role = user.role;
         token.profileImage = user.profileImage;
@@ -88,6 +91,7 @@ export const authOptions: NextAuthOptions = {
         id: token.id,
         name: token.name,
         email: token.email,
+        ismanager: token.ismanager,
         phoneNumber: token.phoneNumber,
         role: token.role,
         profileImage: token.profileImage,

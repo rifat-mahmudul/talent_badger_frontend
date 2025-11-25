@@ -129,6 +129,7 @@ export function SideSetting() {
 
       return data?.data;
     },
+    enabled: !!token,
   });
 
   return (
