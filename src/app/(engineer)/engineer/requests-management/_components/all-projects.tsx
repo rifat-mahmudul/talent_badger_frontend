@@ -165,10 +165,11 @@ const AllProjects = () => {
               className={`
             text-sm font-medium px-5 py-2 rounded-lg
             transition-all
-            ${isActive
-                  ? "bg-primary text-white shadow"
-                  : "bg-primary/10 text-gray-600"
-                }
+            ${
+              isActive
+                ? "bg-primary text-white shadow"
+                : "bg-primary/10 text-gray-600"
+            }
           `}
             >
               {item.label}
@@ -198,9 +199,10 @@ const AllProjects = () => {
                     Client: {project.client.firstName} {project.client.lastName}
                   </p>
 
-                  <p className="text-xs font-normal text-[#9A9EA2] leading-[150%] pt-1"
-                    dangerouslySetInnerHTML={{ __html: project.description }} />
-
+                  <p
+                    className="text-xs font-normal text-[#9A9EA2] leading-[150%] pt-1"
+                    dangerouslySetInnerHTML={{ __html: project.description }}
+                  />
                 </div>
 
                 <div>{getStatusBadge(project.status)}</div>
@@ -218,12 +220,17 @@ const AllProjects = () => {
                 </div>
               </div>
 
-              <div className="flex items-center justify-between mt-5 lg:max-w-xs">
+              <div className="flex items-center justify-between mt-5 lg:max-w-md">
                 <div>
                   <h5 className="text-gray-500">Duration</h5>
                   <p className="font-medium">
                     {calculateDuration(project.startDate, project.deliveryDate)}
                   </p>
+                </div>
+
+                <div>
+                  <h5 className="text-gray-500">Total Project Value</h5>
+                  <p className="font-medium">$ {project.totalPaid}</p>
                 </div>
 
                 <div>
