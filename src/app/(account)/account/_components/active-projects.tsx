@@ -72,63 +72,67 @@ const ActiveProjects = () => {
     });
 
   console.log(data);
-  
-let content ;
-  if(isLoading){
-    <div>
-      <ActiveProjectsSkeleton/>
-    </div>
-  }
-  else if(isError){
+
+  let content;
+  if (isLoading) {
     content = (
       <div>
-        <ErrorContainer message={error?.message || "Something went wrong"}/>
+        <ActiveProjectsSkeleton />
       </div>
-    )
-  }
-  else if(data && data?.data && data?.data?.length === 0){
+    );
+  } else if (isError) {
     content = (
-        <NotFound message="Oops! No data available. Modify your filters or check your internet connection." />
-    )
-  }
-  else if(data && data?.data && data?.data?.length > 0){
+      <div>
+        <ErrorContainer message={error?.message || "Something went wrong"} />
+      </div>
+    );
+  } else if (data && data?.data && data?.data?.length === 0) {
+    content = (
+      <NotFound message="Oops! No data available. Modify your filters or check your internet connection." />
+    );
+  } else if (data && data?.data && data?.data?.length > 0) {
     content = (
       <div className="p-5 h-[290px] overflow-y-auto scrollbar-hide">
-          {data?.data?.map((item) => {
-            return (
-              <div
-                key={item?._id}
-                className="p-4 bg-white border-[1px] border-[#EEEEEE] shadow-lg rounded-lg mb-5"
-              >
-                <div className="w-full flex items-center justify-between">
-                  <h5 className="text-sm text-[#147575] font-medium leading-[150%]">
-                    {item?.title || ""}
-                  </h5>
-                  <div className="flex items-center gap-2">
-                    {item?.approvedEngineers?.map((img) => {
-                      return <Image
+        {data?.data?.map((item) => {
+          return (
+            <div
+              key={item?._id}
+              className="p-4 bg-white border-[1px] border-[#EEEEEE] shadow-lg rounded-lg mb-5"
+            >
+              <div className="w-full flex items-center justify-between">
+                <h5 className="text-sm text-[#147575] font-medium leading-[150%]">
+                  {item?.title || ""}
+                </h5>
+                <div className="flex items-center gap-2">
+                  {item?.approvedEngineers?.map((img) => {
+                    return (
+                      <Image
                         key={img?._id}
-                        src={img?.profileImage || "/images/no-user.jpeg"} 
+                        src={img?.profileImage || "/images/no-user.jpeg"}
                         alt={img?.firstName}
                         width={24}
                         height={24}
                         className="w-6 h-6 rounded-full"
                       />
-                    })}
-                  </div>
-                </div>
-                <p dangerouslySetInnerHTML={{__html:item?.description}} className="text-xs font-normal leading-[150%] text-[#68706A] py-2"/>
-                <div className="flex items-center gap-3">
-                  <button className="bg-[#E6EBEB] text-[10px] text-[#00383B] font-normal leading-[150%] py-1 px-6 rounded-full">
-                    {item?.status}
-                  </button>
-                  {/* <p className='text-xs font-normal text-[#9E9E9E] leading-[150%]'>Started 2 weeks ago</p> */}
+                    );
+                  })}
                 </div>
               </div>
-            );
-          })}
-        </div>
-    )
+              <p
+                dangerouslySetInnerHTML={{ __html: item?.description }}
+                className="text-xs font-normal leading-[150%] text-[#68706A] py-2"
+              />
+              <div className="flex items-center gap-3">
+                <button className="bg-[#E6EBEB] text-[10px] text-[#00383B] font-normal leading-[150%] py-1 px-6 rounded-full">
+                  {item?.status}
+                </button>
+                {/* <p className='text-xs font-normal text-[#9E9E9E] leading-[150%]'>Started 2 weeks ago</p> */}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    );
   }
   return (
     <div className="py-6">
@@ -137,9 +141,7 @@ let content ;
           Active Projects
         </h4>
 
-        <div>
-          {content}
-        </div>
+        <div>{content}</div>
       </div>
     </div>
   );

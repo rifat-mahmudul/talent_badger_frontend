@@ -9,11 +9,24 @@ import ErrorContainer from "@/components/shared/ErrorContainer/ErrorContainer";
 import NotFound from "@/components/shared/NotFound/NotFound";
 import { ArrowRight } from "lucide-react";
 import ServicePagination from "../../services/_components/services-pagination";
+import ViewProjectInfo from "./view-project";
+import AllEngineers from "./all-engineers";
+// import { toast } from "sonner";
+// import { EngineerDatatype } from "./engineer-data-type";
 
 const ActiveProjects = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [isEngineerModal, setIsEngineerModal] = useState(false);
+  // const [selectedTeam, setSelectedTeam] = useState<EngineerDatatype[]>([]);
+  const [projectId, setProjectId] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const session = useSession();
   const token = (session?.data?.user as { accessToken: string })?.accessToken;
+
+
+  // console.log("selected Team", selectedTeam)
+
+
 
   const { data, isLoading, isError, error } =
     useQuery<ActiveProjectApiResponse>({
@@ -38,18 +51,22 @@ const ActiveProjects = () => {
 
   let content;
   if (isLoading) {
-    <div>
-      <ActiveProjectsSkeleton />
-    </div>;
-  } else if (isError) {
     content = (
       <div>
+        <ActiveProjectsSkeleton />
+      </div>
+    );
+  } else if (isError) {
+    content = (
+      <div className="pt-6">
         <ErrorContainer message={error?.message || "Something went wrong"} />
       </div>
     );
   } else if (data && data?.data && data?.data?.length === 0) {
     content = (
-      <NotFound message="Oops! No data available. Modify your filters or check your internet connection." />
+      <div className="pt-5">
+        <NotFound message="Oops! No data available. Modify your filters or check your internet connection." />
+      </div>
     );
   } else if (data && data?.data && data?.data?.length > 0) {
     content = (
@@ -139,6 +156,14 @@ const ActiveProjects = () => {
                     </p>
                   </div>
                 </div>
+                <div className="pb-4">
+                  <span
+                    className={`inline-flex items-center px-3 py-1.5 rounded-full text-xs font-medium border ${statusColor}`}
+                  >
+                    <span className="w-2 h-2 bg-current rounded-full mr-2" />
+                    {item?.status || "Unknown"}
+                  </span>
+                </div>
 
                 {/* Progress Bar */}
                 <div className="mb-5">
@@ -156,14 +181,23 @@ const ActiveProjects = () => {
 
                 {/* Footer: Status + Action */}
                 <div className="flex items-center justify-between">
-                  <span
-                    className={`inline-flex items-center px-3 py-1.5 rounded-full text-xs font-medium border ${statusColor}`}
+                  <button
+                    onClick={() => {
+                      setIsEngineerModal(true);
+                      setProjectId(item?._id);
+                    }}
+                    className="flex items-center gap-2 bg-gradient-to-r from-[#00383B] to-[#005A5A] text-white font-medium text-sm px-6 py-2.5 rounded-xl hover:shadow-lg transform hover:scale-105 transition-all duration-200"
                   >
-                    <span className="w-2 h-2 bg-current rounded-full mr-2" />
-                    {item?.status || "Unknown"}
-                  </span>
+                    Add Engineer
+                  </button>
 
-                  <button className="flex items-center gap-2 bg-gradient-to-r from-[#00383B] to-[#005A5A] text-white font-medium text-sm px-6 py-2.5 rounded-xl hover:shadow-lg transform hover:scale-105 transition-all duration-200">
+                  <button
+                    onClick={() => {
+                      setIsOpen(true);
+                      setProjectId(item?._id);
+                    }}
+                    className="flex items-center gap-2 bg-gradient-to-r from-[#00383B] to-[#005A5A] text-white font-medium text-sm px-6 py-2.5 rounded-xl hover:shadow-lg transform hover:scale-105 transition-all duration-200"
+                  >
                     View Project <ArrowRight className="w-4 h-4" />
                   </button>
                 </div>
@@ -178,18 +212,47 @@ const ActiveProjects = () => {
     <div>
       <div>
         <div>
-            <h2 className="text-3xl text-center pt-5">Active Projects</h2>
+          <h2 className="text-3xl text-center pt-5">Active Projects</h2>
         </div>
-        {content}</div>
+        {content}
+      </div>
       <div className="p-2">
-       <ServicePagination
-            page={currentPage}
-            limit={data?.meta?.limit || 2}
-            total={data?.meta?.total || 0}
-            onPageChange={(page) => {
-              setCurrentPage(page);
-            }}
+        <ServicePagination
+          page={currentPage}
+          limit={data?.meta?.limit || 2}
+          total={data?.meta?.total || 0}
+          onPageChange={(page) => {
+            setCurrentPage(page);
+          }}
+        />
+      </div>
+
+      {/* view project modal  */}
+      <div>
+        {isOpen && (
+          <ViewProjectInfo
+            open={isOpen}
+            onOpenChange={(open: boolean) => setIsOpen(open)}
+            projectId={projectId}
           />
+        )}
+      </div>
+
+      {/* project modal  */}
+      <div>
+        {isEngineerModal && (
+          <AllEngineers
+            open={isEngineerModal}
+            onOpenChange={(open: boolean) => setIsEngineerModal(open)}
+            projectId={projectId}
+            // onSubmit={(members) => {
+            //   setSelectedTeam(members);
+            //   toast.success(
+            //     `${members.length} engineers added to your project!`
+            //   );
+            // }}
+          />
+        )}
       </div>
     </div>
   );

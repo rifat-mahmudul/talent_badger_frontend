@@ -34,4 +34,9 @@ export const useTeamStore = create<TeamState>((set) => ({
     localStorage.removeItem("myTeam");
     return { team: [] };
   },
+  removeMultipleMembers: (ids: string[]) => {
+  set((state) => ({
+    team: state.team.filter((member) => !ids.includes(member._id)),
+  }));
+},
 }));

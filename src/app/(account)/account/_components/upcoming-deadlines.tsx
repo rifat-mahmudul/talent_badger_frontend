@@ -77,9 +77,11 @@ const UpcomingDeadlines = () => {
   console.log(data);
   let content;
   if (isLoading) {
-    <div>
-      <ActiveProjectsSkeleton />
-    </div>;
+    content = (
+      <div>
+        <ActiveProjectsSkeleton />
+      </div>
+    );
   } else if (isError) {
     content = (
       <div>
@@ -132,7 +134,9 @@ const UpcomingDeadlines = () => {
                   {/* <p className='text-xs font-normal text-[#9E9E9E] leading-[150%]'>Started 2 weeks ago</p> */}
                 </div>
                 <div>
-                  <button className="bg-[#FEE2E2] py-1 px-2 rounded-full text-base font-medium leading-[16px] text-[#991B1B]">{moment(item?.createdAt).format("DD / MM / YYYY")}</button>
+                  <button className="bg-[#FEE2E2] py-1 px-2 rounded-full text-base font-medium leading-[16px] text-[#991B1B]">
+                    {moment(item?.createdAt).format("DD / MM / YYYY")}
+                  </button>
                 </div>
               </div>
             </div>
