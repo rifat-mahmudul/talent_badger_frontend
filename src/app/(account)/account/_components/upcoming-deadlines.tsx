@@ -108,7 +108,7 @@ const UpcomingDeadlines = () => {
                     return (
                       <Image
                         key={img?._id}
-                        src={img?.profileImage}
+                        src={img?.profileImage || "/images/no-user.jpeg"}
                         alt={img?.firstName}
                         width={24}
                         height={24}

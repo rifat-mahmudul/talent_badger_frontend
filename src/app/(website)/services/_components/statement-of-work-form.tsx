@@ -124,6 +124,7 @@ const StatementOfWorkForm = ({
       setPreviewFiles([]);
       clearTeam();
       onOpenChange(false);
+      window.location.reload();
       
     },
   });
@@ -157,6 +158,7 @@ const StatementOfWorkForm = ({
 
     mutate(formData);
     setConfirmModal(false);
+    clearTeam();
   };
 
   return (

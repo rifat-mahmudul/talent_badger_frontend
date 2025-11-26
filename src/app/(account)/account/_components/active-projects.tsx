@@ -72,6 +72,7 @@ const ActiveProjects = () => {
     });
 
   console.log(data);
+  
 let content ;
   if(isLoading){
     <div>
