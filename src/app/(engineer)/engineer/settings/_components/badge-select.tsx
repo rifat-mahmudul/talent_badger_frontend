@@ -14,6 +14,7 @@ import React, { useEffect, useState, useMemo } from "react";
 import Image from "next/image";
 import { toast } from "sonner";
 import { useProfileQuery } from "@/hooks/apiCalling";
+import { Button } from "@/components/ui/button"; // Import button
 
 const BadgeSelect = ({ token }: { token: string }) => {
   const [selectedBadge, setSelectedBadge] = useState("");
@@ -45,7 +46,7 @@ const BadgeSelect = ({ token }: { token: string }) => {
     return getProfile.data?.data?.badge;
   }, [getProfile.data?.data?.badge]);
 
-  const { mutateAsync } = useMutation({
+  const { mutateAsync, isPending } = useMutation({
     mutationKey: ["request-badge"],
     mutationFn: async (id: string) => {
       const res = await fetch(
@@ -73,20 +74,27 @@ const BadgeSelect = ({ token }: { token: string }) => {
     },
   });
 
-  const handleBadgeSelect = async (badgeId: string) => {
-    setSelectedBadge(badgeId);
+  const handleRequest = async () => {
+    if (!selectedBadge) {
+      toast.error("Please select a badge");
+      return;
+    }
+
     try {
-      await mutateAsync(badgeId);
+      await mutateAsync(selectedBadge);
     } catch (error) {
       console.log(`error : ${error}`);
     }
   };
 
+  // Set default selected badge to current user's badge
   useEffect(() => {
-    if (badges.length > 0 && !selectedBadge) {
+    if (currentUserBadge?._id) {
+      setSelectedBadge(currentUserBadge._id);
+    } else if (badges.length > 0) {
       setSelectedBadge(badges[0]._id);
     }
-  }, [badges, selectedBadge]);
+  }, [currentUserBadge, badges]);
 
   // Get selected badge details
   const selectedBadgeDetails = useMemo(() => {
@@ -139,7 +147,7 @@ const BadgeSelect = ({ token }: { token: string }) => {
       {/* Badge Selection */}
       <div>
         <Label htmlFor="badge">Request New Badge</Label>
-        <Select value={selectedBadge} onValueChange={handleBadgeSelect}>
+        <Select value={selectedBadge} onValueChange={setSelectedBadge}>
           <SelectTrigger id="badge" className="h-12">
             {selectedBadgeDetails ? (
               <div className="flex items-center gap-2">
@@ -198,8 +206,17 @@ const BadgeSelect = ({ token }: { token: string }) => {
             )}
           </SelectContent>
         </Select>
+        
+        <Button 
+          onClick={handleRequest} 
+          disabled={isPending || !selectedBadge}
+          className="w-full mt-3"
+        >
+          {isPending ? "Requesting..." : "Request Badge"}
+        </Button>
+        
         <p className="text-sm text-muted-foreground mt-2">
-          Select a badge to request an upgrade
+          Select a badge and click &quot;Request&quot; Badge to upgrade
         </p>
       </div>
     </div>
