@@ -1,3 +1,12 @@
+export interface Badge {
+  _id: string;
+  name: string;
+  badge: string[];
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+}
+
 export interface UserProfile {
   _id: string;
   firstName: string;
@@ -26,7 +35,7 @@ export interface UserProfile {
   professionTitle: string;
   ratingCount: number;
   avgRating: number;
-  badge: string[];
+  badge: Badge | null; // Updated from string[] to Badge object
   level: number;
   createdAt: string;
   updatedAt: string;
@@ -36,6 +45,8 @@ export interface UserProfile {
   otpExpiry: string;
   stripeAccountId: string;
   __v: number;
+  badgeUpdateRequest?: boolean;
+  badgeRequest?: string | null;
 }
 
 export interface UserProfileResponse {
@@ -48,8 +59,6 @@ export interface UserProfileResponse {
 export interface ProfileUpdatePayload {
   firstName: string;
   lastName: string;
-
-  // email: string
   phone: string;
   address: string;
   designation: string;
@@ -58,7 +67,6 @@ export interface ProfileUpdatePayload {
 export interface EngineerProfileUpdatePayload {
   firstName: string;
   lastName: string;
-  // email: string
   address: string;
   designation: string;
   professionTitle: string;
