@@ -27,9 +27,9 @@ export interface Project {
   _id: string;
   title: string;
   description: string;
-  client: UserInfo;
-  engineers: UserInfo[];
-  approvedEngineers: UserInfo[];
+  client: ApprovedEngineer;
+  engineers: ApprovedEngineer[];
+  approvedEngineers: ApprovedEngineer[];
   status: "pending" | "in_progress" | "completed";
   totalPaid: number;
   ndaAgreement: string[];
@@ -44,12 +44,21 @@ export interface Project {
   __v: number;
 }
 
-export interface UserInfo {
+export interface Engineer {
   _id: string;
   email: string;
   firstName: string;
   lastName: string;
-  profileImage: string;
+  profileImage?: string;
+  professionTitle?: string;
+}
+
+export interface ApprovedEngineer {
+  engineer: Engineer;
+  status: string; // e.g., "approved"
+  isManager: boolean;
+  _id: string; // unique ID for this approvedEngineer record
+  progress: number;
 }
 
 const UpcomingDeadlines = () => {
@@ -112,8 +121,8 @@ const UpcomingDeadlines = () => {
                     return (
                       <Image
                         key={img?._id}
-                        src={img?.profileImage || "/images/no-user.jpeg"}
-                        alt={img?.firstName}
+                        src={img?.engineer?.profileImage || "/images/no-user.jpeg"}
+                        alt={img?.engineer?.firstName}
                         width={24}
                         height={24}
                         className="w-6 h-6 rounded-full"
