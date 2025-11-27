@@ -56,7 +56,7 @@ export function ProjectCard({ project }: { project: Project }) {
 
   return (
     <div>
-      <Card className="h-full md:h-[405px] relative flex flex-col overflow-hidden bg-white border-[1px] border-[#EEEEEE] shadow-lg rounded-[8px]">
+      <Card className="h-full md:h-[430px] relative flex flex-col overflow-hidden bg-white border-[1px] border-[#EEEEEE] shadow-lg rounded-[8px]">
         <CardHeader className="pb-4">
           <CardTitle className="text-base md:text-lg font-semibold text-[#343A40] leading-[150%]">
             {project.title}

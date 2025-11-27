@@ -23,9 +23,9 @@ export interface ProjectItem {
   _id: string;
   title: string;
   description: string;
-  client: UserProfile;
-  engineers: UserProfile[];
-  approvedEngineers: UserProfile[];
+  client: ApprovedEngineer;
+  engineers: ApprovedEngineer[];
+  approvedEngineers: ApprovedEngineer[];
   status: "pending" | "in_progress" | "completed" | "cancelled" | string; // backend-defined
   totalPaid: number;
   ndaAgreement: string[];
@@ -40,12 +40,21 @@ export interface ProjectItem {
   usedAmount?: number; // optional because first item has it, second too, but safe
 }
 
-export interface UserProfile {
+export interface Engineer {
   _id: string;
   email: string;
   firstName: string;
   lastName: string;
-  profileImage: string;
+  profileImage?: string;
+  professionTitle?: string;
+}
+
+export interface ApprovedEngineer {
+  engineer: Engineer;
+  status: string; // e.g., "approved"
+  isManager: boolean;
+  _id: string; // unique ID for this approvedEngineer record
+  progress: number;
 }
 
 const ActiveProjects = () => {
@@ -108,8 +117,8 @@ const ActiveProjects = () => {
                     return (
                       <Image
                         key={img?._id}
-                        src={img?.profileImage || "/images/no-user.jpeg"}
-                        alt={img?.firstName}
+                        src={img?.engineer?.profileImage || "/images/no-user.jpeg"}
+                        alt={img?.engineer?.firstName}
                         width={24}
                         height={24}
                         className="w-6 h-6 rounded-full"
@@ -120,7 +129,7 @@ const ActiveProjects = () => {
               </div>
               <p
                 dangerouslySetInnerHTML={{ __html: item?.description }}
-                className="text-xs font-normal leading-[150%] text-[#68706A] py-2"
+                className="text-xs font-normal leading-[150%] text-[#68706A] py-2 "
               />
               <div className="flex items-center gap-3">
                 <button className="bg-[#E6EBEB] text-[10px] text-[#00383B] font-normal leading-[150%] py-1 px-6 rounded-full">
