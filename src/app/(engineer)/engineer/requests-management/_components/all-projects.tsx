@@ -1,4 +1,3 @@
-
 "use client";
 import { Progress } from "@/components/ui/progress";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -149,9 +148,10 @@ const AllProjects = () => {
               onClick={() => setActiveCategory(item.status)}
               className={`
                 text-sm font-medium px-5 py-2 rounded-lg transition-all
-                ${isActive
-                  ? "bg-primary text-white shadow"
-                  : "bg-primary/10 text-gray-600 hover:bg-primary/20"
+                ${
+                  isActive
+                    ? "bg-primary text-white shadow"
+                    : "bg-primary/10 text-gray-600 hover:bg-primary/20"
                 }
               `}
             >
@@ -173,7 +173,9 @@ const AllProjects = () => {
             <p className="text-gray-500 text-lg">No projects found</p>
             <p className="text-gray-400 mt-2">
               {activeCategory
-                ? `You have no ${items.find(i => i.status === activeCategory)?.label.toLowerCase()} projects.`
+                ? `You have no ${items
+                    .find((i) => i.status === activeCategory)
+                    ?.label.toLowerCase()} projects.`
                 : "You don't have any projects at the moment."}
             </p>
           </div>
@@ -184,20 +186,17 @@ const AllProjects = () => {
               (eng) => eng._id === currentUserId
             );
 
-            // Check if current user already accepted
+            // Check if current user already accepted - FIXED
             const alreadyAccepted = project.approvedEngineers?.some(
-              (ae) => ae._id === currentUserId
+              (ae) => ae.engineer._id === currentUserId
             );
 
             // Show Accept/Decline button ONLY if:
             // 1. Project is pending
-            // 2. No one has accepted yet OR you haven't accepted
-            // 3. You are invited
+            // 2. Current user is invited
+            // 3. Current user hasn't accepted yet
             const showAcceptDecline =
-              project.status === "pending" &&
-              !alreadyAccepted &&
-              isInvited &&
-              project.approvedEngineers?.length === 0; // Optional: remove if multiple can accept
+              project.status === "pending" && isInvited && !alreadyAccepted;
 
             return (
               <div
@@ -210,7 +209,8 @@ const AllProjects = () => {
                       {project.title}
                     </h2>
                     <p className="text-gray-600 mt-2">
-                      Client: {project.client.firstName} {project.client.lastName}
+                      Client: {project.client.firstName}{" "}
+                      {project.client.lastName}
                     </p>
 
                     <div
@@ -225,11 +225,15 @@ const AllProjects = () => {
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-6 text-sm">
                   <div>
                     <p className="text-gray-500">Submitted</p>
-                    <p className="font-medium">{formatDate(project.createdAt)}</p>
+                    <p className="font-medium">
+                      {formatDate(project.createdAt)}
+                    </p>
                   </div>
                   <div>
                     <p className="text-gray-500">Start Date</p>
-                    <p className="font-medium">{formatDate(project.startDate)}</p>
+                    <p className="font-medium">
+                      {formatDate(project.startDate)}
+                    </p>
                   </div>
                   <div>
                     <p className="text-gray-500">Duration</p>
@@ -270,7 +274,9 @@ const AllProjects = () => {
                   <div className="mt-6 p-5 bg-green-50 rounded-lg border border-green-200">
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className="text-gray-600 font-medium">Project Completed</p>
+                        <p className="text-gray-600 font-medium">
+                          Project Completed
+                        </p>
                         <p className="text-2xl font-bold text-green-700">
                           {formatCurrency(project.totalPaid)}
                         </p>
