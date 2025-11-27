@@ -61,7 +61,7 @@ export function ProjectCard({ project }: { project: Project }) {
           <CardTitle className="text-base md:text-lg font-semibold text-[#343A40] leading-[150%]">
             {project.title}
           </CardTitle>
-          <p className="text-sm font-normal text-[#9A9EA2] leading-[150%] pt-1"
+          <p className="text-sm font-normal text-[#9A9EA2] leading-[150%] pt-1 line-clamp-2"
             dangerouslySetInnerHTML={{ __html: project.description }} />
 
         </CardHeader>
@@ -74,6 +74,7 @@ export function ProjectCard({ project }: { project: Project }) {
                 key={member._id}
                 member={member}
                 projectId={project._id}
+                manager={project}
 
               />
             ))}
