@@ -11,7 +11,14 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import BadgeSelect from "./badge-select";
 
 export function SideSetting() {
   const { data: session } = useSession();
@@ -113,32 +120,30 @@ export function SideSetting() {
     }
   };
 
-  const { mutateAsync: isAvailable, } =
-    useMutation({
-      mutationKey: ["stripe-setup"],
-      mutationFn: async (payload: { userstatus: string }) => {
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URL}/user/engineer-status`,
-          {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-            body: JSON.stringify(payload),
-          }
-        );
+  const { mutateAsync: isAvailable } = useMutation({
+    mutationKey: ["stripe-setup"],
+    mutationFn: async (payload: { userstatus: string }) => {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/user/engineer-status`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(payload),
+        }
+      );
 
-        return await res.json();
-      },
-      onSuccess: (data) => {
-        toast.success(data?.message);
-      },
-      onError: (error) => {
-        toast.success(error?.message);
-      },
-    });
-
+      return await res.json();
+    },
+    onSuccess: (data) => {
+      toast.success(data?.message);
+    },
+    onError: (error) => {
+      toast.success(error?.message);
+    },
+  });
 
   const { data: dashLink, isLoading } = useQuery({
     queryKey: ["stripe-dashboard"],
@@ -162,7 +167,7 @@ export function SideSetting() {
 
   const handleAvailabilityChange = (value: string) => {
     isAvailable({
-      userstatus: value
+      userstatus: value,
     });
   };
 
@@ -233,10 +238,10 @@ export function SideSetting() {
             value={
               profileData?.createdAt
                 ? new Date(profileData.createdAt).toLocaleDateString("en-US", {
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                })
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })
                 : "-"
             }
           />
@@ -274,12 +279,10 @@ export function SideSetting() {
           </div>
         </div>
 
-        {profileData?.role === "engineer" &&
-          <div className="space-y-2 mt-3">
+        {profileData?.role === "engineer" && (
+          <div className="space-y-2 mt-6">
             <Label htmlFor="industriesOfInterest">Your Availability</Label>
-            <Select
-              onValueChange={handleAvailabilityChange}
-            >
+            <Select onValueChange={handleAvailabilityChange}>
               <SelectTrigger id="industriesOfInterest">
                 <SelectValue placeholder={profileData?.userstatus} />
               </SelectTrigger>
@@ -289,9 +292,13 @@ export function SideSetting() {
               </SelectContent>
             </Select>
           </div>
-        }
+        )}
 
-
+        {profileData?.role === "engineer" && (
+          <div className="space-y-2 mt-6">
+            <BadgeSelect token={token} />
+          </div>
+        )}
       </div>
     </Card>
   );
