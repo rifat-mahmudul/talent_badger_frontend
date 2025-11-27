@@ -43,6 +43,7 @@ export interface UserProfile {
   lastLogin: string;
   otp: string;
   otpExpiry: string;
+  lavelUpdateRequest: boolean;
   stripeAccountId: string;
   __v: number;
   badgeUpdateRequest?: boolean;

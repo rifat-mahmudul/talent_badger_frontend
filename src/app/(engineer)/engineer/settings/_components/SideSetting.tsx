@@ -57,16 +57,13 @@ export function SideSetting() {
   const { mutateAsync, isPending: levelupPending } = useMutation({
     mutationKey: ["level-up-request"],
     mutationFn: async () => {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/badge/request`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/lavel`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       return await res.json();
     },
@@ -268,7 +265,7 @@ export function SideSetting() {
 
           <div className="mt-5">
             <Button
-              disabled={levelupPending}
+              disabled={levelupPending || profileData?.lavelUpdateRequest}
               className="disabled:cursor-not-allowed"
               onClick={handleLevelUp}
             >
