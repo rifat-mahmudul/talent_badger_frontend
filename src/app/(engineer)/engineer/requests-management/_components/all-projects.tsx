@@ -182,7 +182,7 @@ const AllProjects = () => {
         ) : (
           activeProjects.map((project) => {
             // Check if current user is invited to this project
-            const isInvited = project.engineers.some(
+            const isInvited = project?.engineers.some(
               (eng) => eng._id === currentUserId
             );
 
@@ -195,8 +195,7 @@ const AllProjects = () => {
             // 1. Project is pending
             // 2. Current user is invited
             // 3. Current user hasn't accepted yet
-            const showAcceptDecline =
-              project.status === "pending" && isInvited && !alreadyAccepted;
+            const showAcceptDecline = isInvited && !alreadyAccepted;
 
             return (
               <div
