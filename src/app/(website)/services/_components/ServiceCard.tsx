@@ -61,7 +61,7 @@ export default function ServiceCard({ data }: { data: UserItem }) {
           <div className="flex items-center gap-2 px-3 py-2 bg-[#E8F1F1] rounded-full border border-[#E8F1F1]">
             <Zap className="w-4 h-4 text-amber-500 flex-shrink-0" />
             <span className="text-sm font-medium text-[#147575] ">
-              {data?.skills?.join(" , ")}
+              {data?.skills?.slice(0,2)?.join(" , ")}
             </span>
           </div>
 

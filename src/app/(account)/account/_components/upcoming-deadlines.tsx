@@ -1,12 +1,13 @@
 "use client";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import ActiveProjectsSkeleton from "./ActiveProjectsSkeleton";
 import ErrorContainer from "@/components/shared/ErrorContainer/ErrorContainer";
 import NotFound from "@/components/shared/NotFound/NotFound";
 import { useSession } from "next-auth/react";
 import { useQuery } from "@tanstack/react-query";
 import moment from "moment";
+import DeleteEngineerModal from "./delete-engineer";
 
 export interface UpcomingProjectListResponse {
   statusCode: number;
@@ -54,7 +55,8 @@ export interface UserInfo {
 const UpcomingDeadlines = () => {
   const session = useSession();
   const token = (session?.data?.user as { accessToken: string })?.accessToken;
-
+  const [isdeleteEngineerModal, setIsDeleteEngineerModal] = useState(false);
+  const [projectId, setProjectId] = useState("");
   const { data, isLoading, error, isError } =
     useQuery<UpcomingProjectListResponse>({
       queryKey: ["upcoming-projects"],
@@ -127,9 +129,12 @@ const UpcomingDeadlines = () => {
                 }}
               />
               <div className="w-full flex items-center justify-between">
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-3 md:gap-6 lg:gap-10">
                   <button className="bg-[#E6EBEB] text-[10px] text-[#00383B] font-normal leading-[150%] py-1 px-6 rounded-full">
                     {item?.status}
+                  </button>
+                   <button onClick={()=>{setIsDeleteEngineerModal(true); setProjectId(item?._id) }} className="bg-[#FEE2E2] py-1 px-2 rounded-full text-base font-medium leading-[16px] text-[#991B1B]">
+                    Delete Engineer
                   </button>
                   {/* <p className='text-xs font-normal text-[#9E9E9E] leading-[150%]'>Started 2 weeks ago</p> */}
                 </div>
@@ -152,6 +157,15 @@ const UpcomingDeadlines = () => {
           Upcoming Deadlines
         </h4>
         <div>{content}</div>
+      </div>
+
+      {/* delete engineer modal  */}
+      <div>
+        {
+          isdeleteEngineerModal && (
+            <DeleteEngineerModal open={isdeleteEngineerModal} onOpenChange={(open:boolean)=>setIsDeleteEngineerModal(open)} projectId={projectId}/>
+          )
+        }
       </div>
     </div>
   );

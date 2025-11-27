@@ -66,7 +66,7 @@ export default function MyTeamContainer() {
 //   }
 
   return (
-    <main>
+    <main className="pb-20">
       <div className="pb-8 md:pb-10 w-full flex items-center justify-end">
         <div className="w-full md:w-[200px]">
           <CircuitdaddyDropdown

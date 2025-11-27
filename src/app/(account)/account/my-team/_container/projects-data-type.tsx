@@ -18,7 +18,7 @@ export interface Project {
   description: string;
   client: Client;
   engineers: Engineer[];
-  approvedEngineers: Engineer[];
+  approvedEngineers: ApprovedEngineer[];
   status: "pending" | "in_progress" | "completed";
   totalPaid: number;
   ndaAgreement: string[];
@@ -27,6 +27,7 @@ export interface Project {
   startDate: string;
   deliveryDate: string;
   usedAmount: number;
+  manager:boolean;
   lastUpdated: string;
   createdAt: string;
   updatedAt: string;
@@ -46,7 +47,14 @@ export interface Engineer {
   email: string;
   firstName: string;
   lastName: string;
-  profileImage: string;
-  professionTitle: string;
-  ismanager: boolean;
+  profileImage?: string;
+  professionTitle?: string;
+}
+
+export interface ApprovedEngineer {
+  engineer: Engineer;
+  status: string; // e.g., "approved"
+  isManager: boolean;
+  _id: string; // unique ID for this approvedEngineer record
+  progress: number;
 }

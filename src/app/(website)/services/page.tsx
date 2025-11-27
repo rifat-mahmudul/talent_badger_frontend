@@ -6,6 +6,7 @@ import ServiceCta from "./_components/ServiceCta";
 import ReadyToStart from "@/components/ReadyToStart";
 import AskQ from "../faqs/_components/AskQ";
 import ServiceContainer from "./_components/service-container";
+import HomepageBlog from "@/components/reusebale/HomepageBlog";
 
 const page = () => {
   return (
@@ -26,6 +27,18 @@ const page = () => {
         <BestConsultant />
         <ServiceContainer />
         <ServiceCta />
+        {/* Blog Section */}
+        <div className="container mx-auto py-10">
+          <div className="mb-[100px]">
+            <h2 className="text-center text-[#282828] font-bold text-[40px]">
+              Talent Badger <span className="text-[#147575]">Blog & Insights</span>
+            </h2>
+            <p className="text-[#9A9EA3] font-normal text-[16px] text-center">
+              Stay updated with expert tips, industry trends, and practical strategies to master recruitment and talent management.
+            </p>
+          </div>
+          <HomepageBlog />
+        </div>
         <ReadyToStart />
         <AskQ />
       </div>
