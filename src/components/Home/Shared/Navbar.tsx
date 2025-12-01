@@ -297,9 +297,8 @@
 
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X, ChevronDown, User, Heart } from "lucide-react";
+import { Menu, X, ChevronDown, User, Users } from "lucide-react";
 import { cn } from "@/lib/utils";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import LoginModal from "@/components/auth/LoginModal";
@@ -342,8 +341,25 @@ export function Navbar() {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between flex-wrap md:flex-nowrap">
           {/* Logo */}
-          <Link href="/" className="flex-shrink-0">
+          {/* <Link href="/" className="flex-shrink-0">
             <Image src="/logo.png" alt="Logo" width={180} height={60} />
+          </Link> */}
+
+          <Link href="/" className="flex-shrink-0 py-4">
+            <h5
+              className="
+      text-3xl 
+      font-extrabold 
+      bg-gradient-to-r 
+      from-[#0F595A] 
+      to-[#0F595A] 
+      text-transparent 
+      bg-clip-text
+      select-none
+    "
+            >
+              Talent Badger
+            </h5>
           </Link>
 
           {/* Desktop Navigation (xl screens only) */}
@@ -375,7 +391,7 @@ export function Navbar() {
             <div>
               {/* Heart Icon - Go to favourites page */}
               <Link href="/favourites" className="relative cursor-pointer">
-                <Heart className="w-6 h-6 text-[#147575]" />
+                <Users className="w-6 h-6 text-[#147575]" />
 
                 {mounted && team?.length > 0 && (
                   <span className="absolute -top-2 -right-2 bg-[#147575] text-white w-5 h-5 text-xs flex items-center justify-center rounded-full">

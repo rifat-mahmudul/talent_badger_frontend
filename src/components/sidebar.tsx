@@ -17,7 +17,6 @@ import {
   CreditCard,
   FolderPen,
 } from "lucide-react";
-import Image from "next/image";
 import React from "react";
 import { signOut, useSession } from "next-auth/react";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -199,20 +198,28 @@ export function DashboardSidebar({ isCollapsed }: DashboardSidebarProps) {
         )}
       >
         {/* Header */}
-        <div>
-          <Link href={"/"}>
-            <Image
-              src="/logo.png"
-              alt="logo"
-              width={1000}
-              height={1000}
-              className="object-contain h-[120px] w-[220px] mx-auto"
-            />
+        <div className="mt-10">
+          <Link href="/" className="flex-shrink-0  py-2 pt-10">
+            <h5
+              className="
+                text-3xl 
+                font-extrabold 
+                bg-gradient-to-r 
+                from-[#0F595A] 
+                text-center
+                to-[#0F595A] 
+                text-transparent 
+                bg-clip-text
+                select-none
+              "
+            >
+              Talent Badger
+            </h5>
           </Link>
         </div>
 
         {/* Navigation */}
-        <nav className="flex-1 scrollbar-none px-2 space-y-[12px] overflow-y-auto">
+        <nav className="flex-1 scrollbar-none px-2 mt-10 space-y-[12px] overflow-y-auto">
           {navigation.map((item) => {
             const isActive = pathname === item.href
             return (

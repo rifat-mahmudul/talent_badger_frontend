@@ -12,11 +12,11 @@ const page = () => {
   return (
     <div>
       <Hero
-        title1="Hire Excellence"
-        colorTitile="Where Breakthroughs"
-        title2="Begin"
+        title1="Engineering as a "
+        colorTitile="Service Expert Teams on Demand"
+        title2="to Accelerate Innovation."
         description="We connect companies with vetted engineering talent and cross-functional product teams—mechanical, electrical, firmware, software, data, and more—so you can build better products with less risk, lower cost, and faster timelines."
-        image="/heroimage2.jpg"
+        image="/service.jpg"
         buttonName1="Assemble Your Team"
         buttonName2="Help Me Build My Team "
         buttonHref1="/services"

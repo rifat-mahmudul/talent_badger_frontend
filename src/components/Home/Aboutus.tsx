@@ -19,8 +19,8 @@ const Aboutus = () => {
 
                     <span className='text-[#9A9EA2] font-normal text-[16px] '>We’re not just a talent platform — we’re your strategic growth partner, bridging the gap between vision and execution. Together, we build the teams that build the future.</span>
                 </div>
-                <div>
-                    <Image src="/aboutus.jpg" alt="logos" width={900} height={900} className='w-full h-full rounded-lg ' />
+                <div className='w-[600px] h-[400px]'>
+                    <Image src="/aboutus.png" alt="logos" width={900} height={900} className='w-full object-cover h-full rounded-lg ' />
                 </div>
             </div>
         </div>

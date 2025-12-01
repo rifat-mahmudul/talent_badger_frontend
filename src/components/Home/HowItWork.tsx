@@ -29,8 +29,8 @@ const HowItWork = () => {
                             <div className='w-[80px] h-[80px] mx-auto mb-2'>
                                 <Image src={"/icon2.png"} alt="how" width={900} height={900} />
                             </div>
-                            <h2 className='text-[#147575] font-semibold text-[20px] mb-2'>Post Your Need</h2>
-                            <p className='text-[#68706A] text-[16px]'>Find the best options tailored to your needs with filters for location, price, amenities, and services.</p>
+                            <h2 className='text-[#147575] font-semibold text-[20px] mb-2'>Hire the Right Expert</h2>
+                            <p className='text-[#68706A] text-[16px]'>Reach out to facilities without middlemen for faster, clearer communication.</p>
                         </div>
                     </CardContent>
                 </Card>
@@ -40,8 +40,8 @@ const HowItWork = () => {
                             <div className='w-[80px] h-[80px] mx-auto mb-2'>
                                 <Image src={"/icon3.png"} alt="how" width={900} height={900} />
                             </div>
-                            <h2 className='text-[#147575] font-semibold text-[20px] mb-2'>Post Your Need</h2>
-                            <p className='text-[#68706A] text-[16px]'>Find the best options tailored to your needs with filters for location, price, amenities, and services.</p>
+                            <h2 className='text-[#147575] font-semibold text-[20px] mb-2'>Collaborate Easily</h2>
+                            <p className='text-[#68706A] text-[16px]'>Schedule visits and confirm services easily through our platform.</p>
                         </div>
                     </CardContent>
                 </Card>
@@ -51,8 +51,8 @@ const HowItWork = () => {
                             <div className='w-[80px] h-[80px] mx-auto mb-2'>
                                 <Image src={"/icon4.png"} alt="how" width={900} height={900} />
                             </div>
-                            <h2 className='text-[#147575] font-semibold text-[20px] mb-2'>Post Your Need</h2>
-                            <p className='text-[#68706A] text-[16px]'>Find the best options tailored to your needs with filters for location, price, amenities, and services.</p>
+                            <h2 className='text-[#147575] font-semibold text-[20px] mb-2'>Connect Directly</h2>
+                            <p className='text-[#68706A] text-[16px]'>Schedule visits and confirm services easily through our platform.</p>
                         </div>
                     </CardContent>
                 </Card>

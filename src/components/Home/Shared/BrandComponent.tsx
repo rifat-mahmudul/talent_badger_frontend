@@ -10,7 +10,7 @@ const BrandComponent = () => {
                 <div className='flex gap-20 flex-wrap justify-center'>
                     <Image src="/logo1.png" alt="logos" width={900} height={900} className='w-16 h-14 ' />
                     <Image src="/logo2.png" alt="logos" width={900} height={900} className='w-16 h-14 ' />
-                    <Image src="/logo3.png" alt="logos" width={900} height={900} className='w-16 h-14 ' />
+                    <Image src="/logo3.png" alt="logos" width={900} height={900} className='w-52 h-10 ' />
                     <Image src="/logo4.png" alt="logos" width={900} height={900} className='w-16 h-14 ' />
                     <Image src="/logo5.png" alt="logos" width={900} height={900} className='w-16 h-14 ' />
                     <Image src="/logo6.png" alt="logos" width={900} height={900} className='w-16 h-14 ' />

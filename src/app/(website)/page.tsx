@@ -104,10 +104,10 @@ export default function Home() {
   return (
     <div className="mb-[20px]">
       <Hero
-        title1="Unlock the"
-        colorTitile="Future Where Ideas Take Flight"
-        title2="And Breakthroughs Begin"
-        description="Access a curated network of world-class consultants who bring expertise across every industry. Scale your team instantly, pay only for what you need, and enjoy a seamless experience from start to finish."
+        title1="Build Faster"
+        colorTitile="with On-Demand Engineering"
+        title2="Talent"
+        description="We connect companies with vetted engineering talent and cross-functional product teams—mechanical, electrical, firmware, software, data, and more—so you can build better products with less risk, lower cost, and faster timelines."
         image="/heroimage2.jpg"
         buttonName1="Assemble Your Team"
         buttonName2="Help Me Build My Team "
