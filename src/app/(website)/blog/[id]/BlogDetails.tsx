@@ -20,8 +20,8 @@ const BlogDetails = ({ id }: { id: string }) => {
         <div>
             <div className='container mx-auto px-4 py-10'>
                 <div>
-                    <div className=' w-full   relative mb-6'>
-                        <Image src={getSingelBLog.data?.data?.featuredImage || "/assets/images/blog/blog-1.png"} alt="blog" className='w-full h-[400px] rounded-lg object-cover' width={900} height={900} />
+                    <div className=' w-full    relative mb-6'>
+                        <Image src={getSingelBLog.data?.data?.featuredImage || "/assets/images/blog/blog-1.png"} alt="blog" className='w-full h-[500px] object-contain' width={900} height={900} />
                     </div>
                     <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500 mb-3">
                         <div className="flex items-center gap-1.5">
@@ -34,10 +34,10 @@ const BlogDetails = ({ id }: { id: string }) => {
                         </div>
                     </div>
                 </div>
-               <div className='mt-20'>
-                <h2 className='text-3xl font-semibold mb-4'>{getSingelBLog.data?.data?.title}</h2>
-                <div className='prose prose-sm md:prose-lg lg:prose-xl max-w-none' dangerouslySetInnerHTML={{__html: getSingelBLog.data?.data?.content || ""}}></div>
-               </div>
+                <div className='mt-20'>
+                    <h2 className='text-3xl font-semibold mb-4'>{getSingelBLog.data?.data?.title}</h2>
+                    <div className='prose prose-sm md:prose-lg lg:prose-xl max-w-none' dangerouslySetInnerHTML={{ __html: getSingelBLog.data?.data?.content || "" }}></div>
+                </div>
             </div>
         </div>
     )
