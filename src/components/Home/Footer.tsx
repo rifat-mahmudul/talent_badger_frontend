@@ -42,18 +42,32 @@ const Footer = () => {
         {/* Quick Links */}
         <div className="mt-10 flex flex-col items-center lg:items-start text-center lg:text-left">
           <p className="text-[#434C45] font-semibold mb-6">Quick Links</p>
-          <ul className="space-y-4">
-            <li className="text-[#434C45] font-medium text-[16px]">Home</li>
-            <li className="text-[#434C45] font-medium text-[16px]">Services</li>
-            <li className="text-[#434C45] font-medium text-[16px]">
-              Team Picker
-            </li>
-            <li className="text-[#434C45] font-medium text-[16px]">
-              Industries
-            </li>
-            <li className="text-[#434C45] font-medium text-[16px]">Blog</li>
-            <li className="text-[#434C45] font-medium text-[16px]">Contact</li>
-            <li className="text-[#434C45] font-medium text-[16px]">FAQ’S</li>
+          <ul className="space-y-3 flex flex-col">
+            <Link href="/">
+              <li className="text-[#434C45] font-medium text-[16px]">Home</li>
+            </Link>
+            <Link href="/services">
+              <li className="text-[#434C45] font-medium text-[16px]">Services</li>
+            </Link>
+            <Link href="/build-your-team">
+              <li className="text-[#434C45] font-medium text-[16px]">
+                Team Picker
+              </li>
+            </Link>
+            <Link href="/industries">
+              <li className="text-[#434C45] font-medium text-[16px]">
+                Industries
+              </li>
+            </Link>
+            <Link href="/blog">
+              <li className="text-[#434C45] font-medium text-[16px]">Blog</li>
+            </Link>
+            <Link href="/contactus">
+              <li className="text-[#434C45] font-medium text-[16px]">Contact</li>
+            </Link>
+            <Link href="/faqs">
+              <li className="text-[#434C45] font-medium text-[16px]">FAQ’S</li>
+            </Link>
           </ul>
         </div>
 
