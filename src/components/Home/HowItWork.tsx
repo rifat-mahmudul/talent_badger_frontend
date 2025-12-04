@@ -18,8 +18,8 @@ const HowItWork = () => {
                             <div className='w-[80px] h-[80px] mx-auto mb-2'>
                                 <Image src={"/searchIcon.png"} alt="how" width={900} height={900} />
                             </div>
-                            <h2 className='text-[#147575] font-semibold text-[20px] mb-2'>Post Your Need</h2>
-                            <p className='text-[#68706A] text-[16px]'>Find the best options tailored to your needs with filters for location, price, amenities, and services.</p>
+                            <h2 className='text-[#147575] font-semibold text-[20px] mb-2'>Share Your Project</h2>
+                            <p className='text-[#68706A] text-[16px]'>You fill out a short brief or hop on a 15-minute call. We capture goals, constraints, and budget.</p>
                         </div>
                     </CardContent>
                 </Card>
@@ -29,8 +29,8 @@ const HowItWork = () => {
                             <div className='w-[80px] h-[80px] mx-auto mb-2'>
                                 <Image src={"/icon2.png"} alt="how" width={900} height={900} />
                             </div>
-                            <h2 className='text-[#147575] font-semibold text-[20px] mb-2'>Hire the Right Expert</h2>
-                            <p className='text-[#68706A] text-[16px]'>Reach out to facilities without middlemen for faster, clearer communication.</p>
+                            <h2 className='text-[#147575] font-semibold text-[20px] mb-2'>Get a Curated Pod / Shortlist</h2>
+                            <p className='text-[#68706A] text-[16px]'>Within a few days, you receive 1–3 recommended pods or specialists, including skill badges, rates, and example scope.</p>
                         </div>
                     </CardContent>
                 </Card>
@@ -40,8 +40,8 @@ const HowItWork = () => {
                             <div className='w-[80px] h-[80px] mx-auto mb-2'>
                                 <Image src={"/icon3.png"} alt="how" width={900} height={900} />
                             </div>
-                            <h2 className='text-[#147575] font-semibold text-[20px] mb-2'>Collaborate Easily</h2>
-                            <p className='text-[#68706A] text-[16px]'>Schedule visits and confirm services easily through our platform.</p>
+                            <h2 className='text-[#147575] font-semibold text-[20px] mb-2'>Kick Off & Iterate</h2>
+                            <p className='text-[#68706A] text-[16px]'>You meet the team, refine scope, and start a sprint. We stay involved to keep delivery on track.</p>
                         </div>
                     </CardContent>
                 </Card>
@@ -57,7 +57,7 @@ const HowItWork = () => {
                     </CardContent>
                 </Card>
             </div>
-            
+
         </div>
     )
 }

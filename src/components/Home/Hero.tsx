@@ -7,6 +7,7 @@ import Image from "next/image";
 import BrandComponent from "./Shared/BrandComponent";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 
 interface HeroProps {
   title1: string;
@@ -47,7 +48,7 @@ const Hero: React.FC<HeroProps> = ({
           <div className="flex flex-col items-center md:items-start">
 
             {/* Avatar Row */}
-            {/* <div className="flex flex-row flex-wrap items-center justify-center md:justify-start mb-6 gap-2">
+            <div className="flex flex-row flex-wrap items-center justify-center md:justify-start mb-6 gap-2">
               <div className="flex -space-x-2 *:data-[slot=avatar]:ring-2 *:data-[slot=avatar]:ring-background *:data-[slot=avatar]:grayscale">
                 <Avatar className="w-8 h-8">
                   <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
@@ -64,9 +65,9 @@ const Hero: React.FC<HeroProps> = ({
               </div>
 
               <p className="text-[#8E938F] font-normal text-[14px]">
-                50k+ Satisfied Customers
+               10+ years engineering experience
               </p>
-            </div> */}
+            </div>
 
             {/* Title + Description */}
             <h1 className="text-[32px] sm:text-[40px] md:text-[56px] font-semibold leading-tight">
@@ -94,6 +95,7 @@ const Hero: React.FC<HeroProps> = ({
                 </Button>
               </Link>
             </div>
+            <p className="text-gray-600  text-center mt-4  ">Takes ~5 minutes. No commitment.</p>
           </div>
         </div>
 

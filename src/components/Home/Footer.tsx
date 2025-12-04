@@ -10,13 +10,7 @@ const Footer = () => {
       <div className="container mx-auto pb-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 lg:gap-[200px] text-white px-4">
         {/* Logo & Description */}
         <div className="flex flex-col items-center lg:items-start text-center lg:text-left">
-          {/* <Image
-            src="/logo.png"
-            alt="logo"
-            width={900}
-            height={900}
-            className="w-[200px] h-[100px] -ml-[50px] "
-          /> */}
+     
           <Link href="/" className="flex-shrink-0 py-2 pt-10">
             <h5
               className="
@@ -34,8 +28,7 @@ const Footer = () => {
             </h5>
           </Link>
           <p className="text-[#434C45] -ml-[10px]  ">
-            Empowering financial decisions through transparent credit scoring
-            and connecting borrowers with trusted lenders.
+            Talent Badger connects companies with curated engineering teams and specialists for hardware, firmware, and product development.
           </p>
         </div>
 

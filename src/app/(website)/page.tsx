@@ -51,8 +51,8 @@ export default function Home() {
         title2="Not Months"
         description="Talent Badger pairs companies with pre-vetted hardware, firmware, and product engineers — as complete pods or individual specialists — with transparent rates and guided scopes."
         image="/hero-cahnge1.png"
-        buttonName1="Assemble Your Team"
-        buttonName2="Help Me Build My Team "
+        buttonName1="I Need an Engineering Team"
+        buttonName2="I Need a Single Specialist"
         buttonHref1="/services"
         buttonHref2="/build-your-team"
       />
