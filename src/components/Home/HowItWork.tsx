@@ -1,5 +1,4 @@
 import React from 'react'
-import { Card, CardContent } from '../ui/card'
 import Image from 'next/image'
 
 const HowItWork = () => {
@@ -11,8 +10,8 @@ const HowItWork = () => {
                     <p className='text-[#9A9EA3] font-normal text-[16px]'>A simple process to match you with the right experts — fast, transparent, and fun.</p>
                 </div>
             </div>
-            <div className='grid grid-cols-1 md:grid-cols-4 gap-5'>
-                <Card className="overflow-hidden rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 bg-white">
+            <div className='grid grid-cols-1 md:grid-cols-3 gap-10'>
+                {/* <Card className="overflow-hidden rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 bg-white">
                     <CardContent className="p-5 space-y-2">
                         <div className='text-center'>
                             <div className='w-[80px] h-[80px] mx-auto mb-2'>
@@ -22,8 +21,11 @@ const HowItWork = () => {
                             <p className='text-[#68706A] text-[16px]'>You fill out a short brief or hop on a 15-minute call. We capture goals, constraints, and budget.</p>
                         </div>
                     </CardContent>
-                </Card>
-                <Card className="overflow-hidden rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 bg-white">
+                </Card> */}
+                <div>
+                    <Image src={"/talentbadgerwork.png"} alt="how" width={900} className='object-cover' height={900} />
+                </div>
+                {/* <Card className="overflow-hidden rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 bg-white">
                     <CardContent className="p-5 space-y-2">
                         <div className='text-center'>
                             <div className='w-[80px] h-[80px] mx-auto mb-2'>
@@ -55,7 +57,13 @@ const HowItWork = () => {
                             <p className='text-[#68706A] text-[16px]'>Schedule visits and confirm services easily through our platform.</p>
                         </div>
                     </CardContent>
-                </Card>
+                </Card> */}
+                   <div>
+                    <Image src={"/talentbadgerwork1.png"} alt="how" width={900} className='object-cover' height={900} />
+                </div>
+                  <div>
+                    <Image src={"/talentbadgerwork2.png"} alt="how" width={900} className='object-cover' height={900} />
+                </div>
             </div>
 
         </div>

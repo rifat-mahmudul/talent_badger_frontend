@@ -1,91 +1,3 @@
-// "use client"
-
-// import { Search } from "lucide-react"
-// import { Input } from "@/components/ui/input"
-// import { Button } from "@/components/ui/button"
-// import AskQ from "../../faqs/_components/AskQ"
-// import { useQuery } from "@tanstack/react-query"
-// import { ServiceApiResponse } from "../../services/_components/service-data-type"
-// import ServiceCard from "../../services/_components/ServiceCard"
-// import { Skeleton } from "@/components/ui/skeleton"
-
-// export default function CandidateFilter() {
-
-//     const { data, isLoading, isError } = useQuery<ServiceApiResponse>({
-//         queryKey: ["services-all"],
-//         queryFn: async () => {
-//             const res = await fetch(
-//                 `${process.env.NEXT_PUBLIC_BACKEND_URL}/user/all-user?role=engineer`,
-//                 { method: "GET", headers: { "Content-Type": "application/json" } }
-//             );
-//             return res.json();
-//         },
-//     });
-
-//     return (
-//         <div className="w-full container mx-auto px-4 py-8">
-
-//             {/* ---------- LOADING STATE ---------- */}
-//             {isLoading && (
-//                 <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6 my-10">
-//                     {[...Array(6)].map((_, idx) => (
-//                         <div key={idx} className="w-full p-4 border rounded-xl">
-//                             <Skeleton className="h-40 w-full rounded-lg" />
-//                             <Skeleton className="h-5 w-3/4 mt-4" />
-//                             <Skeleton className="h-4 w-1/2 mt-2" />
-//                             <Skeleton className="h-4 w-full mt-4" />
-//                         </div>
-//                     ))}
-//                 </div>
-//             )}
-
-//             {/* ---------- ERROR STATE ---------- */}
-//             {isError && (
-//                 <div className="text-center py-10">
-//                     <p className="text-red-600 text-lg font-semibold">
-//                         Failed to load candidates. Please try again later.
-//                     </p>
-//                 </div>
-//             )}
-
-//             {/* ---------- MAIN CONTENT ---------- */}
-//             {!isLoading && !isError && (
-//                 <>
-//                     <div className="flex flex-col lg:flex-row gap-3 items-stretch lg:items-center mb-8">
-//                         <div className="relative flex-1 min-w-0">
-//                             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
-//                             <Input
-//                                 type="text"
-//                                 placeholder="Search candidates"
-//                                 className="pl-10 h-11 border-gray-300 focus-visible:ring-teal-600"
-//                             />
-//                         </div>
-
-//                         <Button className="h-11 bg-[#147575] hover:bg-teal-700 text-white px-6 whitespace-nowrap">
-//                             Generate The Team
-//                         </Button>
-//                     </div>
-
-//                     <div className="space-y-2">
-//                         <h2 className="text-[40px] font-bold text-[#147575]">Four Candidates Are Selected</h2>
-//                         <p className="text-[#929292] text-[18px] leading-relaxed">
-//                             Meet a curated selection of trusted professionals whose expertise, reliability, and excellence set the benchmark in every project.
-//                         </p>
-//                     </div>
-
-//                     <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6 justify-items-center my-10">
-//                         {data?.data?.map((data, index) => (
-//                             <ServiceCard key={index} data={data} />
-//                         ))}
-//                     </div>
-
-//                     <AskQ />
-//                 </>
-//             )}
-//         </div>
-//     )
-// }
-
 "use client"
 
 import { Search } from "lucide-react"
@@ -100,9 +12,6 @@ import { useEffect, useState } from "react"
 
 export default function CandidateFilter() {
 
-    // -------------------------------------
-    // 🔍 Search State + Debounce
-    // -------------------------------------
     const [search, setSearch] = useState("")
     const [debouncedSearch, setDebouncedSearch] = useState("")
 
@@ -140,7 +49,7 @@ export default function CandidateFilter() {
                         placeholder="Search candidates"
                         className="pl-10 h-11 border-gray-300 focus-visible:ring-teal-600"
                         value={search}
-                        onChange={(e) => setSearch(e.target.value)} // 🔥 update search
+                        onChange={(e) => setSearch(e.target.value)} 
                     />
                 </div>
 
@@ -149,7 +58,6 @@ export default function CandidateFilter() {
                 </Button>
             </div>
 
-            {/* ---------- LOADING ---------- */}
             {isLoading && (
                 <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6 my-10">
                     {[...Array(6)].map((_, idx) => (
@@ -180,7 +88,7 @@ export default function CandidateFilter() {
                         </p>
                     </div>
 
-                    <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6 justify-items-center my-10">
+                    <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-6 justify-items-center my-10">
                         {data?.data?.length ? (
                             data.data.map((user, i) => (
                                 <ServiceCard key={i} data={user} />
