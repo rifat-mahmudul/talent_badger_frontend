@@ -164,7 +164,7 @@ const StatementOfWorkForm = ({
   return (
     <div>
       <Dialog open={open} onOpenChange={onOpenChange}>
-        <DialogContent className="max-w-3xl">
+        <DialogContent className="max-w-4xl">
           <DialogHeader>
             <DialogTitle className="text-2xl md:text-3xl lg:text-4xl font-semibold text-[#147575] leading-[150%]">
               SOW (Statement of Work)
@@ -226,11 +226,12 @@ const StatementOfWorkForm = ({
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="text-base font-semibold text-[#343A40] leading-[150%]">
-                        Project Budget
+                        Project Budget $
                       </FormLabel>
                       <FormControl>
                         <Input
                           type="number"
+                            min={0}
                           className="w-full h-[49px] py-3 px-4 rounded-[8px] border-[1px] border-[#CBD5E1] placeholder:text-[#B7B7B7]"
                           placeholder="Project budget"
                           {...field}
@@ -249,11 +250,12 @@ const StatementOfWorkForm = ({
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="text-base font-semibold text-[#343A40] leading-[150%]">
-                        Project Time Line
+                        Project Time Line (in weeks)
                       </FormLabel>
                       <FormControl>
                         <Input
                           type="number"
+                          min={0}
                           className="w-full h-[49px] py-3 px-4 rounded-[8px] border-[1px] border-[#CBD5E1] placeholder:text-[#B7B7B7]"
                           placeholder="project timeline"
                           {...field}

@@ -34,8 +34,8 @@ export function Navbar() {
 
   const navItems = [
     { name: "Home", href: "/" },
-    { name: "Services", href: "/services" },
-    { name: "Team", href: "/build-your-team" },
+    { name: "For Companies", href: "/services" },
+    { name: "For Engineers", href: "/build-your-team" },
     { name: "Industries", href: "/industries" },
     { name: "Blog", href: "/blog" },
     { name: "Contact", href: "/contactus" },
