@@ -73,6 +73,15 @@ export default function ServiceCard({ data }: { data: UserItem }) {
         </div>
       </div>
 
+      <div>
+        {/* BIO */}
+        <div className="mt-4">
+          <p className="text-gray-500 text-xs">
+            {data?.bio ? data.bio.slice(0, 60) + (data.bio.length > 60 ? "..." : "") : "No bio available."}
+          </p>
+        </div>
+      </div>
+
       {/* SKILLS */}
       <div className="flex flex-wrap gap-2 mt-5">
         {data?.skills?.slice(0, 3)?.map((skill, i) => (

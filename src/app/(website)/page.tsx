@@ -58,9 +58,6 @@ export default function Home() {
       />
 
       <div className="px-4 md:px-0">
-        <TopServices />
-        <Aboutus />
-        <HowItWork />
         <div className="container mx-auto my-[120px]">
           <div className="pb-4 md:pb-6">
             <h2 className='text-[#147575] font-bold text-[40px] mb-4'>Explore Our Curated Talent Pool</h2>
@@ -68,6 +65,10 @@ export default function Home() {
           </div>
           <TeamBuilderService />
         </div>
+        <TopServices />
+        <Aboutus />
+        <HowItWork />
+
         <ReadyToStart />
         <div className="container mx-auto">
           <div className='mb-[60px]'>
