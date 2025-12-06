@@ -60,6 +60,9 @@ const UpdateProgress = ({ projectId, token }: Props) => {
       <Input
         onChange={(e) => setProgress(e.target.value)}
         placeholder="Update"
+        min={0}
+        max={100}
+        type="number"
         className="w-[110px]"
       />
       <Button
