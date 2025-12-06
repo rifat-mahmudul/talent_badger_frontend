@@ -42,6 +42,8 @@ const States = () => {
     staleTime: 5 * 60 * 1000,
   });
 
+  console.log(states)
+
   // Show skeleton when session is loading OR when query is loading/fetching
   const showSkeleton = sessionStatus === "loading" || isLoading || isFetching;
 
@@ -64,8 +66,8 @@ const States = () => {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
       <StateCard title="Active Projects" value={states?.totalActiveProject || 0} image="/state-1.png" />
-      <StateCard title="Completed Projects" value={states?.totalPandingProject || 0} image="/state-2.png" />
-      <StateCard title="Pending Requests" value={states?.totalCompletedProject || 0} image="/state-3.png" />
+      <StateCard title="Pending Projects" value={states?.totalPandingProject || 0} image="/state-2.png" />
+      <StateCard title="Completed Projects" value={states?.totalCompletedProject || 0} image="/state-3.png" />
       <StateCard title="Upcoming Meeting" value={states?.upcomingMeeting || 0} image="/state-3.png" />
       <StateCard title="Upcoming Deadline" value={states?.upcomingDeadlines || 0} image="/state-3.png" />
     </div>
