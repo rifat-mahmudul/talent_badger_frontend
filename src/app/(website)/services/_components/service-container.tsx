@@ -49,7 +49,7 @@ const ServiceContainer = () => {
     );
   } else if (data && data?.data && data?.data?.length > 0) {
     content = (
-      <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-6 justify-items-center my-10">
+      <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-1 gap-6 justify-items-center my-10">
         {data?.data?.map((item, index) => (
           <ServiceCard key={index} data={item} />
         ))}

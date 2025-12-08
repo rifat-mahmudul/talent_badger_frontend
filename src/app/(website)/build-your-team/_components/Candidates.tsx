@@ -88,7 +88,7 @@ export default function CandidateFilter() {
                         </p>
                     </div>
 
-                    <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-6 justify-items-center my-10">
+                    <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-1 gap-6 justify-items-center my-10">
                         {data?.data?.length ? (
                             data.data.map((user, i) => (
                                 <ServiceCard key={i} data={user} />
