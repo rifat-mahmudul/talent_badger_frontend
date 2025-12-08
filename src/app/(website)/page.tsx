@@ -60,8 +60,8 @@ export default function Home() {
       <div className="px-4 md:px-0">
         <div className="container mx-auto my-[120px]">
           <div className="pb-4 md:pb-6">
-            <h2 className='text-[#147575] font-bold text-[40px] mb-4'>Explore Our Curated Talent Pool</h2>
-            <p className="text-[#929292] font-normal text-[18px]">Every engineer is vetted for technical depth, communication, and reliable delivery. Here’s a sample.</p>
+            <h2 className='text-[#147575] font-bold lg:text-[40px] text-xl  mb-4'>Explore Our Curated Talent Pool</h2>
+            <p className="text-[#929292] font-normal lg:text-[18px] text-xs">Every engineer is vetted for technical depth, communication, and reliable delivery. Here’s a sample.</p>
           </div>
           <TeamBuilderService />
         </div>

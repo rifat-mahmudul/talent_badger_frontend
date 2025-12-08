@@ -91,15 +91,15 @@ export default function ServiceCard({ data }: { data: UserItem }) {
       </div>
 
       {/* BADGES */}
-      <div className="flex items-center gap-4 mt-4 flex-wrap">
-        {Array.isArray(data?.badge) && data.badge.length > 0 ? (
-          data.badge.map((item, index) => (
-            <div key={index} className="flex items-center gap-2">
+      <div className="flex items-center gap-4  mt-4 flex-wrap">
+        {Array.isArray(data?.badge) && data?.badge?.length > 0 ? (
+          data?.badge?.map((item, index) => (
+            <div key={index} className="flex items-centerrounded-lg gap-2">
               {/* Badge image (first image of each badge group) */}
-              {Array.isArray(item.badge) && item.badge.length > 0 && (
+              {Array.isArray(item?.badge) && item?.badge?.length > 0 && (
                 <Image
-                  src={item.badge[0]}
-                  alt={item.name}
+                  src={item?.badge[0]}
+                  alt={item?.name}
                   width={30}
                   height={30}
                   className="rounded-full"
@@ -119,17 +119,17 @@ export default function ServiceCard({ data }: { data: UserItem }) {
 
       {/* RATE & PROJECTS */}
       <div className="mt-5 space-y-2">
-        {data?.rate != null && data.rate > 0 && (
+        {data?.rate != null && data?.rate > 0 && (
           <p className="flex items-center gap-1 text-sm text-gray-700">
             <DollarSign className="w-4 h-4 text-teal-600" />
-            ${data.rate}/hr
+            ${data?.rate}/hr
           </p>
         )}
 
         {data?.completedProjectsCount > 0 && (
           <p className="flex items-center gap-1 text-sm text-gray-700">
             <Award className="w-4 h-4 text-yellow-600" />
-            {data.completedProjectsCount} Projects Completed
+            {data?.completedProjectsCount} Projects Completed
           </p>
         )}
       </div>
