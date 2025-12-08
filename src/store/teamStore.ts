@@ -1,11 +1,12 @@
 "use client";
 
-import { UserItem } from "@/app/(website)/services/_components/service-data-type";
+import { SingleUser } from "@/app/(website)/services/[id]/_components/IndividualService";
+// import { UserItem } from "@/app/(website)/services/_components/service-data-type";
 import { create } from "zustand";
 
 interface TeamState {
-  team: UserItem[];
-  addMember: (member: UserItem) => void;
+  team: SingleUser[];
+  addMember: (member: SingleUser) => void;
   removeMember: (_id: string) => void;
   clearTeam: () => void;
 }
@@ -15,7 +16,7 @@ export const useTeamStore = create<TeamState>((set) => ({
     ? JSON.parse(localStorage.getItem("myTeam") || "[]") 
     : [],
   
-  addMember: (member: UserItem) =>
+  addMember: (member: SingleUser) =>
     set((state) => {
       if (state.team.find((m) => m._id === member._id)) return state;
       const newTeam = [...state.team, member].slice(-10); // max 10 members

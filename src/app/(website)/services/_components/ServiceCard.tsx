@@ -1,4 +1,4 @@
-
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { BarChart3, Award, DollarSign, CheckCircle2 } from "lucide-react";
 import Image from "next/image";
@@ -21,28 +21,26 @@ export default function ServiceCard({ data }: { data: UserItem }) {
       toast.error("Team is full! Remove someone to add a new member.");
       return;
     }
-    addMember(data);
+    addMember({ ...data, rate: data.rate ?? null, userstatus: data.userstatus as "available" | "busy" | "inactive" });
     toast.success(`${data.firstName} added to your team!`);
   };
 
   return (
-    <div className="w-full max-w-[380px] bg-white rounded-2xl shadow-lg border flex  flex-col justify-between border-gray-200 p-5">
+    <div className="w-full max-w-[380px] bg-white rounded-2xl shadow-lg border flex flex-col justify-between border-gray-200 p-5">
 
       {/* TOP: AVATAR + INFO */}
       <div className="flex items-start gap-5">
 
-        {/* Avatar with soft teal circle */}
-        <div className="relative  ">
+        <div className="relative">
           <Image
             src={data?.profileImage || "/avatar.png"}
             alt={data?.firstName}
             width={130}
             height={130}
-            className="w-32 h-32 rounded-full object-cover border-2  border-white shadow"
+            className="w-32 h-32 rounded-full object-cover border-2 border-white shadow"
           />
         </div>
 
-        {/* Right Content */}
         <div className="flex-1">
           <h2 className="text-xl font-semibold text-gray-900">
             {data?.firstName} {data?.lastName}
@@ -52,7 +50,6 @@ export default function ServiceCard({ data }: { data: UserItem }) {
             {data?.professionTitle}
           </p>
 
-          {/* Experience */}
           {data?.experience && (
             <p className="text-sm text-gray-500 mt-2 flex items-center gap-1">
               <BarChart3 className="w-4 h-4 text-blue-500" />
@@ -60,7 +57,6 @@ export default function ServiceCard({ data }: { data: UserItem }) {
             </p>
           )}
 
-          {/* Status */}
           <p className="text-sm text-gray-700 mt-1">
             {data?.userstatus === "available" ? (
               <span className="text-green-600 font-medium flex items-center gap-1">
@@ -73,18 +69,18 @@ export default function ServiceCard({ data }: { data: UserItem }) {
         </div>
       </div>
 
-      <div>
-        {/* BIO */}
-        <div className="mt-4">
-          <p className="text-gray-500 text-xs">
-            {data?.bio ? data.bio.slice(0, 60) + (data.bio.length > 60 ? "..." : "") : "No bio available."}
-          </p>
-        </div>
+      {/* BIO */}
+      <div className="mt-4">
+        <p className="text-gray-500 text-xs">
+          {data?.bio
+            ? data.bio.slice(0, 60) + (data.bio.length > 60 ? "..." : "")
+            : "No bio available."}
+        </p>
       </div>
 
       {/* SKILLS */}
       <div className="flex flex-wrap gap-2 mt-5">
-        {data?.skills?.slice(0, 3)?.map((skill, i) => (
+        {data?.skills?.slice(0, 3).map((skill, i) => (
           <span
             key={i}
             className="px-3 py-1 bg-teal-50 text-teal-700 text-xs font-medium rounded-full border border-teal-100"
@@ -95,25 +91,33 @@ export default function ServiceCard({ data }: { data: UserItem }) {
       </div>
 
       {/* BADGES */}
-      <div className="flex gap-2 mt-4">
-        {(Array.isArray(data?.badge)
-          ? data.badge
-          : Array.isArray(data?.badge?.badge)
-            ? data.badge.badge
-            : []
-        )?.map((url: string, i: number) => (
-          <Image
-            key={i}
-            src={url}
-            alt="badge"
-            width={30}
-            height={30}
-            className="rounded-full"
-          />
-        ))}
+      <div className="flex items-center gap-4 mt-4 flex-wrap">
+        {Array.isArray(data?.badge) && data.badge.length > 0 ? (
+          data.badge.map((item, index) => (
+            <div key={index} className="flex items-center gap-2">
+              {/* Badge image (first image of each badge group) */}
+              {Array.isArray(item.badge) && item.badge.length > 0 && (
+                <Image
+                  src={item.badge[0]}
+                  alt={item.name}
+                  width={30}
+                  height={30}
+                  className="rounded-full"
+                />
+              )}
+
+              {/* Badge Name */}
+              <span className="text-sm font-medium text-gray-700">
+                {item.name}
+              </span>
+            </div>
+          ))
+        ) : (
+          <span className="text-sm text-gray-500">No badges available</span>
+        )}
       </div>
 
-      {/* RATE + PROJECTS */}
+      {/* RATE & PROJECTS */}
       <div className="mt-5 space-y-2">
         {data?.rate != null && data.rate > 0 && (
           <p className="flex items-center gap-1 text-sm text-gray-700">
