@@ -2,6 +2,7 @@ export interface BadgeItem {
   _id: string;
   lavel: number;
   badge: string[];
+  name: string;
   createdAt: string;
   updatedAt: string;
   __v: number;
@@ -9,7 +10,7 @@ export interface BadgeItem {
 
 export interface UserItem {
   _id: string;
-  userstatus:string
+  userstatus: string;
   email: string;
   password: string;
   role: string;
@@ -32,7 +33,7 @@ export interface UserItem {
   totalRating?: number;
   ratingCount?: number;
   avgRating: number;
-  badge?: string[] | BadgeItem;
+  badge?: BadgeItem[]; // <-- CHANGE HERE
   level: number;
   ismanager: boolean;
   createdAt: string;

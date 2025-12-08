@@ -41,6 +41,7 @@ const BadgeSelect = ({ token }: { token: string }) => {
     return badgesResponse.data?.data || [];
   }, [badgesResponse.data?.data]);
 
+
   // Get current user's badge from profile
   const currentUserBadge = useMemo(() => {
     return getProfile.data?.data?.badge;
@@ -117,7 +118,7 @@ const BadgeSelect = ({ token }: { token: string }) => {
   return (
     <div className="space-y-4">
       {/* Current Badge Display */}
-      {currentUserBadge && (
+      {/* {currentUserBadge && (
         <div className="p-4 border rounded-lg bg-muted/50">
           <Label className="text-sm font-medium mb-2 block">
             Current Badge
@@ -142,7 +143,7 @@ const BadgeSelect = ({ token }: { token: string }) => {
             </div>
           </div>
         </div>
-      )}
+      )} */}
 
       {/* Badge Selection */}
       <div>
@@ -206,15 +207,15 @@ const BadgeSelect = ({ token }: { token: string }) => {
             )}
           </SelectContent>
         </Select>
-        
-        <Button 
-          onClick={handleRequest} 
+
+        <Button
+          onClick={handleRequest}
           disabled={isPending || !selectedBadge}
           className="w-full mt-3"
         >
           {isPending ? "Requesting..." : "Request Badge"}
         </Button>
-        
+
         <p className="text-sm text-muted-foreground mt-2">
           Select a badge and click &quot;Request&quot; Badge to upgrade
         </p>

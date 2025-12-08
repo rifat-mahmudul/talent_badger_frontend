@@ -32,7 +32,6 @@ export function SideSetting() {
   const [imageUrl, setImageUrl] = useState("");
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const queryClient = useQueryClient();
-
   // Set existing profile image once data is loaded
   useEffect(() => {
     if (profileData?.profileImage) {
@@ -175,7 +174,6 @@ export function SideSetting() {
   if (getProfile.isLoading) {
     return <SideSettingSkeleton />;
   }
-
   return (
     <Card className="w-full max-w-[408px] overflow-hidden border-0 shadow-lg">
       <div
@@ -229,16 +227,18 @@ export function SideSetting() {
           <p className="text-sm text-gray-500">{profileData?.role}</p>
         </div>
 
-        <div className="flex items-center justify-center gap-2 mb-6">
-          {profileData?.badge?.badge.map((item, index) => (
-            <Image
-              key={index}
-              src={item}
-              alt="img.png"
-              width={1000}
-              height={1000}
-              className="h-12 w-12 rounded-full"
-            />
+        <div className="flex items-center justify-center gap-4 mb-6">
+          {Array.isArray(profileData?.badge) && profileData.badge.map((item, index) => (
+            <div key={index} className="text-center">
+              <Image
+                src={item.badge[0]} // Display the first badge image
+                alt={`Badge ${index}`}
+                width={100} // Size of the image
+                height={100} // Size of the image
+                className="h-12 w-12 rounded-full"
+              />
+              <p className="text-xs text-gray-600 mt-2">{item.name}</p> {/* Display the badge name */}
+            </div>
           ))}
         </div>
 
@@ -256,10 +256,10 @@ export function SideSetting() {
             value={
               profileData?.createdAt
                 ? new Date(profileData.createdAt).toLocaleDateString("en-US", {
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                  })
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })
                 : "-"
             }
           />
