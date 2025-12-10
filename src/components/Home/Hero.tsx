@@ -106,7 +106,7 @@ const Hero: React.FC<HeroProps> = ({
             alt="Hero Image"
             width={1200}
             height={600}
-            className="rounded-xl w-full h-[250px] sm:h-[400px] md:h-[600px]  object-center"
+            className="rounded-xl object-contain w-full h-[250px] sm:h-[400px] md:h-[600px]  "
           />
         </div>
       </div>
