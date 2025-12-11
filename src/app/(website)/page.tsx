@@ -1,6 +1,3 @@
-
-
-
 'use client';
 
 import Aboutus from "@/components/Home/Aboutus";
@@ -23,7 +20,7 @@ export default function Home() {
     const hasSeenNewsletter = localStorage.getItem('newsletter_shown');
 
     if (!hasSeenNewsletter) {
-      // Random delay between 10 and 30 seconds
+   
       const minDelay = 10_000; // 10 sec
       const maxDelay = 30_000; // 30 sec
       const randomDelay = Math.random() * (maxDelay - minDelay) + minDelay;
@@ -66,8 +63,8 @@ export default function Home() {
           <TeamBuilderService />
         </div>
         <TopServices />
-        <Aboutus />
-        <HowItWork />
+        <Aboutus/>
+        <HowItWork/>
 
         <ReadyToStart />
         <div className="container mx-auto">
@@ -76,7 +73,7 @@ export default function Home() {
             <p className='text-[#9A9EA3] font-normal text-[16px] text-center'>Our consultants bring real-world experience from top sectors to solve your toughest challenges.</p>
           </div>
           <div>
-            <ApiIndustry />
+            <ApiIndustry/>
           </div>
         </div>
         <AskQ />
