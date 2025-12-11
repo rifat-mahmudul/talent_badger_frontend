@@ -16,7 +16,7 @@ const BrandComponent = () => {
                     <Image src={logo3} alt="logos" width={900} height={900} className='w-24 h-16 object-contain' />
                     <Image src={logo4} alt="logos" width={900} height={900} className='w-16 h-14 ' />
                     {/* <Image src="/logo5.png" alt="logos" width={900} height={900} className='w-16 h-14 ' /> */}
-                    <Image src={logo5} alt="logos" width={900} height={900} className='w-16 h-14 ' />
+                    <Image src={logo5} alt="logos" width={900} height={900} className='w-28 h-12 ' />
                 </div>
             </div>
         </div>

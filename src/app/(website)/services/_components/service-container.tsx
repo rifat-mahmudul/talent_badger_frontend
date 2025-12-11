@@ -1,21 +1,32 @@
+
 "use client";
 
-import React, { useState } from "react";
+import React, { useRef, useEffect } from "react";
 import ServiceCard from "./ServiceCard";
-import { useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import { ServiceApiResponse } from "./service-data-type";
 import DashboardCardsSkeleton from "@/app/(account)/account/_components/dashboard-header-skeleton";
 import ErrorContainer from "@/components/shared/ErrorContainer/ErrorContainer";
 import NotFound from "@/components/shared/NotFound/NotFound";
-import ServicePagination from "./services-pagination";
+
+const LIMIT = 2;
 
 const ServiceContainer = () => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const { data, isLoading, error, isError } = useQuery<ServiceApiResponse>({
-    queryKey: ["services-all", currentPage],
-    queryFn: async () => {
+  const loadMoreRef = useRef<HTMLDivElement | null>(null);
+  const {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    isLoading,
+    isError,
+    error,
+  } = useInfiniteQuery<ServiceApiResponse>({
+    queryKey: ["services-all"],
+    initialPageParam: 1,
+    queryFn: async ({ pageParam = 1 }) => {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/user/all-user?role=engineer&page=${currentPage}&limit=9`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/user/all-user?role=engineer&page=${pageParam}&limit=${LIMIT}`,
         {
           method: "GET",
           headers: {
@@ -25,54 +36,78 @@ const ServiceContainer = () => {
       );
       return res.json();
     },
+    getNextPageParam: (lastPage, pages) => {
+      const current = pages?.length; // current page index
+      const totalPages = Math.ceil((lastPage?.meta?.total || 0) / LIMIT);
+
+      if (current < totalPages) return current + 1;
+      return undefined;
+    },
   });
 
-  // console.log(data)
+  // 🔥 Intersection Observer - auto fetch next page
+  useEffect(() => {
+    if (!loadMoreRef.current) return;
 
-  let content;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && hasNextPage) {
+          fetchNextPage();
+        }
+      },
+      { threshold: 1 }
+    );
 
+    observer.observe(loadMoreRef.current);
+
+    return () => observer.disconnect();
+  }, [hasNextPage, fetchNextPage]);
+
+  // 🧙 Flatten all pages’ data
+  const services = data?.pages.flatMap((page) => page?.data || []);
+
+  // Loading state
   if (isLoading) {
-    content = (
-      <div>
+    return (
+      <div className="mt-6">
         <DashboardCardsSkeleton />
       </div>
     );
-  } else if (isError) {
-    content = (
-      <div className="">
-        <ErrorContainer message={error?.message || "Someting went wrong"} />
-      </div>
+  }
+
+  // Error state
+  if (isError) {
+    return (
+      <ErrorContainer
+        message={error?.message || "Something went wrong fetching services."}
+      />
     );
-  } else if (data && data?.data && data?.data?.length === 0) {
-    content = (
-      <NotFound message="Oops! No data available. Modify your filters or check your internet connection." />
+  }
+
+  // Empty state
+  if (!services || services.length === 0) {
+    return (
+      <NotFound message="Oops! No services found. Try again later." />
     );
-  } else if (data && data?.data && data?.data?.length > 0) {
-    content = (
-      <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-1 gap-6 justify-items-center my-10">
-        {data?.data?.map((item, index) => (
+  }
+
+  return (
+    <div className="my-10">
+      {/* All Data */}
+      <div className="grid lg:grid-cols-3 md:grid-cols-3 grid-cols-1 gap-6 justify-items-center">
+        {services.map((item, index) => (
           <ServiceCard key={index} data={item} />
         ))}
       </div>
-    );
-  }
-  return (
-    <div>
-      {content}
 
-      <div>
-        <div className="p-8">
-          {data && data?.meta && data?.meta?.page > 1 && (
-            <ServicePagination
-              page={currentPage}
-              limit={data?.meta?.limit || 9}
-              total={data?.meta?.total || 0}
-              onPageChange={(page) => {
-                setCurrentPage(page);
-              }}
-            />
-          )}
-        </div>
+      {/* Loader for infinite scroll */}
+      <div ref={loadMoreRef} className="flex justify-center py-6">
+        {isFetchingNextPage && (
+          <DashboardCardsSkeleton />
+        )}
+        {!hasNextPage && (
+          <p className="text-center text-gray-500">No more data</p>
+        )}
       </div>
     </div>
   );
