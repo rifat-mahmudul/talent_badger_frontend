@@ -123,7 +123,9 @@ const TeamBuilderService = () => {
   let content;
 
   if (isLoading) {
-    content = <DashboardCardsSkeleton />;
+    content = Array.from({ length: 3 }, (_, index) => (
+      <DashboardCardsSkeleton key={index} />
+    ));
   } else if (isError) {
     content = (
       <ErrorContainer message={error?.message || "Something went wrong"} />
