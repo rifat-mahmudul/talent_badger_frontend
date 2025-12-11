@@ -22,7 +22,7 @@ const ServiceContainer = () => {
     isError,
     error,
   } = useInfiniteQuery<ServiceApiResponse>({
-    queryKey: ["services-all"],
+    queryKey: ["services-all", LIMIT],
     initialPageParam: 1,
     queryFn: async ({ pageParam = 1 }) => {
       const res = await fetch(
