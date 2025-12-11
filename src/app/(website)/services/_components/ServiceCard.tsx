@@ -1,11 +1,32 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { BarChart3, Award, DollarSign, CheckCircle2 } from "lucide-react";
+import { BarChart3, CheckCircle2, DollarSign } from "lucide-react";
 import Image from "next/image";
 import { UserItem } from "./service-data-type";
 import Link from "next/link";
 import { toast } from "sonner";
 import { useTeamStore } from "@/store/teamStore";
+
+
+const badgeColors = [
+  "bg-red-100 text-red-800",
+  "bg-blue-100 text-blue-800",
+  "bg-green-100 text-green-800",
+  "bg-yellow-100 text-yellow-800",
+  "bg-purple-100 text-purple-800",
+  "bg-pink-100 text-pink-800",
+  "bg-teal-100 text-teal-800",
+  "bg-orange-100 text-orange-800",
+  "bg-indigo-100 text-indigo-800",
+  "bg-cyan-100 text-cyan-800",
+  "bg-lime-100 text-lime-800",
+  "bg-amber-100 text-amber-800",
+  "bg-emerald-100 text-emerald-800",
+  "bg-fuchsia-100 text-fuchsia-800",
+  "bg-violet-100 text-violet-800",
+  "bg-sky-100 text-sky-800",
+];
+
 
 export default function ServiceCard({ data }: { data: UserItem }) {
   const addMember = useTeamStore((state) => state.addMember);
@@ -26,7 +47,7 @@ export default function ServiceCard({ data }: { data: UserItem }) {
   };
 
   return (
-    <div className="w-full max-w-[380px] bg-white rounded-2xl shadow-lg border flex flex-col justify-between border-gray-200 p-5">
+    <div className="w-full max-w-[480px] bg-white rounded-2xl shadow-lg border flex flex-col justify-between border-gray-200 p-5">
 
       {/* TOP: AVATAR + INFO */}
       <div className="flex items-start gap-5">
@@ -41,7 +62,7 @@ export default function ServiceCard({ data }: { data: UserItem }) {
           />
         </div>
 
-        <div className="flex-1">
+        <div className="flex-2 space-y-2">
           <h2 className="text-xl font-semibold text-gray-900">
             {data?.firstName} {data?.lastName}
           </h2>
@@ -66,6 +87,12 @@ export default function ServiceCard({ data }: { data: UserItem }) {
               <span className="text-red-600 font-medium">Not Available</span>
             )}
           </p>
+          {data?.rate != null && data?.rate > 0 && (
+            <p className="flex items-center gap-1 text-sm text-gray-700">
+              <DollarSign className="w-4 h-4 text-teal-600" />
+              ${data?.rate}/hr
+            </p>
+          )}
         </div>
       </div>
 
@@ -76,6 +103,40 @@ export default function ServiceCard({ data }: { data: UserItem }) {
             ? data.bio.slice(0, 60) + (data.bio.length > 60 ? "..." : "")
             : "No bio available."}
         </p>
+      </div>
+
+      {/* BADGES */}
+      <div className="flex items-center gap-2 mt-4 flex-wrap">
+        {Array.isArray(data?.badge) && data?.badge?.length > 0 ? (
+          data?.badge?.map((item, index) => {
+            const color = badgeColors[index % badgeColors.length];
+
+            return (
+              <div
+                key={index}
+                className={`flex items-center gap-2 px-3 py-1 rounded-lg border ${color}`}
+              >
+                {/* Badge image */}
+                {Array.isArray(item?.badge) && item?.badge?.length > 0 && (
+                  <Image
+                    src={item.badge[0]}
+                    alt={item.name}
+                    width={28}
+                    height={28}
+                    className="rounded-full border"
+                  />
+                )}
+
+                {/* Badge name */}
+                <span className="text-sm font-medium">
+                  {item.name}
+                </span>
+              </div>
+            );
+          })
+        ) : (
+          <span className="text-sm text-gray-500">No badges available</span>
+        )}
       </div>
 
       {/* SKILLS */}
@@ -90,49 +151,6 @@ export default function ServiceCard({ data }: { data: UserItem }) {
         ))}
       </div>
 
-      {/* BADGES */}
-      <div className="flex items-center gap-4  mt-4 flex-wrap">
-        {Array.isArray(data?.badge) && data?.badge?.length > 0 ? (
-          data?.badge?.map((item, index) => (
-            <div key={index} className="flex items-centerrounded-lg gap-2">
-              {/* Badge image (first image of each badge group) */}
-              {Array.isArray(item?.badge) && item?.badge?.length > 0 && (
-                <Image
-                  src={item?.badge[0]}
-                  alt={item?.name}
-                  width={30}
-                  height={30}
-                  className="rounded-full"
-                />
-              )}
-
-              {/* Badge Name */}
-              <span className="text-sm font-medium text-gray-700">
-                {item.name}
-              </span>
-            </div>
-          ))
-        ) : (
-          <span className="text-sm text-gray-500">No badges available</span>
-        )}
-      </div>
-
-      {/* RATE & PROJECTS */}
-      <div className="mt-5 space-y-2">
-        {data?.rate != null && data?.rate > 0 && (
-          <p className="flex items-center gap-1 text-sm text-gray-700">
-            <DollarSign className="w-4 h-4 text-teal-600" />
-            ${data?.rate}/hr
-          </p>
-        )}
-
-        {data?.completedProjectsCount > 0 && (
-          <p className="flex items-center gap-1 text-sm text-gray-700">
-            <Award className="w-4 h-4 text-yellow-600" />
-            {data?.completedProjectsCount} Projects Completed
-          </p>
-        )}
-      </div>
 
       {/* BUTTONS */}
       <div className="mt-6 flex gap-3">

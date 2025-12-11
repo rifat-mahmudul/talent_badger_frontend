@@ -2,9 +2,40 @@
 import { Button } from "@/components/ui/button";
 import React, { useState } from "react";
 import StatementOfWorkForm from "./statement-of-work-form";
+import { useSession } from "next-auth/react";
+import { toast } from "sonner";
 
 const BestConsultant = () => {
+  const { data: session } = useSession();
+  const token = (session?.user as { accessToken: string })?.accessToken;
+  const role = (session?.user as { role: string })?.role;
+
   const [isOpen, setIsOpen] = useState(false);
+  console.log(role)
+  const handleStartSOW = () => {
+    if (!token) {
+      toast.error("Please login first", {
+        duration: 3000,
+        style: {
+          background: "#333",
+          color: "#fff",
+        }
+      });
+      return;
+    }
+    else if (role === "engineer") {
+      toast.error("You are an Engineer", {
+        duration: 3000,
+        style: {
+          background: "#333",
+          color: "#fff",
+        }
+      });
+      return;
+    }
+    setIsOpen(true);
+  };
+
   return (
     <section className="container mx-auto my-16 px-4">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
@@ -21,23 +52,26 @@ const BestConsultant = () => {
 
         {/* Right Section */}
         <div className="w-full md:w-auto flex flex-col sm:flex-row gap-4 md:gap-5 justify-center md:justify-end">
-          <Button onClick={()=>{
-            setIsOpen(true)
-          }} className="bg-[#00383B] hover:bg-[#005356] text-white w-full sm:w-auto">
+          <Button
+            onClick={handleStartSOW}
+            className="bg-[#00383B] hover:bg-[#005356] text-white w-full sm:w-auto"
+          >
             Start My SOW
           </Button>
+
           <Button className="border border-[#00383B] bg-transparent text-[#00383B] hover:bg-[#00383B] hover:text-white w-full sm:w-auto">
             Help Me Choose My Team
           </Button>
         </div>
       </div>
 
-      {/* SOW modal form  */}
-      {
-        isOpen && (
-          <StatementOfWorkForm open={isOpen} onOpenChange={(open:boolean)=>setIsOpen(open)}/>
-        )
-      }
+      {/* SOW Modal */}
+      {isOpen && (
+        <StatementOfWorkForm
+          open={isOpen}
+          onOpenChange={(open: boolean) => setIsOpen(open)}
+        />
+      )}
     </section>
   );
 };
