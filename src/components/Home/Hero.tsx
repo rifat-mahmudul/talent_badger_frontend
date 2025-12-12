@@ -100,13 +100,13 @@ const Hero: React.FC<HeroProps> = ({
         </div>
 
         {/* RIGHT SIDE IMAGE */}
-        <div className="w-full md:w-1/3 flex justify-center">
+        <div className="w-full md:w-[50%] flex justify-center">
           <Image
             src={image}
             alt="Hero Image"
             width={1200}
-            height={600}
-            className="rounded-xl object-contain w-full h-[250px] sm:h-[400px] md:h-[600px]  "
+            height={700}
+            className="rounded-xl object-center w-full  h-[250px] sm:h-[400px] md:h-[600px]  "
           />
         </div>
       </div>

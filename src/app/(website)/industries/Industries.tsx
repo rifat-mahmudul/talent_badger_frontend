@@ -6,7 +6,6 @@ import IndustriesCard from '@/components/reusebale/IndustriesCard'
 import React from 'react'
 import ServiceCta from '../services/_components/ServiceCta'
 import ReadyToStart from '@/components/ReadyToStart'
-import AskQ from '../faqs/_components/AskQ'
 import { useGetAllIndustry } from '@/hooks/apiCalling'
 import { Skeleton } from "@/components/ui/skeleton"
 
@@ -83,7 +82,7 @@ const Industries = () => {
                 </div>
 
                 <ReadyToStart />
-                <AskQ />
+                {/* <AskQ /> */}
             </div>
         </div>
     )
