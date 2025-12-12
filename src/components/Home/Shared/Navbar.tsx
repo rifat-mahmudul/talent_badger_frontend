@@ -1,4 +1,5 @@
 "use client";
+
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X, User, Users } from "lucide-react";
@@ -196,7 +197,7 @@ export function Navbar() {
 
                 <DropdownMenuContent align="end" className="w-56">
                   <DropdownMenuItem asChild>
-                    <Link href={role === "engineer" ? "/engineer" : "/account"}>
+                    <Link href={"/account"}>
                       {role === "engineer" ? "Engineer Dashboard" : "My Account"}
                     </Link>
                   </DropdownMenuItem>
