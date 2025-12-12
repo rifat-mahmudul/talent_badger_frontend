@@ -16,15 +16,20 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useTeamStore } from "@/store/teamStore";
 import Image from "next/image";
+import StatementOfWorkForm from "@/app/(website)/services/_components/statement-of-work-form";
+import { toast } from "sonner";
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [loginOpen, setLoginOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [isOpen1, setIsOpen1] = useState(false);
+
 
   useEffect(() => setMounted(true), []);
 
   const { data: session, status } = useSession();
+  const token = (session?.user as { accessToken: string })?.accessToken;
   const pathname = usePathname();
   const role = (session?.user as { role: string })?.role;
   const team = useTeamStore((state) => state.team);
@@ -38,6 +43,32 @@ export function Navbar() {
     { name: "Contact", href: "/contactus" },
     { name: "FAQ’S", href: "/faqs" },
   ];
+
+
+  const handleStartSOW = () => {
+    if (!token) {
+      toast.error("Please login first", {
+        duration: 3000,
+        style: {
+          background: "#333",
+          color: "#fff",
+        }
+      });
+      return;
+    }
+    else if (role === "engineer") {
+      toast.error("Only user can create SOW ", {
+        duration: 3000,
+        style: {
+          background: "#333",
+          color: "#fff",
+        }
+      });
+      return;
+    }
+    setIsOpen1(true);
+  };
+
 
   return (
     <nav className="bg-[#DDFFFF] sticky top-0 z-50 shadow-sm">
@@ -96,14 +127,15 @@ export function Navbar() {
             </Link>
 
             {/* Desktop CTA Button */}
-            <Link href="/build-your-team" className="hidden sm:block">
+            <div className="hidden sm:block">
               <Button
+                onClick={() => handleStartSOW()}
                 variant="outline"
                 className="border-[#00383B] text-[#00383B] hover:bg-[#00383B]/5 text-sm lg:text-base whitespace-nowrap"
               >
                 Start a Project
               </Button>
-            </Link>
+            </div>
 
             {/* Auth: Login or Avatar Dropdown */}
             {status !== "authenticated" ? (
@@ -182,11 +214,14 @@ export function Navbar() {
             ))}
 
             <div className="pt-4 border-t border-[#0F595A]/10">
-              <Link href="/build-your-team" className="block w-full">
+              <Link href="" className="block w-full">
                 <Button
                   variant="outline"
                   className="w-full border-[#00383B] text-[#00383B]"
-                  onClick={() => setIsOpen(false)}
+                  onClick={() => {
+                    setIsOpen(false);
+                    handleStartSOW();
+                  }}
                 >
                   Start a Project
                 </Button>
@@ -195,8 +230,9 @@ export function Navbar() {
           </div>
         </div>
       )}
-
       <LoginModal open={loginOpen} onOpenChange={setLoginOpen} />
+      {/* SOW Modal */}
+      <StatementOfWorkForm open={isOpen1} onOpenChange={setIsOpen1} />
     </nav>
   );
 }

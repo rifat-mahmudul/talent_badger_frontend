@@ -43,7 +43,12 @@ export default function ServiceCard({ data }: { data: UserItem }) {
       return;
     }
     addMember({ ...data, rate: data.rate ?? null, userstatus: data.userstatus as "available" | "busy" | "inactive" });
-    toast.success(`${data.firstName} added to your team!`);
+    toast.success(`${data.firstName} added to your team!`, {
+      duration: 5000, style: {
+        background: "#333",
+        color: "#fff",
+      }
+    });
   };
 
   return (

@@ -9,7 +9,7 @@ import DashboardCardsSkeleton from "@/app/(account)/account/_components/dashboar
 import ErrorContainer from "@/components/shared/ErrorContainer/ErrorContainer";
 import NotFound from "@/components/shared/NotFound/NotFound";
 
-const LIMIT = 2;
+const LIMIT = 9;
 
 const ServiceContainer = () => {
   const loadMoreRef = useRef<HTMLDivElement | null>(null);
@@ -63,13 +63,15 @@ const ServiceContainer = () => {
     return () => observer.disconnect();
   }, [hasNextPage, fetchNextPage]);
 
-  // 🧙 Flatten all pages’ data
+
   const services = data?.pages.flatMap((page) => page?.data || []);
 
   // Loading state
   if (isLoading) {
     return (
-      <div className="mt-6">
+      <div className="mt-6 flex gap-10">
+        <DashboardCardsSkeleton />
+        <DashboardCardsSkeleton />
         <DashboardCardsSkeleton />
       </div>
     );

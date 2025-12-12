@@ -22,7 +22,7 @@ const TeamBuilderService = () => {
     queryKey: ["services-all"],
     queryFn: async () => {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/user/all-user?role=engineer`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/user/all-user?role=engineer&status=active`,
         {
           method: "GET",
           headers: {
@@ -37,9 +37,17 @@ const TeamBuilderService = () => {
   let content;
 
   if (isLoading) {
-    content = Array.from({ length: 3 }, (_, index) => (
-      <DashboardCardsSkeleton key={index} />
-    ));
+
+     content = (
+      <div className="flex gap-10  ">
+        {Array.from({ length: 4 }, (_, index) => (
+          <div key={index}>
+            <DashboardCardsSkeleton />
+          </div>
+        ))}
+      </div>
+    );
+
   } else if (isError) {
     content = (
       <ErrorContainer message={error?.message || "Something went wrong"} />

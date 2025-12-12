@@ -11,7 +11,7 @@ const BestConsultant = () => {
   const role = (session?.user as { role: string })?.role;
 
   const [isOpen, setIsOpen] = useState(false);
-  console.log(role)
+  
   const handleStartSOW = () => {
     if (!token) {
       toast.error("Please login first", {
