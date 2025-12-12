@@ -146,12 +146,45 @@ export function Navbar() {
                 Log In
               </Button>
             ) : (
+              // <DropdownMenu>
+              //   <DropdownMenuTrigger asChild>
+              //     <Button variant="ghost" className="p-1 rounded-full">
+              //       <Avatar className="w-9 h-9">
+              //         {session.user?.profileImage ? (
+              //           <AvatarImage src={session?.user?.profileImage} />
+              //         ) : (
+              //           <AvatarFallback className="bg-[#0F595A]/20">
+              //             <User className="w-5 h-5 text-[#0F595A]" />
+              //           </AvatarFallback>
+              //         )}
+              //       </Avatar>
+              //     </Button>
+              //   </DropdownMenuTrigger>
+              //   <DropdownMenuContent align="end" className="w-56">
+              //     <DropdownMenuItem asChild>
+              //       <Link href={role === "engineer" ? "/engineer" : "/account"}>
+              //         {role === "engineer" ? "Engineer Dashboard" : "My Account"}
+              //       </Link>
+              //     </DropdownMenuItem>
+              //     <DropdownMenuItem asChild>
+              //       <Link href={role === "engineer" ? "/engineer/settings" : "/account/settings"}>
+              //         Settings
+              //       </Link>
+              //     </DropdownMenuItem>
+              //     <DropdownMenuItem
+              //       onClick={() => signOut()}
+              //       className="text-red-600 focus:text-red-600"
+              //     >
+              //       Logout
+              //     </DropdownMenuItem>
+              //   </DropdownMenuContent>
+              // </DropdownMenu>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" className="p-1 rounded-full">
                     <Avatar className="w-9 h-9">
                       {session.user?.profileImage ? (
-                        <AvatarImage src={session?.user?.profileImage} />
+                        <AvatarImage src={session.user.profileImage} />
                       ) : (
                         <AvatarFallback className="bg-[#0F595A]/20">
                           <User className="w-5 h-5 text-[#0F595A]" />
@@ -160,17 +193,20 @@ export function Navbar() {
                     </Avatar>
                   </Button>
                 </DropdownMenuTrigger>
+
                 <DropdownMenuContent align="end" className="w-56">
                   <DropdownMenuItem asChild>
                     <Link href={role === "engineer" ? "/engineer" : "/account"}>
                       {role === "engineer" ? "Engineer Dashboard" : "My Account"}
                     </Link>
                   </DropdownMenuItem>
+
                   <DropdownMenuItem asChild>
                     <Link href={role === "engineer" ? "/engineer/settings" : "/account/settings"}>
                       Settings
                     </Link>
                   </DropdownMenuItem>
+
                   <DropdownMenuItem
                     onClick={() => signOut()}
                     className="text-red-600 focus:text-red-600"
