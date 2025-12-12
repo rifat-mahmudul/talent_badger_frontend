@@ -7,11 +7,43 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import StatementOfWorkForm from "../../services/_components/statement-of-work-form";
 import { cn } from "@/lib/utils"; // assuming you have this helper
+import { toast } from "sonner";
+import { useSession } from "next-auth/react";
 
 export default function FavouritesContainer() {
   const [isOpen, setIsOpen] = useState(false);
+  const { data: session, } = useSession();
+  const token = (session?.user as { accessToken: string })?.accessToken;
+  const role = (session?.user as { role: string })?.role;
+
   const team = useTeamStore((state) => state.team);
   const removeMember = useTeamStore((state) => state.removeMember);
+
+  const handleStartSOW = () => {
+    if (!token) {
+      toast.error("Please login first", {
+        duration: 3000,
+        style: {
+          background: "#333",
+          color: "#fff",
+        }
+      });
+      return;
+    }
+    else if (role === "engineer") {
+      toast.error("Only user can create SOW ", {
+        duration: 3000,
+        style: {
+          background: "#333",
+          color: "#fff",
+        }
+      });
+      return;
+    }
+    setIsOpen(true);
+  };
+
+
 
   return (
     <>
@@ -26,7 +58,7 @@ export default function FavouritesContainer() {
               My Favourite Engineers
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-5">
-              You’ve saved {team.length} {team.length === 1 ? "engineer" : "engineers"} you love working with. 
+              You’ve saved {team.length} {team.length === 1 ? "engineer" : "engineers"} you love working with.
               Ready to build something amazing together?
             </p>
           </div>
@@ -117,7 +149,10 @@ export default function FavouritesContainer() {
                   </p>
                   <Button
                     size="lg"
-                    onClick={() => setIsOpen(true)}
+                    onClick={() =>
+                      handleStartSOW()
+
+                    }
                     className="bg-white text-[#00383B] hover:bg-gray-100 font-semibold text-lg px-10 py-6 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
                   >
                     Start My SOW
