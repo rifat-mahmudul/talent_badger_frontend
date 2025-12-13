@@ -40,11 +40,11 @@ const Footer = () => {
               <li className="text-[#434C45] font-medium text-[16px]">Home</li>
             </Link>
             <Link href="/services">
-              <li className="text-[#434C45] font-medium text-[16px]">Services</li>
+              <li className="text-[#434C45] font-medium text-[16px]">For Companies</li>
             </Link>
             <Link href="/build-your-team">
               <li className="text-[#434C45] font-medium text-[16px]">
-                Team Picker
+                For Engineers
               </li>
             </Link>
             <Link href="/industries">

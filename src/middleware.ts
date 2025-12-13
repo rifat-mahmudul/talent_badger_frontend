@@ -8,7 +8,7 @@ export async function middleware(request: NextRequest) {
   });
 
   console.log(token)
-  
+
   const url = request.nextUrl.clone();
 
   // If no token, redirect to home
