@@ -11,6 +11,17 @@ interface TeamState {
   clearTeam: () => void;
 }
 
+
+interface ModalState {
+  isOpen: boolean;
+  openModal: () => void;
+  closeModal: () => void;
+  toggleModal: () => void;
+  setModal: (value: boolean) => void;
+}
+
+
+
 export const useTeamStore = create<TeamState>((set) => ({
   team: typeof window !== "undefined" 
     ? JSON.parse(localStorage.getItem("myTeam") || "[]") 
@@ -40,4 +51,18 @@ export const useTeamStore = create<TeamState>((set) => ({
     team: state.team.filter((member) => !ids.includes(member._id)),
   }));
 },
+}));
+
+export const useModalStore = create<ModalState>((set) => ({
+  isOpen: false,
+
+  openModal: () => set({ isOpen: true }),
+
+  closeModal: () => set({ isOpen: false }),
+
+  toggleModal: () =>
+    set((state) => ({ isOpen: !state.isOpen })),
+
+  setModal: (value: boolean) =>
+    set({ isOpen: value }),
 }));

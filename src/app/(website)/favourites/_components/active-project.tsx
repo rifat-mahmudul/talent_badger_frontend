@@ -65,7 +65,7 @@ const ActiveProjects = () => {
   } else if (data && data?.data && data?.data?.length === 0) {
     content = (
       <div className="pt-5">
-        <NotFound message="Oops! No data available. Modify your filters or check your internet connection." />
+        <NotFound message="Oops! No data available. " />
       </div>
     );
   } else if (data && data?.data && data?.data?.length > 0) {

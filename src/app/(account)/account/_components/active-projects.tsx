@@ -147,7 +147,7 @@ const ActiveProjects = () => {
     <div className="py-6">
       <div className="bg-white border-[1px] border-[#EEEEEE] shadow-lg rounded-lg pt-5">
         <h4 className="text-sm leading-[150%] font-semibold text-[#147575] pb-4 border-b border-[#EEEEEE] px-5">
-          Active Projects
+          Active Projects 
         </h4>
 
         <div>{content}</div>
