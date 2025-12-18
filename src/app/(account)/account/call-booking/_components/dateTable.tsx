@@ -181,7 +181,7 @@ export default function DiscoveryCalls() {
                 <DialogContent className="max-w-5xl bg-white rounded-xl shadow-xl p-8">
                     <DialogHeader>
                         <DialogTitle className="text-center text-xl font-semibold">
-                            {selectedData?.projectId.title || ""}
+                            {selectedData?.projectId?.title || ""}
                         </DialogTitle>
                     </DialogHeader>
                     <p className="text-center mt-2 font-medium">
