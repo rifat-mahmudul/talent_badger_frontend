@@ -35,6 +35,7 @@ const Industries = () => {
                                 <div key={i} className="border p-4 rounded-lg shadow-sm space-y-4">
                                     <Skeleton className="w-full h-40 rounded-md" />
                                     <Skeleton className="w-3/4 h-5" />
+
                                     <Skeleton className="w-full h-4" />
                                     <Skeleton className="w-1/2 h-4" />
                                 </div>
@@ -50,7 +51,6 @@ const Industries = () => {
                 {/* CTA */}
                 <ServiceCta />
 
-                {/* ============================ ALL INDUSTRIES SECTION ============================ */}
                 <div>
                     <div className='mb-[60px]'>
                         <h2 className='text-center text-[#282828] font-bold text-[40px]'>
