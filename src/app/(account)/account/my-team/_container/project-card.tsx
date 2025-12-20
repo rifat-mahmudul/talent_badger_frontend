@@ -56,82 +56,108 @@ export function ProjectCard({ project }: { project: Project }) {
 
   return (
     <div>
-      <Card className="h-full md:h-[430px] relative flex flex-col overflow-hidden bg-white border-[1px] border-[#EEEEEE] shadow-lg rounded-[8px]">
-        <CardHeader className="pb-4">
-          <CardTitle className="text-base md:text-lg font-semibold text-[#343A40] leading-[150%]">
+      <Card className="relative flex h-full md:h-[500px] flex-col overflow-hidden rounded-xl border border-[#EEEEEE] bg-white shadow-sm transition-all duration-300 hover:shadow-md">
+        {/* Header */}
+        <CardHeader className="pb-3 space-y-1">
+          <CardTitle className="text-base md:text-lg font-semibold text-[#343A40] leading-[150%] line-clamp-1">
             {project.title}
           </CardTitle>
-          <p className="text-sm font-normal text-[#9A9EA2] leading-[150%] pt-1 line-clamp-2"
-            dangerouslySetInnerHTML={{ __html: project.description }} />
 
+          <p
+            className="text-sm font-normal text-[#9A9EA2] leading-[150%] line-clamp-2"
+            dangerouslySetInnerHTML={{ __html: project.description }}
+          />
         </CardHeader>
 
-        <CardContent className="flex flex-1 flex-col gap-6">
+        {/* Content */}
+        <CardContent className="flex flex-1 flex-col gap-5 pb-20">
           {/* Team Members */}
-          <div className="space-y-[2px] h-[160px] overflow-scroll scrollbar-hide">
-            {project?.approvedEngineers?.map((member) => (
-              <TeamMember
-                key={member._id}
-                member={member}
-                projectId={project._id}
-                manager={project}
-
-              />
-            ))}
-          </div>
-
-          {/* Project Progress */}
           <div>
-            {project?.progress < 100 && (
-              <div className="space-y-2">
-                <div className="flex items-center justify-between">
-                  <span className="text-sm font-normal leading-[150%] text-[#616161]">
-                    Project Progress
-                  </span>
-                  <span className="text-sm font-medium leading-[150%] text-[#147575]">
-                    {project.progress}%
-                  </span>
-                </div>
-                <div className="h-2 w-full overflow-hidden rounded-full bg-[#EEEEEE]">
-                  <div
-                    className="h-full bg-[#147575] transition-all duration-500"
-                    style={{ width: `${project.progress}%` }}
-                  />
-                </div>
-              </div>
-            )}
+            <p className="text-xs font-medium text-[#6C757D] mb-2">
+              Team Members
+            </p>
+
+            <div className="space-y-2 max-h-[160px] overflow-y-auto scrollbar-hide pr-1">
+              {project?.approvedEngineers?.map((member) => (
+                <TeamMember
+                  key={member._id}
+                  member={member}
+                  projectId={project._id}
+                  manager={project}
+                />
+              ))}
+            </div>
           </div>
 
-          {/* Arrange Meeting Button */}
-          <div className="absolute left-0 right-0 bottom-4 px-5">
-            {project?.progress === 100 ? (
-              <button
-                className="w-full h-[48px] rounded-[8px] bg-[#147575] px-4 py-2 font-semibold text-[#F8F9FA] text-sm leading-[150%]"
-                onClick={handlePayment}
-                disabled={isPending}
-              >
-                {isPending ? "Pay..." : "Payment"}
-              </button>
-            ) : (
-              <button
-                className="w-full h-[48px] rounded-[8px] bg-[#147575] px-4 py-2 font-semibold text-[#F8F9FA] text-sm leading-[150%]"
-                onClick={() => setIsOpen(true)}
-              >
-                Arrange Meeting
-              </button>
-            )}
+          {/* Progress */}
+          <div className="space-y-2">
+            <div className="flex items-center justify-between text-sm">
+              <span className="font-normal text-[#616161]">
+                Project Progress
+              </span>
+              <span className="font-medium text-[#147575]">
+                {project.progress}%
+              </span>
+            </div>
+
+            <div className="h-2 w-full rounded-full bg-[#EEEEEE] overflow-hidden">
+              <div
+                className="h-full bg-[#147575] transition-all duration-500"
+                style={{ width: `${project.progress}%` }}
+              />
+            </div>
+          </div>
+
+          {/* Amounts */}
+          <div className="space-y-3 rounded-lg bg-muted/30 p-3">
+            <div className="flex items-center justify-between text-sm">
+              <span className="text-[#616161]">Total Amount</span>
+              <span className="font-medium text-[#147575]">
+                {project.totalPaid}
+              </span>
+            </div>
+
+            <div className="flex items-center justify-between text-sm">
+              <span className="text-[#616161]">
+                Total Engineer Paid
+              </span>
+              <span className="font-medium text-[#147575]">
+                {project.approvedEngineersTotalAmount}
+              </span>
+            </div>
           </div>
         </CardContent>
+
+        {/* Bottom Action */}
+        <div className="absolute inset-x-0 bottom-4 px-5">
+          {project?.progress === 100 ? (
+            <button
+              onClick={handlePayment}
+              disabled={isPending || project?.isPaymentDistributed}
+              className="w-full h-12 rounded-lg bg-[#147575] text-sm font-semibold text-white transition hover:bg-[#0f5f5f] disabled:opacity-60"
+            >
+              {isPending ? "Processing Payment..." : "Payment"}
+            </button>
+          ) : (
+            <button
+              onClick={() => setIsOpen(true)}
+              className="w-full h-12 rounded-lg bg-[#147575] text-sm font-semibold text-white transition hover:bg-[#0f5f5f]"
+            >
+              Arrange Meeting
+            </button>
+          )}
+        </div>
       </Card>
 
       {/* Schedule Meeting Modal */}
       {isOpen && (
         <ScheduleTheMeetingModal
           open={isOpen}
-          onOpenChange={(value) => setIsOpen(value)}
+          onOpenChange={setIsOpen}
           projectId={project._id}
         />
       )}
     </div>
+
   );
 }

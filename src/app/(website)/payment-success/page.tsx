@@ -38,7 +38,7 @@ export default function PaymentSuccessPage() {
               <span className="font-medium">Payment Method :</span> Stripe
             </p>
             <p>
-              <span className="font-medium">Transaction ID :</span> #TRX2025001
+              {/* <span className="font-medium">Transaction ID :</span> #TRX2025001 */}
               {/* Replace with real paymentId from your API */}
             </p>
           </div>

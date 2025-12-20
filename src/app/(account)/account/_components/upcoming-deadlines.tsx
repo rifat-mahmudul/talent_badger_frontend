@@ -71,7 +71,7 @@ const UpcomingDeadlines = () => {
       queryKey: ["upcoming-projects"],
       queryFn: async () => {
         const res = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URL}/project/my?upcoming=true`,
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/project/my?status=pending`,
           {
             method: "GET",
             headers: {
@@ -163,7 +163,7 @@ const UpcomingDeadlines = () => {
     <div className="pb-[124px]">
       <div className="bg-white border-[1px] border-[#EEEEEE] shadow-lg rounded-lg pt-5">
         <h4 className="text-sm leading-[150%] font-semibold text-[#147575] pb-4 border-b border-[#EEEEEE] px-5">
-          Upcoming Deadlines
+         Pending Projects
         </h4>
         <div>{content}</div>
       </div>

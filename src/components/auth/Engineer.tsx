@@ -42,6 +42,7 @@ const formSchema = z
     skills: z.array(z.string()), // allow empty array
     service: z.string().min(1, "Please select a service"),
     industryOfInterest: z.string().min(1, "Select an industry"),
+    rate: z.number().min(1, "Rate must be at least 1"),
     bio: z.string().min(10, "Bio must be at least 10 characters"),
     createPassword: z.string().min(6, "Password must be at least 6 characters"),
     confirmPassword: z.string(),
@@ -73,6 +74,7 @@ export default function EngineerForm({
       skills: [],
       service: "",
       industryOfInterest: "",
+      rate: 1,
       bio: "",
       createPassword: "",
       confirmPassword: "",
@@ -114,6 +116,7 @@ export default function EngineerForm({
     values.skills.forEach((skill) => formData.append("skills", skill)); // <-- append each skill individually
     formData.append("role", "engineer");
     formData.append("service", values.service);
+    formData.append("rate", values.rate.toString());
     formData.append("industry", values.industryOfInterest);
     formData.append("bio", values.bio);
     if (profileImage) {
@@ -214,20 +217,50 @@ export default function EngineerForm({
           />
         </div>
 
-        {/* Email */}
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Email Address</FormLabel>
-              <FormControl>
-                <Input placeholder="hello@example.com" {...field} className="py-3" />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {/* Email */}
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Email Address</FormLabel>
+                <FormControl>
+                  <Input placeholder="hello@example.com" {...field} className="py-3" />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          {/* rate  */}
+
+          <FormField
+            control={form.control}
+            name="rate"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Rate/hr ($)</FormLabel>
+                <FormControl>
+                  <Input
+                    type="number"
+                    min={1}
+                    placeholder="50"
+                    {...field}
+                    onChange={(e) => {
+                      const value = e.target.value === "" ? "" : Number(e.target.value);
+                      field.onChange(value);
+                    }}
+                    value={field.value ?? ""}
+                    className="py-3"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+        </div>
+
 
         {/* Professional Title & Location */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

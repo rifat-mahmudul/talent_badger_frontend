@@ -9,6 +9,7 @@ interface TeamState {
   addMember: (member: SingleUser) => void;
   removeMember: (_id: string) => void;
   clearTeam: () => void;
+  
 }
 
 

@@ -29,8 +29,10 @@ export interface Project {
   usedAmount: number;
   manager:boolean;
   lastUpdated: string;
+  approvedEngineersTotalAmount: number;
   createdAt: string;
   updatedAt: string;
+  isPaymentDistributed: boolean;
   __v: number;
 }
 
