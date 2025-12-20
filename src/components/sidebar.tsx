@@ -13,7 +13,7 @@ import {
   X,
   Folder,
   BookAudio,
-  Users,
+  // Users,
   CreditCard,
   FolderPen,
 } from "lucide-react";
@@ -33,7 +33,7 @@ export function DashboardSidebar({ isCollapsed }: DashboardSidebarProps) {
   const { data: session, status } = useSession();
 
   const role = (session?.user as { role?: string } | undefined)?.role;
-  const ismanager = (session?.user as { ismanager?: boolean } | undefined)?.ismanager;
+  // const ismanager = (session?.user as { ismanager?: boolean } | undefined)?.ismanager;
 
   const isLoading = status === "loading";
 
@@ -67,16 +67,16 @@ export function DashboardSidebar({ isCollapsed }: DashboardSidebarProps) {
         icon: FolderPen,
       },
 
-      // 👇 SHOW ONLY WHEN ismanager === true
-      ...(ismanager
-        ? [
-          {
-            name: "Manager",
-            href: "/engineer/manager",
-            icon: Users,
-          },
-        ]
-        : []),
+      // // 👇 SHOW ONLY WHEN ismanager === true
+      // ...(ismanager
+      //   ? [
+      //     {
+      //       name: "Manager",
+      //       href: "/engineer/manager",
+      //       icon: Users,
+      //     },
+      //   ]
+      //   : []),
 
       {
         name: "Payment History",

@@ -182,8 +182,8 @@ const AllProjects = () => {
         ) : (
           activeProjects.map((project) => {
             // Check if current user is invited to this project
-            const isInvited = project?.engineers.some(
-              (eng) => eng._id === currentUserId
+            const isInvited = project?.engineers?.some(
+              (eng) => eng?.engineer?._id === currentUserId
             );
 
             // Check if current user already accepted - FIXED
@@ -225,23 +225,23 @@ const AllProjects = () => {
                   <div>
                     <p className="text-gray-500">Submitted</p>
                     <p className="font-medium">
-                      {formatDate(project.createdAt)}
+                      {formatDate(project?.createdAt)}
                     </p>
                   </div>
-                  <div>
+                  {/* <div>
                     <p className="text-gray-500">Start Date</p>
                     <p className="font-medium">
                       {formatDate(project.startDate)}
                     </p>
-                  </div>
+                  </div> */}
                   <div>
                     <p className="text-gray-500">Duration</p>
-                    <p className="font-medium">{project.totalTimeline} Days</p>
+                    <p className="font-medium">{project?.totalTimeline} Days</p>
                   </div>
                   <div>
                     <p className="text-gray-500">Project Value</p>
                     <p className="font-medium text-lg">
-                      {formatCurrency(project.totalPaid)}
+                      {formatCurrency(project?.totalPaid)}
                     </p>
                   </div>
                 </div>
@@ -281,9 +281,9 @@ const AllProjects = () => {
                         </p>
                       </div>
                       <div className="text-right">
-                        <p className="text-sm text-gray-600">Amount Used</p>
+                        <p className="text-sm text-gray-600">Total Engineers Amount </p>
                         <p className="font-semibold text-green-700">
-                          {formatCurrency(project.usedAmount || 0)}
+                          {formatCurrency(project?.approvedEngineersTotalAmount || 0)}
                         </p>
                       </div>
                     </div>

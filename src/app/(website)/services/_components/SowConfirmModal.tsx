@@ -9,13 +9,12 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 
-
 export interface ProjectData {
   title: string;
   description: string;
-  engineers: string[]; // Array of user IDs
-  totalPaid: number;
-  totalTimeline: number;
+  engineers?: string[]; // Array of user IDs
+  totalPaid: string;
+  totalTimeline: string;
 }
 
 
@@ -23,7 +22,7 @@ interface SowConfirmModalProps {
   open: boolean;
   onClose: () => void;
   onConfirm: () => void;
-  values: ProjectData;
+  values: ProjectData ;
   files: File[];
   engineers: number;
 }

@@ -28,27 +28,35 @@ export interface Meta {
   limit: number;
 }
 
+/* ===================== PROJECT ===================== */
 export interface Project {
   _id: string;
   title: string;
   description: string;
   client: Client;
-  engineers: Engineer[];
-  status: "in_progress" | "completed" | "pending"; // adjust based on your enum
+
+  engineers: ProjectEngineer[]; // 🔥 UPDATED
+
+  status: "pending" | "in_progress" | "completed" | "cancelled";
   totalPaid: number;
   ndaAgreement: string[];
   progress: number;
+  approvedEngineersTotalAmount: number;
   totalTimeline: number;
-  startDate: string; // ISO date string
-  deliveryDate: string; // ISO date string
+  startDate: string;
+  deliveryDate: string;
   usedAmount: number;
+
+  manager: boolean; // 🔥 NEW FIELD
   approvedEngineers: ApprovedEngineer[];
+
   lastUpdated: string;
   createdAt: string;
   updatedAt: string;
   __v: number;
 }
 
+/* ===================== CLIENT ===================== */
 export interface Client {
   _id: string;
   email: string;
@@ -57,7 +65,32 @@ export interface Client {
   profileImage: string;
 }
 
+/* ===================== ENGINEERS ===================== */
+/**
+ * engineers array item
+ */
+export interface ProjectEngineer {
+  _id: string;
+  engineer: Engineer;
+  allocatedHours: number;
+}
+
+/**
+ * engineer object inside engineers[]
+ */
+export interface Engineer {
+  _id: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  profileImage: string;
+  professionTitle: string;
+  rate: number;
+}
+
+/* ===================== APPROVED ENGINEERS ===================== */
 export interface ApprovedEngineer {
+  _id: string;
   engineer: Engineer;
   status: "approved" | "pending" | "rejected";
   isManager: boolean;
@@ -66,8 +99,8 @@ export interface ApprovedEngineer {
   profileImage: string;
   professionTitle: string;
   email: string;
-  _id: string;
 }
+
 
 export interface Engineer {
   _id: string;
@@ -204,35 +237,35 @@ const ProjectsTable = () => {
           <TableBody className="bg-white">
             {showSkeleton
               ? Array.from({ length: 15 }).map((_, index) => (
-                  <TableSkeleton key={index} />
-                ))
+                <TableSkeleton key={index} />
+              ))
               : projects.map((project) => (
-                  <TableRow key={project._id} className="h-[50px]">
-                    <TableCell className="text-center text-gray-600 font-medium">
-                      {project.title}
-                    </TableCell>
-                    <TableCell className="text-center text-gray-600">
-                      {project.client.firstName} {project.client.lastName}
-                    </TableCell>
-                    <TableCell className="text-center text-gray-600">
-                      {formatDate(project.startDate)}
-                    </TableCell>
-                    <TableCell className="text-center text-gray-600">
-                      {formatDate(project.deliveryDate)}
-                    </TableCell>
-                    <TableCell className="text-center">
-                      {getStatusBadge(project.status)}
-                    </TableCell>
-                    <TableCell className="text-center">
-                      <button
-                        onClick={() => handleViewDetails(project)}
-                        className="hover:text-primary transition-colors"
-                      >
-                        <Eye className="h-5 w-5 mx-auto" />
-                      </button>
-                    </TableCell>
-                  </TableRow>
-                ))}
+                <TableRow key={project._id} className="h-[50px]">
+                  <TableCell className="text-center text-gray-600 font-medium">
+                    {project.title}
+                  </TableCell>
+                  <TableCell className="text-center text-gray-600">
+                    {project.client.firstName} {project.client.lastName}
+                  </TableCell>
+                  <TableCell className="text-center text-gray-600">
+                    {formatDate(project.startDate)}
+                  </TableCell>
+                  <TableCell className="text-center text-gray-600">
+                    {formatDate(project.deliveryDate)}
+                  </TableCell>
+                  <TableCell className="text-center">
+                    {getStatusBadge(project.status)}
+                  </TableCell>
+                  <TableCell className="text-center">
+                    <button
+                      onClick={() => handleViewDetails(project)}
+                      className="hover:text-primary transition-colors"
+                    >
+                      <Eye className="h-5 w-5 mx-auto" />
+                    </button>
+                  </TableCell>
+                </TableRow>
+              ))}
 
             {!showSkeleton && projects.length === 0 && (
               <TableRow>
