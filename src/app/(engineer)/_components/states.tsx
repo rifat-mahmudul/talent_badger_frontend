@@ -21,7 +21,7 @@ const States = () => {
     queryKey: ["states", token],
     queryFn: async () => {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/dashboard/userOverview`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/dashboard/engineerOverview`,
         {
           method: "GET",
           headers: {
@@ -66,10 +66,11 @@ const States = () => {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
       <StateCard title="Active Projects" value={states?.totalActiveProject || 0} image="/state-1.png" />
+      <StateCard title="Total Earned" value={states?.totalEarned || 0} image="/state-1.png" />
       <StateCard title="Pending Projects" value={states?.totalPandingProject || 0} image="/state-2.png" />
       <StateCard title="Completed Projects" value={states?.totalCompletedProject || 0} image="/state-3.png" />
       <StateCard title="Upcoming Meeting" value={states?.upcomingMeeting || 0} image="/state-3.png" />
-      <StateCard title="Upcoming Deadline" value={states?.upcomingDeadlines || 0} image="/state-3.png" />
+      {/* <StateCard title="Upcoming Deadline" value={states?.upcomingDeadlines || 0} image="/state-3.png" /> */}
     </div>
   );
 };
