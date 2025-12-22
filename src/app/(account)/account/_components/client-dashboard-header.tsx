@@ -14,6 +14,7 @@ export interface DashboardOverviewResponse {
   data: {
     totalActiveProject: number;
     totalPandingProject: number;
+    totalPendingProject: number;
     totalCompletedProject: number;
     upcomingMeeting: number;
     upcomingDeadlines: number;
@@ -21,7 +22,7 @@ export interface DashboardOverviewResponse {
 }
 
 const ClientDashboardHeader = () => {
-  
+
   const session = useSession();
   const token = (session?.data?.user as { accessToken: string })?.accessToken;
 
@@ -44,7 +45,7 @@ const ClientDashboardHeader = () => {
       enabled: !!token,
     });
 
-    let content;
+  let content;
 
   if (isLoading) {
     content = (
@@ -54,11 +55,11 @@ const ClientDashboardHeader = () => {
     );
   } else if (isError) {
     content = <div className="">
-      <ErrorContainer message={error?.message || "Someting went wrong"}/>
+      <ErrorContainer message={error?.message || "Someting went wrong"} />
     </div>;
   } else {
     content = (
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
         <div className="bg-white flex items-center gap-2 border-[1px] border-[#EEEEEE] shadow-lg rounded-lg p-5">
           <div>
             <div className="p-2 rounded-[8px] bg-[#E8F1F1]">
@@ -83,6 +84,21 @@ const ClientDashboardHeader = () => {
           </div>
           <div>
             <h4 className="text-base text-[#147575] font-semibold leading-[150%]">
+              Total Panding Project
+            </h4>
+            <p className="text-base text-[#68706A] font-semibold leading-[150%] pt-2">
+              {data?.data?.totalPendingProject || 0}
+            </p>
+          </div>
+        </div>
+        <div className="bg-white flex items-center gap-2 border-[1px] border-[#EEEEEE] shadow-lg rounded-lg p-5">
+          <div className="p-2 rounded-[8px] bg-[#E8F1F1]">
+            <span>
+              <PhoneCall className="w-7 h-7 text-[#147575]" />
+            </span>
+          </div>
+          <div>
+            <h4 className="text-base text-[#147575] font-semibold leading-[150%]">
               Upcoming Meeting Schedule
             </h4>
             <p className="text-base text-[#68706A] font-semibold leading-[150%] pt-2">
@@ -99,10 +115,10 @@ const ClientDashboardHeader = () => {
           </div>
           <div>
             <h4 className="text-base text-[#147575] font-semibold leading-[150%]">
-              Upcoming Deadlines
+              Total Completed Project
             </h4>
             <p className="text-base text-[#68706A] font-semibold leading-[150%] pt-2">
-              {data?.data?.upcomingDeadlines || 0}
+              {data?.data?.totalCompletedProject || 0}
             </p>
           </div>
         </div>
