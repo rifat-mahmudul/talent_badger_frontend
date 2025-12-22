@@ -97,16 +97,6 @@ export default function PaymentHistory() {
     staleTime: 5 * 60 * 1000,
   });
 
-  const getUserPaymentAmount = (item: PaymentHistoryItem): string => {
-    if (!userId) return "-";
-
-    const userTransfer = item?.transfers?.find(
-      (transfer) => transfer?.engineer === userId
-    );
-
-    return userTransfer ? `$${(userTransfer.amount)}` : "-";
-  };
-
   const getStatusStyle = (status: string): string => {
     const statusLower = status?.toLowerCase();
 
@@ -222,11 +212,15 @@ export default function PaymentHistory() {
                 </TableCell>
 
                 <TableCell className="text-sm text-[#424242] font-medium text-center">
-                ${item?.amount}
+                  ${item?.amount}
                 </TableCell>
 
                 <TableCell className="text-sm text-[#424242] font-medium text-center">
-                  {getUserPaymentAmount(item)}
+                  ${
+                    item?.transfers?.find(
+                      (transfer: any) => transfer?.engineer?._id === userId
+                    )?.amount ?? 0
+                  }
                 </TableCell>
 
                 <TableCell className="text-sm text-center pr-6">
