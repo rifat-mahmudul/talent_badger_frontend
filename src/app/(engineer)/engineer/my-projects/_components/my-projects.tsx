@@ -23,7 +23,7 @@ const MyProjects = () => {
     isLoading,
     isFetching,
   } = useQuery<ProjectResponse>({
-    queryKey: ["projects", token],
+    queryKey: ["projects-in-progress", token],
     queryFn: async (): Promise<ProjectResponse> => {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/project/my?status=in_progress`,
@@ -55,120 +55,120 @@ const MyProjects = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {showSkeleton
           ? Array.from({ length: 6 }).map((_, index) => (
-              <ProjectCardSkeleton key={index} />
-            ))
+            <ProjectCardSkeleton key={index} />
+          ))
           : projects.map((project) => {
-              // Find my progress data from approved engineers
-              const myEngineerData = project.approvedEngineers.find(
-                ({ engineer }) => engineer._id === myId
-              );
+            // Find my progress data from approved engineers
+            const myEngineerData = project.approvedEngineers.find(
+              ({ engineer }) => engineer._id === myId
+            );
 
-              return (
-                <div
-                  key={project._id}
-                  className="bg-white p-5 border border-gray-200 rounded-lg flex flex-col justify-between"
-                >
-                  <div>
-                    <h4 className="text-xl font-medium">{project.title} </h4>
-                    <p
-                      className="text-xs font-normal text-[#9A9EA2] leading-[150%] pt-1"
-                      dangerouslySetInnerHTML={{ __html: project.description }}
-                    />
+            return (
+              <div
+                key={project._id}
+                className="bg-white p-5 border border-gray-200 rounded-lg flex flex-col justify-between"
+              >
+                <div>
+                  <h4 className="text-xl font-medium">{project.title} </h4>
+                  <p
+                    className="text-xs font-normal text-[#9A9EA2] leading-[150%] pt-1"
+                    dangerouslySetInnerHTML={{ __html: project.description }}
+                  />
 
-                    {/* person info */}
-                    <div className="flex flex-col sm:flex-row sm:items-center gap-4 mt-5">
-                      <div className="flex-1 min-w-0">
-                        {/* Client Info */}
-                        <div className="flex items-center gap-3 mb-3">
-                          <Image
-                            src={
-                              project?.client?.profileImage ||
-                              "/placeholder.jpg"
-                            }
-                            alt={`${project?.client?.firstName} ${project?.client?.lastName}`}
-                            width={1000}
-                            height={1000}
-                            className="h-10 w-10 rounded-full flex-shrink-0 object-cover"
-                          />
-                          <div className="min-w-0 flex-1">
-                            <h5 className="text-[#147575] font-medium truncate">
-                              {project?.client?.firstName}{" "}
-                              {project?.client?.lastName}
-                            </h5>
-                            <h5 className="text-sm text-gray-500 truncate">
-                              Client
-                            </h5>
-                          </div>
+                  {/* person info */}
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-4 mt-5">
+                    <div className="flex-1 min-w-0">
+                      {/* Client Info */}
+                      <div className="flex items-center gap-3 mb-3">
+                        <Image
+                          src={
+                            project?.client?.profileImage ||
+                            "/placeholder.jpg"
+                          }
+                          alt={`${project?.client?.firstName} ${project?.client?.lastName}`}
+                          width={1000}
+                          height={1000}
+                          className="h-10 w-10 rounded-full flex-shrink-0 object-cover"
+                        />
+                        <div className="min-w-0 flex-1">
+                          <h5 className="text-[#147575] font-medium truncate">
+                            {project?.client?.firstName}{" "}
+                            {project?.client?.lastName}
+                          </h5>
+                          <h5 className="text-sm text-gray-500 truncate">
+                            Client
+                          </h5>
                         </div>
-                      </div>
-                    </div>
-
-                    {/* average project progress */}
-                    <div className="mt-6">
-                      <div className="flex flex-col sm:flex-row sm:items-center gap-5">
-                        <div className="flex-1 min-w-0">
-                          <div className="flex items-center justify-between mb-2">
-                            <h4 className="text-gray-500">
-                              Average Project Progress
-                            </h4>
-                            <h4 className="text-[#147575]">
-                              {project.progress}%
-                            </h4>
-                          </div>
-                          <Progress value={project.progress} />
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="mt-6">
-                      <div className="space-y-4">
-                        <h4 className="text-gray-500 font-medium">
-                          My Progress
-                        </h4>
-
-                        {myEngineerData ? (
-                          <div className="flex items-center justify-between gap-5">
-                            <div className="space-y-2 w-full">
-                              <div className="flex items-center justify-between">
-                                <div className="flex items-center gap-2">
-                                  <span className="text-sm font-medium truncate">
-                                    {myEngineerData.engineer.firstName}{" "}
-                                    {myEngineerData.engineer.lastName}
-                                  </span>
-                                  {myEngineerData.isManager && (
-                                    <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full">
-                                      Manager
-                                    </span>
-                                  )}
-                                </div>
-                                <span className="text-sm text-[#147575]">
-                                  {(myEngineerData as any)?.progress}%
-                                </span>
-                              </div>
-                              <Progress
-                                value={(myEngineerData as any)?.progress}
-                                className="h-2"
-                              />
-                            </div>
-
-                            <div>
-                              <UpdateProgress
-                                projectId={project?._id}
-                                token={token}
-                              />
-                            </div>
-                          </div>
-                        ) : (
-                          <div className="text-center py-2 text-gray-500 text-sm">
-                            You are not assigned to this project
-                          </div>
-                        )}
                       </div>
                     </div>
                   </div>
+
+                  {/* average project progress */}
+                  <div className="mt-6">
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-5">
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center justify-between mb-2">
+                          <h4 className="text-gray-500">
+                            Average Project Progress
+                          </h4>
+                          <h4 className="text-[#147575]">
+                            {project.progress}%
+                          </h4>
+                        </div>
+                        <Progress value={project.progress} />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="mt-6">
+                    <div className="space-y-4">
+                      <h4 className="text-gray-500 font-medium">
+                        My Progress
+                      </h4>
+
+                      {myEngineerData ? (
+                        <div className="flex items-center justify-between gap-5">
+                          <div className="space-y-2 w-full">
+                            <div className="flex items-center justify-between">
+                              <div className="flex items-center gap-2">
+                                <span className="text-sm font-medium truncate">
+                                  {myEngineerData.engineer.firstName}{" "}
+                                  {myEngineerData.engineer.lastName}
+                                </span>
+                                {myEngineerData.isManager && (
+                                  <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full">
+                                    Manager
+                                  </span>
+                                )}
+                              </div>
+                              <span className="text-sm text-[#147575]">
+                                {(myEngineerData as any)?.progress}%
+                              </span>
+                            </div>
+                            <Progress
+                              value={(myEngineerData as any)?.progress}
+                              className="h-2"
+                            />
+                          </div>
+
+                          <div>
+                            <UpdateProgress
+                              projectId={project?._id}
+                              token={token}
+                            />
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="text-center py-2 text-gray-500 text-sm">
+                          You are not assigned to this project
+                        </div>
+                      )}
+                    </div>
+                  </div>
                 </div>
-              );
-            })}
+              </div>
+            );
+          })}
 
         {/* Show empty state when no projects found */}
         {!showSkeleton && projects.length === 0 && (

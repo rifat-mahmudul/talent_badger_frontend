@@ -27,9 +27,6 @@ export default function FavouritesContainer() {
   const team = useTeamStore((state) => state.team);
   const removeMember = useTeamStore((state) => state.removeMember);
 
-  /* ===============================
-     Load assigned hours on mount
-  =============================== */
   useEffect(() => {
     const saved = JSON.parse(
       localStorage.getItem("assignedEngineerHours") || "[]"
@@ -51,9 +48,6 @@ export default function FavouritesContainer() {
     return saved.some((item) => item.engineerId === engineerId);
   };
 
-  /* ===============================
-     CTA Handler (UNCHANGED)
-  =============================== */
   const handleStartSOW = () => {
     if (!token) {
       toast.error("Please login first");
@@ -68,9 +62,7 @@ export default function FavouritesContainer() {
     setIsOpen(true);
   };
 
-  /* ===============================
-     Assign Hours
-  =============================== */
+
   const handleAssignHours = (engineerId: string) => {
     const assignedHours = hours[engineerId];
 
@@ -97,13 +89,11 @@ export default function FavouritesContainer() {
       "assignedEngineerHours",
       JSON.stringify(updated)
     );
-
+   window.location.reload();
     toast.success("Hours assigned successfully");
   };
 
-  /* ===============================
-     REMOVE engineer + assigned hours
-  =============================== */
+
   const handleRemoveEngineer = (engineerId: string) => {
     // remove from zustand
     removeMember(engineerId);
