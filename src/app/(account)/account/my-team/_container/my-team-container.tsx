@@ -7,7 +7,7 @@ import CircuitdaddyDropdown from "@/components/ui/circuitdaddy-dropdown";
 import { useState } from "react";
 import MyTeamSkeleton from "./my-team-skeleton";
 import ErrorContainer from "@/components/shared/ErrorContainer/ErrorContainer";
-// import NotFound from "@/components/shared/NotFound/NotFound";
+
 
 const statusList = [
   {
@@ -59,11 +59,7 @@ export default function MyTeamContainer() {
     );
   }
 
-//  else if(data && data?.data && data?.data?.length === 0){
-//    <main>
-//      <NotFound message="Oops! No data available. Modify your filters or check your internet connection." />
-//    </main>
-//   }
+
 
   return (
     <main className="pb-20">

@@ -35,7 +35,7 @@ const formSchema = z.object({
   title: z.string().min(2, "Title must be at least 2 characters"),
   description: z.string().min(2, "Description must be at least 2 characters"),
   totalPaid: z.string().min(2, "Total paid must be at least 2 characters"),
-  totalTimeline: z.string().min(2, "Total timeline must be at least 2 characters"),
+  totalTimeline: z.string().min(1, "Total timeline must be at least 1 characters"),
 });
 
 type FormValues = z.infer<typeof formSchema>;
@@ -180,6 +180,9 @@ const StatementOfWorkForm = ({
 
     mutate(formData);
     setConfirmModal(false);
+    localStorage.removeItem("assignedEngineerHours")
+    localStorage.removeItem("myTeam")
+    window.location.reload();
   };
 
   /* ---------------- UI ---------------- */

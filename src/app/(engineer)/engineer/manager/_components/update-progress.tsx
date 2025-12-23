@@ -11,6 +11,7 @@ interface Payload {
 
 interface Props {
   projectId: string;
+  // project: any;
   token: string;
 }
 
@@ -66,7 +67,7 @@ const UpdateProgress = ({ projectId, token }: Props) => {
         className="w-[110px]"
       />
       <Button
-        disabled={isPending}
+        // disabled={isPending || }
         onClick={handleUpdate}
         className="disabled:cursor-not-allowed"
       >
