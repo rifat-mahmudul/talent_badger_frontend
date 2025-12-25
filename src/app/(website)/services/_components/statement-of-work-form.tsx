@@ -137,6 +137,7 @@ const StatementOfWorkForm = ({
       clearTeam();
       onOpenChange(false);
       localStorage.removeItem("assignedEngineerHours");
+     window.location.reload();
     },
   });
 
@@ -182,7 +183,7 @@ const StatementOfWorkForm = ({
     setConfirmModal(false);
     localStorage.removeItem("assignedEngineerHours")
     localStorage.removeItem("myTeam")
-    window.location.reload();
+
   };
 
   /* ---------------- UI ---------------- */
