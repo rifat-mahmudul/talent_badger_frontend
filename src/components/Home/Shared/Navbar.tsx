@@ -117,14 +117,16 @@ export function Navbar() {
           {/* Right Section: Favorites + CTA + Auth */}
           <div className="flex items-center gap-3 sm:gap-4">
             {/* Favorites Heart */}
-            <Link href="/favourites" className="relative p-2 -m-2">
-              <Users className="w-6 h-6 text-[#147575]" />
-              {mounted && team?.length > 0 && (
-                <span className="absolute -top-1 -right-1 bg-[#147575] text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
-                  {team.length}
-                </span>
-              )}
-            </Link>
+            {token &&
+              <Link href="/favourites" className="relative p-2 -m-2">
+                <Users className="w-6 h-6 text-[#147575]" />
+                {mounted && team?.length > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-[#147575] text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+                    {team.length}
+                  </span>
+                )}
+              </Link>
+            }
 
             {/* Desktop CTA Button */}
             <div className="hidden sm:block">
