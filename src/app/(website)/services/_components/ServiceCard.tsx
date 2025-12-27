@@ -6,6 +6,7 @@ import { UserItem } from "./service-data-type";
 import Link from "next/link";
 import { toast } from "sonner";
 import { useTeamStore } from "@/store/teamStore";
+import { useSession } from "next-auth/react";
 
 
 const badgeColors = [
@@ -31,8 +32,14 @@ const badgeColors = [
 export default function ServiceCard({ data }: { data: UserItem }) {
   const addMember = useTeamStore((state) => state.addMember);
   const team = useTeamStore((state) => state.team);
+  const { data: session} = useSession();
+  const token = (session?.user as { accessToken: string })?.accessToken;
 
   const handleAddToTeam = () => {
+    if (!token){
+      toast.error("You are not logged in!");
+      return
+    }
     if (!data?._id) return;
     if (team.find((m) => m._id === data._id)) {
       toast.error(`${data.firstName} is already in your team!`);
