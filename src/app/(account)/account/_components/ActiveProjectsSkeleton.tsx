@@ -17,8 +17,8 @@ export default function ActiveProjectsSkeleton() {
             <Skeleton className="h-4 w-72" />
 
             <div className="flex items-center gap-3 pt-2">
-              <Skeleton className="h-4 w-20 rounded-full" /> {/* Status */}
-              <Skeleton className="h-4 w-28" />              {/* Time */}
+              <Skeleton className="h-4 w-20 rounded-full" />
+              <Skeleton className="h-4 w-28" />
             </div>
           </div>
 

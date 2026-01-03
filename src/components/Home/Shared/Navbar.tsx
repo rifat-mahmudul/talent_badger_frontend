@@ -34,6 +34,17 @@ export function Navbar() {
   const role = (session?.user as { role: string })?.role;
   const team = useTeamStore((state) => state.team);
 
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) {
+        setIsOpen(false);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const navItems = [
     { name: "Home", href: "/" },
     { name: "For Companies", href: "/services" },

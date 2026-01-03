@@ -28,7 +28,7 @@ export default function RootLayout({
         <QueryProvider>
           <TopLoader color="#147575" shadow="0 0 10px #147575, 0 0 5px #147575" showSpinner={false} height={4} easing="ease-in" />
           {children}
-          <Toaster />
+          <Toaster position="top-right" duration={3000}  />
         </QueryProvider>
       </body>
     </html>
