@@ -61,7 +61,7 @@ export default function CandidateFilter() {
                 params.append("maxPrice", debouncedFilters.maxPrice)
 
             const res = await fetch(
-                `${process.env.NEXT_PUBLIC_BACKEND_URL}/user/all-user?${params.toString()}`,
+                `${process.env.NEXT_PUBLIC_BACKEND_URL}/user/all-user?status=active&${params.toString()}`,
                 { headers: { "Content-Type": "application/json" } }
             )
 

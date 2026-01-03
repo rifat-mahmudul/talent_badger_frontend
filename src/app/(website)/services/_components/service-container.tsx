@@ -26,7 +26,7 @@ const ServiceContainer = () => {
     initialPageParam: 1,
     queryFn: async ({ pageParam = 1 }) => {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/user/all-user?role=engineer&page=${pageParam}&limit=${LIMIT}`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/user/all-user?role=engineer&page=${pageParam}&limit=${LIMIT}&status=active`,
         {
           method: "GET",
           headers: {
