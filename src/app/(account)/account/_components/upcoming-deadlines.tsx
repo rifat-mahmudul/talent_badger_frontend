@@ -163,7 +163,7 @@ const UpcomingDeadlines = () => {
     <div className="pb-[124px]">
       <div className="bg-white border-[1px] border-[#EEEEEE] shadow-lg rounded-lg pt-5">
         <h4 className="text-sm leading-[150%] font-semibold text-[#147575] pb-4 border-b border-[#EEEEEE] px-5">
-         Pending Projects
+       Matching in progress
         </h4>
         <div>{content}</div>
       </div>

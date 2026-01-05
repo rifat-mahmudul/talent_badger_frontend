@@ -23,17 +23,12 @@ const ActiveProjects = () => {
   const session = useSession();
   const token = (session?.data?.user as { accessToken: string })?.accessToken;
 
-
-  // console.log("selected Team", selectedTeam)
-
-
-
   const { data, isLoading, isError, error } =
     useQuery<ActiveProjectApiResponse>({
       queryKey: ["favourites-active-projects", currentPage],
       queryFn: async () => {
         const res = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URL}/project/my?status=in_progress&page=${currentPage}&limit=2`,
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/project/my?status=pending&page=${currentPage}&limit=2`,
           {
             method: "GET",
             headers: {

@@ -55,7 +55,6 @@ const StatementOfWorkForm = ({
     {}
   );
   const [calculatedTotal, setCalculatedTotal] = useState(0);
-
   const { data: session } = useSession();
   const token = (session?.user as { accessToken: string })?.accessToken;
 
@@ -128,7 +127,16 @@ const StatementOfWorkForm = ({
     },
     onSuccess: (data) => {
       if (!data?.success) {
-        toast.error(data?.message || "Something went wrong");
+        if (data.message === "jwt malformed") {
+          toast.error("Session expired. Please login again.");
+
+        }else if (data.message === "Engineer at position 1 must have allocatedHours greater than 0") {
+          toast.error("please assign hours to engineers before creating SOW");
+        }
+         else {
+          toast.error(data?.message || "Something went wrong");
+          return;
+        }
         return;
       }
       toast.success("Project created successfully");
@@ -137,7 +145,7 @@ const StatementOfWorkForm = ({
       clearTeam();
       onOpenChange(false);
       localStorage.removeItem("assignedEngineerHours");
-     window.location.reload();
+      window.location.reload();
     },
   });
 
@@ -193,10 +201,10 @@ const StatementOfWorkForm = ({
         <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle className="text-3xl font-semibold text-[#147575]">
-              Statement of Work
+            Project Brief
             </DialogTitle>
             <DialogDescription>
-              Review your team & project cost before submitting
+              Answer a few questions and we’ll match you with the right engineer(s).
             </DialogDescription>
           </DialogHeader>
 
@@ -343,7 +351,7 @@ const StatementOfWorkForm = ({
                 name="totalTimeline"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Timeline (in days)</FormLabel>
+                    <FormLabel>Delivery Deadline (in days)</FormLabel>
                     <FormControl>
                       <Input type="number" {...field} />
                     </FormControl>
