@@ -29,7 +29,6 @@ export function Navbar() {
   useEffect(() => setMounted(true), []);
 
   const { data: session, status } = useSession();
-  const token = (session?.user as { accessToken: string })?.accessToken;
   const pathname = usePathname();
   const role = (session?.user as { role: string })?.role;
   const team = useTeamStore((state) => state.team);
@@ -57,17 +56,8 @@ export function Navbar() {
 
 
   const handleStartSOW = () => {
-    if (!token) {
-      toast.error("Please login first", {
-        duration: 3000,
-        style: {
-          background: "#333",
-          color: "#fff",
-        }
-      });
-      return;
-    }
-    else if (role === "engineer") {
+
+    if (role === "engineer") {
       toast.error("Only user can create SOW ", {
         duration: 3000,
         style: {
@@ -128,16 +118,15 @@ export function Navbar() {
           {/* Right Section: Favorites + CTA + Auth */}
           <div className="flex items-center gap-3 sm:gap-4">
             {/* Favorites Heart */}
-            {token &&
-              <Link href="/favourites" className="relative p-2 -m-2">
-                <Users className="w-6 h-6 text-[#147575]" />
-                {mounted && team?.length > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-[#147575] text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
-                    {team.length}
-                  </span>
-                )}
-              </Link>
-            }
+
+            <Link href="/favourites" className="relative p-2 -m-2">
+              <Users className="w-6 h-6 text-[#147575]" />
+              {mounted && team?.length > 0 && (
+                <span className="absolute -top-1 -right-1 bg-[#147575] text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+                  {team.length}
+                </span>
+              )}
+            </Link>
 
             {/* Desktop CTA Button */}
             <div className="hidden sm:block">
