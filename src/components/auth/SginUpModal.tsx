@@ -5,8 +5,8 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } f
 import SginUpForm from "./SginupForm"
 import EngineerForm from "./Engineer"
 
-const SginUpModal = ({ open, onOpenChange }: { open: boolean; onOpenChange: (open: boolean) => void }) => {
-    const [activeTab, setActiveTab] = useState<"user" | "engineer">("user")
+const SginUpModal = ({ open, onOpenChange, openRole }: { openRole?: string, open: boolean; onOpenChange: (open: boolean) => void }) => {
+    const [activeTab, setActiveTab] = useState<"user" | "engineer">(openRole === "engineer" ? "engineer" : "user")
 
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
