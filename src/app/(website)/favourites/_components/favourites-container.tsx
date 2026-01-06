@@ -317,7 +317,6 @@ export default function FavouritesContainer() {
   const [hours, setHours] = useState<Record<string, number>>({});
 
   const { data: session } = useSession();
-  const token = (session?.user as { accessToken: string })?.accessToken;
   const role = (session?.user as { role: string })?.role;
 
   const team = useTeamStore((state) => state.team);
@@ -345,11 +344,6 @@ export default function FavouritesContainer() {
   };
 
   const handleStartSOW = () => {
-    if (!token) {
-      toast.error("Please login first");
-      return;
-    }
-
     if (role === "engineer") {
       toast.error("Only user can create SOW");
       return;
