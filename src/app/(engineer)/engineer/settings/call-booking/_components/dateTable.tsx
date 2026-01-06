@@ -430,13 +430,13 @@ export default function DiscoveryCalls() {
             </div>
 
             {/* HELP SECTION */}
-            <div className="mt-6 bg-white rounded-xl border p-6 flex items-start space-x-4">
+            {/* <div className="mt-6 bg-white rounded-xl border p-6 flex items-start space-x-4">
                 <div className="w-6 h-6 rounded-full border flex items-center justify-center">?</div>
                 <p className="text-sm text-gray-600">
                     If you have any questions or need to reschedule, contact us at{" "}
                     <span className="text-blue-500">support@clientbadger.com</span> or call (555) 123-4567
                 </p>
-            </div>
+            </div> */}
 
             {/* MODAL */}
             <Dialog open={openModal} onOpenChange={setOpenModal}>

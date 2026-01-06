@@ -24,7 +24,7 @@
 //       } as React.CSSProperties}
 //     >
 //       <h1 className="text-xl font-semibold text-gray-800">Dashboard</h1>
-    
+
 //     </header>
 //   );
 // };
@@ -68,7 +68,9 @@ export const Header = ({ isCollapsed }: HeaderProps) => {
         bg-white
         shadow-md
         z-50
-        flex items-center px-6
+        hidden
+        md:flex
+        lg:flex items-center px-6
         transition-all duration-300
         ${isCollapsed ? "lg:ml-[80px]" : "lg:ml-[260px]"}
         md:ml-[300px]
@@ -82,5 +84,6 @@ export const Header = ({ isCollapsed }: HeaderProps) => {
         <h4 className="text-2xl  font-semibold text-[#147575]">{title || "Dashboard"}</h4>
       </div>
     </header>
+
   );
 };

@@ -27,7 +27,7 @@ const badgeColors = [
   "bg-sky-100 text-sky-800",
 ];
 
- 
+
 export default function ServiceCard({ data }: { data: UserItem }) {
   const addMember = useTeamStore((state) => state.addMember);
   const team = useTeamStore((state) => state.team);
