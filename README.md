@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Talent Badger - Frontend (Talent Marketplace)
 
-## Getting Started
+TalentBadger is a professional talent hiring platform designed to bridge the gap between clients and expert engineers. This repository contains the **Frontend** source code of the application, built with a focus on seamless user experience, role based dashboards, and real-time project tracking.
 
-First, run the development server:
+## 🚀 Live Demo
+[**Click here to view the Live Site**](https://talentbadger.com/)
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🛠️ Tech Stack
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+* **Framework:** React.js
+* **Styling:** Tailwind CSS, Shadcn
+* **Data Fetching:** [TanStack Query, Axios]
+* **Authentication:** Next Auth
+* **Icons & UI Components:** Lucide React, Headless UI
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## ✨ Key Features (Frontend)
 
-## Learn More
+-   **Multi-Role Dashboards:** Unique and optimized interfaces for **Admins, Clients, and Engineers**.
+-   **Project Management UI:** Specialized views for creating projects, assigning engineers, and tracking progress percentages visually.
+-   **Interactive Call Booking:** A clean calendar/time-slot interface for scheduling meetings between clients and teams.
+-   **Progress Tracker:** Real-time progress bar and status updates for active projects.
+-   **Responsive Design:** Fully optimized for Mobile, Tablet, and Desktop screens.
+-   **Secure Auth Flow:** Protected routes based on user roles (RBAC).
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📦 Installation & Setup
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Follow these steps to run the project locally:
 
-## Deploy on Vercel
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/rifat-mahmudul/talent_badger_frontend
+    ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+2.  **Navigate to the directory:**
+    ```bash
+    cd talent_badger_frontend
+    ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+3.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
+
+4.  **Set up Environment Variables:**
+    Create a `.env` file in the root directory and add your keys:
+    ```env
+    NEXT_PUBLIC_BACKEND_URL=
+    NEXTAUTH_SECRET=
+    NEXTAUTH_URL=
+    ```
+
+5.  **Run the application:**
+    ```bash
+    npm run dev
+    ```
+
+---
+
+## 🏗️ Architecture Note
+The frontend is built with a **component-based architecture**, ensuring high reusability and clean code practices. Folder structure follows a modular approach separating Hooks, Services, Components, and Pages.
